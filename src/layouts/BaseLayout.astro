@@ -1,0 +1,64 @@
+---
+import "katex/dist/katex.min.css";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  lang?: "en" | "bn";
+  description?: string;
+  pagefind?: boolean;
+}
+
+const { title, lang = "en", description = "Study notes", pagefind = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet" />
+    {pagefind && <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />}
+  </head>
+  <body>
+    <slot />
+    {
+      pagefind && (
+        <>
+          <script src="/pagefind/pagefind-ui.js" is:inline></script>
+          <script is:inline>
+            {`
+              window.addEventListener("DOMContentLoaded", () => {
+                if (!window.PagefindUI) return;
+
+                new PagefindUI({
+                  element: "#search",
+                  showSubResults: true,
+                  showImages: false,
+                  filters: ["subject", "language"],
+                  translations: {
+                    placeholder: "Search notes"
+                  },
+                  processResult: (result) => {
+                    const subject = result.meta.subject;
+                    const chapter = result.meta.chapter;
+                    const language = result.meta.language;
+                    const parts = [subject, chapter, language].filter(Boolean);
+                    if (parts.length) {
+                      result.meta.title = parts.join(" · ");
+                    }
+                    return result;
+                  }
+                });
+              });
+            `}
+          </script>
+        </>
+      )
+    }
+  </body>
+</html>

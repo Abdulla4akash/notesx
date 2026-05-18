@@ -1,0 +1,109 @@
+# Notes Webapp — Spec Patch v1.2: PDF Support
+
+This patch describes changes to the existing build. It does not replace the original spec — it adds to it. Apply only the changes described here. Do not regenerate files that don't need to change.
+
+## Summary of Change
+
+Each chapter can now have an associated PDF file (the original lecture slides) in addition to its EN and BN markdown notes. The PDF is linked as a third option alongside EN/BN, opens in a new browser tab via the browser's native PDF viewer, and is not indexed by search.
+
+A chapter may exist with any combination of: EN only, BN only, EN+BN, PDF only, EN+PDF, BN+PDF, or all three. The UI shows which assets exist for each chapter so the user can see at a glance what has been processed.
+
+## File Storage
+
+PDFs live under `public/pdfs/[subject-slug]/`. Filename pattern: `NN-slug.pdf` where `NN` is the zero-padded chapter number and `slug` matches the markdown file slug.
+
+```
+public/pdfs/
+  comp60272/
+    01-llm-pretraining.pdf
+    02-smpc.pdf
+  comp64702/
+    01-tokenization.pdf
+```
+
+Files in `public/` are served as static assets at the corresponding URL path — i.e. `public/pdfs/comp60272/02-smpc.pdf` is reachable at `/pdfs/comp60272/02-smpc.pdf`.
+
+## Chapter Detection Logic
+
+Currently, the build determines chapters by scanning the content collection (markdown files) and grouping by `(subject, chapter)`. This logic must be extended.
+
+A chapter now exists for a given `(subject, chapter-number, slug)` if **any** of the following are true:
+- An `.en.md` file exists with that subject and chapter number
+- A `.bn.md` file exists with that subject and chapter number
+- A PDF file exists at `public/pdfs/[subject]/NN-slug.pdf`
+
+The chapter's display title is taken from the EN markdown frontmatter if present, otherwise BN frontmatter, otherwise derived from the PDF filename slug (e.g. `01-llm-pretraining.pdf` → "LLM Pretraining", title-cased with hyphens replaced by spaces).
+
+The build must scan the `public/pdfs/[subject]/` directory at build time to detect PDFs. Use Node's `fs` module in `getStaticPaths` or in a helper module loaded by the subject page template.
+
+## Subject Page Changes
+
+Each chapter row now has three buttons instead of two: `EN`, `BN`, `PDF`.
+
+Behavior per button:
+- **Enabled** if the corresponding file exists for that chapter
+- **Disabled** (greyed out, not clickable) if the file does not exist
+- `EN` and `BN` link to the existing note page routes
+- `PDF` links to `/pdfs/[subject]/NN-slug.pdf` and **must** open in a new tab (`target="_blank"` plus `rel="noopener noreferrer"`)
+
+Visual treatment: the three buttons sit side by side in the same order on every row (`EN BN PDF`), maintaining alignment across rows. Do not reorder based on which exist.
+
+Chapters with zero assets (somehow) should not appear at all — but this state shouldn't be reachable given the detection logic.
+
+## Note Page Changes
+
+On both `/[subject]/[chapter]/en/` and `/[subject]/[chapter]/bn/` note pages, add a "View original PDF" link if a PDF exists for that chapter.
+
+Placement: in the breadcrumb area, after the existing breadcrumb path. Subtle styling — text link, same accent colour used elsewhere, no button chrome. Example: `Home / COMP60272 / Chapter 2 · View original PDF`.
+
+The link opens the PDF in a new tab with the same `target="_blank"` and `rel="noopener noreferrer"` attributes.
+
+If no PDF exists for the chapter, the link is omitted (not disabled).
+
+## Search
+
+No change. Pagefind continues to index only markdown content. Do **not** add Pagefind's PDF plugin. Do not add `data-pagefind-body` attributes to any PDF-related elements.
+
+## Frontmatter
+
+No change. The frontmatter schema for markdown notes stays exactly as it is. PDFs do not have frontmatter — their existence and chapter mapping is derived entirely from filename and folder location.
+
+## File Naming Discipline
+
+The slug portion of a PDF filename must exactly match the slug portion of the corresponding markdown filename for the chapter detection logic to pair them correctly.
+
+Correct:
+```
+src/content/notes/comp60272/02-smpc.en.md
+src/content/notes/comp60272/02-smpc.bn.md
+public/pdfs/comp60272/02-smpc.pdf
+```
+
+If a PDF exists with a different slug from any markdown file in the same chapter number, it is treated as its own chapter with no markdown.
+
+## README Update
+
+Update the README to document:
+- Where to place PDFs (`public/pdfs/[subject]/`)
+- The filename pattern and slug-matching rule
+- That PDFs open in a new tab and are not indexed by search
+
+Keep the README under 80 lines total.
+
+## Acceptance Checklist (additions to v1.1 checklist)
+
+13. A chapter with only a PDF (no markdown) appears on the subject page with EN and BN disabled, PDF enabled.
+14. A chapter with EN+BN+PDF shows all three buttons enabled.
+15. Clicking the PDF button opens the PDF in a new browser tab.
+16. On a note page, "View original PDF" link appears if a PDF exists for that chapter, and is absent otherwise.
+17. The build completes without errors when a subject has PDFs but no markdown.
+18. Pagefind search results do not include PDF content.
+19. Renaming a PDF from `02-smpc.pdf` to `02-smpc-foo.pdf` correctly unpairs it from the SMPC markdown chapter (different slugs → different chapters).
+
+## Out of Scope
+
+- PDF preview thumbnails on the subject page
+- Embedded PDF viewer inside the app
+- PDF annotation, highlighting, or note-taking
+- Multiple PDFs per chapter (e.g. slides + handout). One PDF per chapter, period. If needed later, revisit.
+- Per-language PDFs (BN PDFs). Slides are English-only.

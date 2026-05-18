@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { subjects } from "../config/subjects";
+---
+
+<BaseLayout title="Notes" pagefind>
+  <main class="site-main home" data-pagefind-ignore>
+    <section class="home-intro">
+      <h1>Study Notes</h1>
+      <div id="search" class="search"></div>
+    </section>
+
+    <section class="subject-grid" aria-label="Subjects">
+      {
+        subjects.map((subject) => (
+          <a class="subject-card" href={`/${subject.slug}/`}>
+            <span class="subject-code">{subject.code}</span>
+            <span class="subject-name">{subject.name}</span>
+          </a>
+        ))
+      }
+    </section>
+  </main>
+</BaseLayout>

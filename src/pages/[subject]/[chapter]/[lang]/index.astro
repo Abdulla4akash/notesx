@@ -1,0 +1,143 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import {
+  getChapterSlug,
+  getPdfEntriesForSubject,
+  getSubjectBySlug,
+  getSubjectSlug,
+  groupChapters,
+  notesForSubject,
+  type Language
+} from "../../../../lib/notes";
+
+export async function getStaticPaths() {
+  const notes = await getCollection("notes");
+
+  return notes.map((note) => ({
+    params: {
+      subject: getSubjectSlug(note),
+      chapter: getChapterSlug(note),
+      lang: note.data.language
+    },
+    props: { noteId: note.id }
+  }));
+}
+
+const { noteId } = Astro.props;
+const notes = await getCollection("notes");
+const note = notes.find((entry) => entry.id === noteId);
+
+if (!note) {
+  throw new Error(`Missing note entry: ${noteId}`);
+}
+
+const subjectSlug = getSubjectSlug(note);
+const subject = getSubjectBySlug(subjectSlug);
+
+if (!subject) {
+  throw new Error(`Missing subject registry entry for ${subjectSlug}`);
+}
+
+const chapterSlug = getChapterSlug(note);
+const language = note.data.language as Language;
+const { Content } = await render(note);
+
+const subjectNotes = notesForSubject(notes, subject.slug);
+const pdfs = getPdfEntriesForSubject(subject.slug);
+const chapters = groupChapters(subjectNotes, pdfs);
+const currentChapter = chapters.find((chapter) => chapter.chapter === note.data.chapter && chapter.slug === chapterSlug);
+const languageNotes = subjectNotes
+  .filter((entry) => entry.data.language === language)
+  .sort((a, b) => a.data.chapter - b.data.chapter || getChapterSlug(a).localeCompare(getChapterSlug(b)));
+const currentLanguageIndex = languageNotes.findIndex((entry) => entry.id === note.id);
+const previousNote = languageNotes[currentLanguageIndex - 1];
+const nextNote = languageNotes[currentLanguageIndex + 1];
+
+const alternateEn = currentChapter?.en;
+const alternateBn = currentChapter?.bn;
+const originalPdf = currentChapter?.pdf;
+const pagefindChapter = `Chapter ${note.data.chapter}: ${note.data.title}`;
+---
+
+<BaseLayout title={`${subject.code} Chapter ${note.data.chapter} - ${note.data.title}`} lang={language}>
+  <main class="site-main note-page">
+    <header class="note-header">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href={`/${subject.slug}/`}>{subject.code}</a>
+        <span>/</span>
+        <span>Chapter {note.data.chapter}</span>
+        {
+          originalPdf && (
+            <>
+              <span>·</span>
+              <a href={originalPdf.url} target="_blank" rel="noopener noreferrer">
+                View original PDF
+              </a>
+            </>
+          )
+        }
+      </nav>
+
+      <h1>{note.data.title}</h1>
+
+      <div class="language-toggle" aria-label="Language">
+        {
+          alternateEn ? (
+            <a
+              class:list={["pill", language === "en" && "active"]}
+              href={`/${subject.slug}/${chapterSlug}/en/`}
+              aria-current={language === "en" ? "page" : undefined}
+            >
+              {"EN"}
+            </a>
+          ) : (
+            <span class="pill disabled" aria-disabled="true">{"EN"}</span>
+          )
+        }
+        {
+          alternateBn ? (
+            <a
+              class:list={["pill", language === "bn" && "active"]}
+              href={`/${subject.slug}/${chapterSlug}/bn/`}
+              aria-current={language === "bn" ? "page" : undefined}
+            >
+              {"BN"}
+            </a>
+          ) : (
+            <span class="pill disabled" aria-disabled="true">{"BN"}</span>
+          )
+        }
+      </div>
+    </header>
+
+    <div class="pagefind-data" data-pagefind-ignore>
+      <span data-pagefind-meta={`subject:${subject.code}`} data-pagefind-filter={`subject:${subject.code}`}></span>
+      <span data-pagefind-meta={`chapter:${pagefindChapter}`}></span>
+      <span data-pagefind-meta={`language:${language}`} data-pagefind-filter={`language:${language}`}></span>
+    </div>
+
+    <article class="note-content" data-pagefind-body>
+      <Content />
+    </article>
+
+    <footer class="chapter-footer">
+      {
+        previousNote && (
+          <a href={`/${subject.slug}/${getChapterSlug(previousNote)}/${language}/`}>
+            Previous: Chapter {previousNote.data.chapter}
+          </a>
+        )
+      }
+      {
+        nextNote && (
+          <a href={`/${subject.slug}/${getChapterSlug(nextNote)}/${language}/`}>
+            Next: Chapter {nextNote.data.chapter}
+          </a>
+        )
+      }
+    </footer>
+  </main>
+</BaseLayout>

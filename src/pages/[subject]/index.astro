@@ -1,0 +1,79 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { subjects } from "../../config/subjects";
+import { getPdfEntriesForSubject, groupChapters, notesForSubject } from "../../lib/notes";
+
+export function getStaticPaths() {
+  return subjects.map((subject) => ({
+    params: { subject: subject.slug },
+    props: { subject }
+  }));
+}
+
+const { subject } = Astro.props;
+const notes = await getCollection("notes");
+const pdfs = getPdfEntriesForSubject(subject.slug);
+const chapters = groupChapters(notesForSubject(notes, subject.slug), pdfs);
+---
+
+<BaseLayout title={`${subject.code} - ${subject.name}`}>
+  <main class="site-main">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <span>{subject.code}</span>
+    </nav>
+
+    <header class="page-header">
+      <p class="eyebrow">{subject.code}</p>
+      <h1>{subject.name}</h1>
+    </header>
+
+    {
+      chapters.length === 0 ? (
+        <p class="empty-state">No chapters yet</p>
+      ) : (
+        <ol class="chapter-list">
+          {chapters.map((chapter) => (
+            <li class="chapter-row">
+              <div>
+                <p class="chapter-number">Chapter {chapter.chapter}</p>
+                <h2>{chapter.title}</h2>
+              </div>
+              <div class="chapter-actions" aria-label={`Chapter ${chapter.chapter} languages`}>
+                {chapter.en ? (
+                  <a class="button" href={`/${subject.slug}/${chapter.slug}/en/`}>
+                    {"EN"}
+                  </a>
+                ) : (
+                  <span class="button disabled" aria-disabled="true">
+                    {"EN"}
+                  </span>
+                )}
+                {chapter.bn ? (
+                  <a class="button" href={`/${subject.slug}/${chapter.slug}/bn/`}>
+                    {"BN"}
+                  </a>
+                ) : (
+                  <span class="button disabled" aria-disabled="true">
+                    {"BN"}
+                  </span>
+                )}
+                {chapter.pdf ? (
+                  <a class="button" href={chapter.pdf.url} target="_blank" rel="noopener noreferrer">
+                    {"PDF"}
+                  </a>
+                ) : (
+                  <span class="button disabled" aria-disabled="true">
+                    {"PDF"}
+                  </span>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+  </main>
+</BaseLayout>
