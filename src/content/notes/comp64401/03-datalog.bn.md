@@ -122,11 +122,11 @@ Lecturer description logic-এর ABox/TBox analogy দেখান: নিচ�
 
 **ধারণা।** Terms হলো সেই জিনিসগুলো যা predicates-এর arguments হিসেবে আসতে পারে। এই Datalog version-এ terms হয় variables, নয় named individuals/constants।
 
-**আনুষ্ঠানিক সংজ্ঞা।** ধরা যাক, \(N_V\), \(N_I\), এবং \(N_P\) হলো pairwise disjoint sets of variables, individuals, and predicates. প্রতিটি predicate \(P \in N_P\)-এর একটি arity \(n \in \mathbb{N}\) আছে। Terms-এর set হলো:
+**আনুষ্ঠানিক সংজ্ঞা।** ধরা যাক, $N_V$, $N_I$, এবং $N_P$ হলো pairwise disjoint sets of variables, individuals, and predicates. প্রতিটি predicate $P \in N_P$-এর একটি arity $n \in \mathbb{N}$ আছে। Terms-এর set হলো:
 
-\[
+$$
 N_{VI} := N_V \cup N_I.
-\]
+$$
 
 Individuals-কে প্রায়ই **constants**-ও বলা হয়।
 
@@ -134,11 +134,11 @@ Individuals-কে প্রায়ই **constants**-ও বলা হয়।
 
 **ধারণা।** Atom হলো একটি predicate, যার ওপর সঠিক সংখ্যক arguments apply করা হয়েছে।
 
-**আনুষ্ঠানিক সংজ্ঞা।** যদি \(P \in N_P\)-এর arity \(n\) হয়, এবং প্রতিটি \(a_i \in N_{VI}\), তাহলে:
+**আনুষ্ঠানিক সংজ্ঞা।** যদি $P \in N_P$-এর arity $n$ হয়, এবং প্রতিটি $a_i \in N_{VI}$, তাহলে:
 
-\[
+$$
 P(a_1,\dots,a_n)
-\]
+$$
 
 একটি atom।
 
@@ -161,16 +161,16 @@ hasWeather(z,w)
 
 **আনুষ্ঠানিক সংজ্ঞা।** একটি rule হলো expression:
 
-\[
+$$
 B \; :- \; A_1,\dots,A_m
-\]
+$$
 
-যেখানে \(B\) এবং সব \(A_i\) atoms, \(m \ge 0\), এবং **head \(B\)-তে থাকা সব variables অবশ্যই কোনো না কোনো body atom \(A_i\)-তে থাকতে হবে**। একটি Datalog program হলো finite set of rules।
+যেখানে $B$ এবং সব $A_i$ atoms, $m \ge 0$, এবং **head $B$-তে থাকা সব variables অবশ্যই কোনো না কোনো body atom $A_i$-তে থাকতে হবে**। একটি Datalog program হলো finite set of rules।
 
 Terminology:
 
-- \(B\) হলো rule-এর **head**।
-- \(A_1,\dots,A_m\) হলো rule-এর **body**।
+- $B$ হলো rule-এর **head**।
+- $A_1,\dots,A_m$ হলো rule-এর **body**।
 - `:-` পড়া হয় “if” হিসেবে, বা leftward implication হিসেবে: body implies head।
 
 উদাহরণ:
@@ -181,21 +181,21 @@ Slippery(x) :- Rain(x), BelowF(x).
 
 পড়া হয়:
 
-\[
+$$
 \text{If } Rain(x) \text{ and } BelowF(x), \text{ then } Slippery(x).
-\]
+$$
 
 Formally:
 
-\[
+$$
 Rain(x) \land BelowF(x) \Rightarrow Slippery(x).
-\]
+$$
 
 অথবা equivalently:
 
-\[
+$$
 Slippery(x) \Leftarrow Rain(x) \land BelowF(x).
-\]
+$$
 
 ## ৩.৩ Facts
 
@@ -244,7 +244,7 @@ wears(x,y)
 hasParent(x,y) :- Person(x).
 ```
 
-কারণ \(y\) head-এ আছে কিন্তু body-তে নেই। এটি এমন একটি unnamed parent \(y\) invent করতে চাইবে, যা plain Datalog অনুমোদন করে না।
+কারণ $y$ head-এ আছে কিন্তু body-তে নেই। এটি এমন একটি unnamed parent $y$ invent করতে চাইবে, যা plain Datalog অনুমোদন করে না।
 
 এই condition পরে গুরুত্বপূর্ণ: এ কারণেই Datalog reasoning-কে **active domain**-এ সীমাবদ্ধ রাখা যায়, অর্থাৎ program-এ আগে থেকেই থাকা named individuals।
 
@@ -260,31 +260,31 @@ Slippery(x) :- Rain(x), BelowF(x).
 
 এটি abbreviates:
 
-\[
+$$
 Slippery(x) \Leftarrow Rain(x) \land BelowF(x).
-\]
+$$
 
 Implication-as-disjunction ব্যবহার করলে:
 
-\[
+$$
 \varphi \Leftarrow \psi
 \quad\text{means}\quad
 \varphi \lor \neg \psi.
-\]
+$$
 
 তাই:
 
-\[
+$$
 Slippery(x) \lor \neg(Rain(x) \land BelowF(x)).
-\]
+$$
 
 De Morgan’s laws দিয়ে:
 
-\[
+$$
 Slippery(x) \lor \neg Rain(x) \lor \neg BelowF(x).
-\]
+$$
 
-এখানে exactly one positive literal আছে: \(Slippery(x)\). At most one positive literal-সহ clauses-কে **Horn clauses** বলা হয়।
+এখানে exactly one positive literal আছে: $Slippery(x)$. At most one positive literal-সহ clauses-কে **Horn clauses** বলা হয়।
 
 **মূল intuition।** Datalog rules হলো একটি restricted logical form, Horn clauses-এর computationally convenient version. এই Horn restriction-ই bounded-arity condition-এর অধীনে Datalog reasoning tractable হওয়ার বড় কারণ।
 
@@ -306,26 +306,26 @@ Slides অনুযায়ী এগুলো equivalent. Lecture এগুলো
 
 **ধারণা।** Interpretation predicates এবং individuals-কে meaning দেয়।
 
-**আনুষ্ঠানিক সংজ্ঞা।** Datalog program \(P\)-এর জন্য একটি interpretation হলো:
+**আনুষ্ঠানিক সংজ্ঞা।** Datalog program $P$-এর জন্য একটি interpretation হলো:
 
-\[
+$$
 \mathcal{I} = (\Delta^\mathcal{I}, \cdot^\mathcal{I})
-\]
+$$
 
 যেখানে:
 
-- \(\Delta^\mathcal{I}\) একটি non-empty interpretation domain;
-- arity \(n\)-এর প্রতিটি predicate \(A\)-কে একটি \(n\)-ary relation-এ map করা হয়:
+- $\Delta^\mathcal{I}$ একটি non-empty interpretation domain;
+- arity $n$-এর প্রতিটি predicate $A$-কে একটি $n$-ary relation-এ map করা হয়:
 
-\[
+$$
 A^\mathcal{I} \subseteq (\Delta^\mathcal{I})^n;
-\]
+$$
 
-- প্রতিটি individual \(b\)-কে একটি element-এ map করা হয়:
+- প্রতিটি individual $b$-কে একটি element-এ map করা হয়:
 
-\[
+$$
 b^\mathcal{I} \in \Delta^\mathcal{I}.
-\]
+$$
 
 Description logic semantics থেকে প্রধান পার্থক্য হলো Datalog-এ explicit variables আছে, তাই semantics-এ substitutions-ও দরকার।
 
@@ -335,70 +335,70 @@ Description logic semantics থেকে প্রধান পার্থক�
 
 **আনুষ্ঠানিক সংজ্ঞা।**
 
-\[
+$$
 \sigma : N_V \to \Delta^\mathcal{I}.
-\]
+$$
 
-Term \(d\)-এর value interpretation \(\mathcal{I}\) এবং substitution \(\sigma\)-এর অধীনে:
+Term $d$-এর value interpretation $\mathcal{I}$ এবং substitution $\sigma$-এর অধীনে:
 
-\[
+$$
 d^{\mathcal{I},\sigma}
 =
 \begin{cases}
 \sigma(d), & \text{if } d \in N_V,\\
 d^\mathcal{I}, & \text{if } d \in N_I.
 \end{cases}
-\]
+$$
 
-অতএব variables interpret হয় \(\sigma\) দিয়ে, আর individuals/constants interpret হয় \(\mathcal{I}\) দিয়ে।
+অতএব variables interpret হয় $\sigma$ দিয়ে, আর individuals/constants interpret হয় $\mathcal{I}$ দিয়ে।
 
 ### Satisfaction of atoms
 
 Atom:
 
-\[
+$$
 P(d_1,\dots,d_n),
-\]
+$$
 
-\(\mathcal{I},\sigma\) atom-টিকে satisfy করে যদি interpreted tuple predicate relation-এ থাকে:
+$\mathcal{I},\sigma$ atom-টিকে satisfy করে যদি interpreted tuple predicate relation-এ থাকে:
 
-\[
+$$
 (d_1^{\mathcal{I},\sigma},\dots,d_n^{\mathcal{I},\sigma})
 \in P^\mathcal{I}.
-\]
+$$
 
-[UNCLEAR/OCR] Slide parse-এ এই লাইনে subset symbol দেখা যায়, কিন্তু transcript বলছে tuple “belongs to” predicate interpretation; তাই intended symbol হলো membership \(\in\)।
+[UNCLEAR/OCR] Slide parse-এ এই লাইনে subset symbol দেখা যায়, কিন্তু transcript বলছে tuple “belongs to” predicate interpretation; তাই intended symbol হলো membership $\in$।
 
 ### Satisfaction of rules
 
 Rule:
 
-\[
+$$
 H :- A_1,\dots,A_m,
-\]
+$$
 
-\(\mathcal{I},\sigma\) rule-টিকে satisfy করে যদি:
+$\mathcal{I},\sigma$ rule-টিকে satisfy করে যদি:
 
-\[
+$$
 \text{if } \mathcal{I},\sigma \models A_i \text{ for every } i,
 \text{ then } \mathcal{I},\sigma \models H.
-\]
+$$
 
 কথায়: body true হলে head true হতে হবে।
 
 ### Satisfaction of programs
 
-\(\mathcal{I},\sigma\) program \(P\)-কে satisfy করে যদি এটি \(P\)-এর প্রতিটি rule satisfy করে।
+$\mathcal{I},\sigma$ program $P$-কে satisfy করে যদি এটি $P$-এর প্রতিটি rule satisfy করে।
 
 ### Entailment
 
-Datalog program \(P\) atom \(\alpha\)-কে entail করে, লিখি:
+Datalog program $P$ atom $\alpha$-কে entail করে, লিখি:
 
-\[
+$$
 P \models \alpha,
-\]
+$$
 
-যদি প্রতিটি interpretation \(\mathcal{I}\) এবং প্রতিটি substitution \(\sigma\)-এর জন্য, \(\mathcal{I},\sigma\) যখনই \(P\) satisfy করে, তখন সেটি \(\alpha\)-ও satisfy করে।
+যদি প্রতিটি interpretation $\mathcal{I}$ এবং প্রতিটি substitution $\sigma$-এর জন্য, $\mathcal{I},\sigma$ যখনই $P$ satisfy করে, তখন সেটি $\alpha$-ও satisfy করে।
 
 ### Universal quantification of variables
 
@@ -410,23 +410,23 @@ Slippery(x) :- Rain(x), BelowF(x).
 
 corresponds to:
 
-\[
+$$
 \forall x\,
 \bigl(
 Rain(x) \land BelowF(x) \Rightarrow Slippery(x)
 \bigr).
-\]
+$$
 
 Equivalently, Horn clause হিসেবে:
 
-\[
+$$
 \forall x\,
 \bigl(
 Slippery(x) \lor \neg Rain(x) \lor \neg BelowF(x)
 \bigr).
-\]
+$$
 
-Lecturer existential reading-এর সঙ্গে contrast করেন: rule-টি সব \(x\)-এর জন্য true, কোনো এক \(x\)-এর জন্য নয়।
+Lecturer existential reading-এর সঙ্গে contrast করেন: rule-টি সব $x$-এর জন্য true, কোনো এক $x$-এর জন্য নয়।
 
 ---
 
@@ -440,9 +440,9 @@ Model-theoretic definition সব interpretations এবং substitutions-এর
 
 **ধারণা।** Herbrand base হলো program-এ থাকা predicates এবং named individuals ব্যবহার করে তৈরি করা যায় এমন সব possible ground atoms-এর set।
 
-**আনুষ্ঠানিক সংজ্ঞা।** Datalog program \(P\)-এর জন্য:
+**আনুষ্ঠানিক সংজ্ঞা।** Datalog program $P$-এর জন্য:
 
-\[
+$$
 HB(P)
 :=
 \{A(b_1,\dots,b_n)
@@ -451,13 +451,13 @@ b_i \in N_I,\;
 A \in N_P \text{ occurs in } P,\;
 A \text{ has arity } n
 \}.
-\]
+$$
 
-তাই \(HB(P)\)-তে কোনো variables নেই। এটি program-এর predicates ও individuals দিয়ে তৈরি সব possible ground combinations।
+তাই $HB(P)$-তে কোনো variables নেই। এটি program-এর predicates ও individuals দিয়ে তৈরি সব possible ground combinations।
 
 ### Example
 
-যদি \(P\)-তে individuals \(B\) এবং \(U\), এবং `Person`, `Slippery`, `Rain`, ও `wears`-এর মতো predicates থাকে, তাহলে Herbrand base-এ থাকবে:
+যদি $P$-তে individuals $B$ এবং $U$, এবং `Person`, `Slippery`, `Rain`, ও `wears`-এর মতো predicates থাকে, তাহলে Herbrand base-এ থাকবে:
 
 ```prolog
 Person(B)
@@ -483,7 +483,7 @@ Lecturer জোর দেন যে Herbrand base নিজে entailed facts-�
 
 **আনুষ্ঠানিক সংজ্ঞা।**
 
-\[
+$$
 HM(P)
 :=
 \min_{\subseteq}
@@ -496,19 +496,19 @@ X \subseteq HB(P)
 \text{then } \sigma(H) \in X
 \end{array}
 \right\}.
-\]
+$$
 
-এখানে \(\sigma\) variables-কে program-এর individuals-এ map করে। Condition বলে: grounded body atoms যদি ইতিমধ্যে \(X\)-এ থাকে, তাহলে grounded head-ও \(X\)-এ থাকতে হবে। Minimality condition বলে \(X\)-এ unnecessary কিছু থাকবে না।
+এখানে $\sigma$ variables-কে program-এর individuals-এ map করে। Condition বলে: grounded body atoms যদি ইতিমধ্যে $X$-এ থাকে, তাহলে grounded head-ও $X$-এ থাকতে হবে। Minimality condition বলে $X$-এ unnecessary কিছু থাকবে না।
 
 ### Core theorem: entailment via the Herbrand model
 
-Datalog program \(P\) এবং ground atom \(\alpha\)-এর জন্য:
+Datalog program $P$ এবং ground atom $\alpha$-এর জন্য:
 
-\[
+$$
 P \models \alpha
 \quad\text{iff}\quad
 \alpha \in HM(P).
-\]
+$$
 
 এটি lecture-এর অন্যতম প্রধান result. এর অর্থ, all models check করার বদলে একটি single canonical model inspect করলেই চলে।
 
@@ -522,30 +522,30 @@ Herbrand model শুধু program-এ named individuals নিয়েই কথ
 
 ### Lemma
 
-ধরা যাক \(P\) একটি Datalog program যার maximum predicate arity fixed। তাহলে:
+ধরা যাক $P$ একটি Datalog program যার maximum predicate arity fixed। তাহলে:
 
-1. \(HB(P)\) finite এবং \(P\)-এর size-এর polynomial;
-2. \(HM(P)\) finite এবং \(P\)-এর size-এর polynomial।
+1. $HB(P)$ finite এবং $P$-এর size-এর polynomial;
+2. $HM(P)$ finite এবং $P$-এর size-এর polynomial।
 
 ### Lecture-এর proof sketch
 
 ধরা যাক:
 
-- \(n\) হলো \(P\)-এর predicates-এর maximum arity;
-- \(p\) হলো \(P\)-এর predicates-এর সংখ্যা;
-- \(m\) হলো \(P\)-এর individuals-এর সংখ্যা।
+- $n$ হলো $P$-এর predicates-এর maximum arity;
+- $p$ হলো $P$-এর predicates-এর সংখ্যা;
+- $m$ হলো $P$-এর individuals-এর সংখ্যা।
 
-তাহলে \(P\)-এর ওপর সর্বোচ্চ:
+তাহলে $P$-এর ওপর সর্বোচ্চ:
 
-\[
+$$
 p \cdot m^n
-\]
+$$
 
-ground atoms থাকতে পারে। যেহেতু \(HM(P) \subseteq HB(P)\), Herbrand model-ও finite এবং polynomial in \(P\), **provided that \(n\) fixed**।
+ground atoms থাকতে পারে। যেহেতু $HM(P) \subseteq HB(P)$, Herbrand model-ও finite এবং polynomial in $P$, **provided that $n$ fixed**।
 
 ### Exam flag
 
-Lecturer explicitly বলেন bounded predicate arity critical. Arity unbounded হলে \(n\) input-এর সঙ্গে grow করতে পারে, এবং \(p \cdot m^n\) exponential হয়ে যেতে পারে।
+Lecturer explicitly বলেন bounded predicate arity critical. Arity unbounded হলে $n$ input-এর সঙ্গে grow করতে পারে, এবং $p \cdot m^n$ exponential হয়ে যেতে পারে।
 
 ---
 
@@ -570,7 +570,7 @@ hasWeather(M,W).
 BelowF(W).
 ```
 
-Herbrand base-এ individuals \(B,S,M,W\) এবং program-এর predicates দিয়ে তৈরি সব possible ground atoms থাকে। উদাহরণ:
+Herbrand base-এ individuals $B,S,M,W$ এবং program-এর predicates দিয়ে তৈরি সব possible ground atoms থাকে। উদাহরণ:
 
 ```prolog
 WeatherC(B), WeatherC(S), WeatherC(M), WeatherC(W),
@@ -655,9 +655,11 @@ Derivation steps shown বা implied:
 
    substitution ব্যবহার করে:
 
-   \[
-   x \mapsto B,\quad y \mapsto S,\quad z \mapsto M,\quad w \mapsto W,
-   \]
+   
+
+$$
+x \mapsto B,\quad y \mapsto S,\quad z \mapsto M,\quad w \mapsto W,
+$$
 
    এবং known facts:
 
@@ -678,15 +680,15 @@ Derivation steps shown বা implied:
 
 তাই lecture concludes, উদাহরণস্বরূপ:
 
-\[
+$$
 P \models Person(B)
-\]
+$$
 
 এবং:
 
-\[
+$$
 P \models ColdLegs(B).
-\]
+$$
 
 [UNCLEAR] Displayed program-এ `Temp(x) :- Cold(x)` এবং `WeatherC(x) :- Temp(x)` আছে, তাই `Cold(W)` থেকে `Temp(W)` এবং তারপর `WeatherC(W)` আশা করা যায়। কিন্তু slide/transcript Herbrand model list `Cold(W)` এবং `ColdLegs(B)`-এ থেমে যায়। Recording বা slides check করা দরকার।
 
@@ -694,17 +696,17 @@ P \models ColdLegs(B).
 
 # ৭. Fixed-point semantics এবং reasoning algorithm
 
-আগের section \(HM(P)\) define করে, কিন্তু efficient computation method দেয় না। Lecture “guess a subset \(X \subseteq HB(P)\) and check minimality” পদ্ধতিকে bad বলে বাদ দেয়, তারপর iterative fixed-point method আনে।
+আগের section $HM(P)$ define করে, কিন্তু efficient computation method দেয় না। Lecture “guess a subset $X \subseteq HB(P)$ and check minimality” পদ্ধতিকে bad বলে বাদ দেয়, তারপর iterative fixed-point method আনে।
 
 ## ৭.১ Immediate consequence operator
 
 ### Key concept: immediate consequence operator
 
-**ধারণা।** Current known ground atoms-এর set \(X\) দেওয়া হলে immediate consequence operator এক rule application-এ derive করা যায় এমন সব rule heads যোগ করে।
+**ধারণা।** Current known ground atoms-এর set $X$ দেওয়া হলে immediate consequence operator এক rule application-এ derive করা যায় এমন সব rule heads যোগ করে।
 
-**আনুষ্ঠানিক সংজ্ঞা।** Datalog program \(P\)-এর জন্য:
+**আনুষ্ঠানিক সংজ্ঞা।** Datalog program $P$-এর জন্য:
 
-\[
+$$
 ICO_P(X)
 :=
 X
@@ -716,15 +718,15 @@ H :- A_1,\dots,A_n \in P
 \text{ and all }
 \sigma(A_i) \in X
 \}.
-\]
+$$
 
-অতএব \(ICO_P(X)\)-তে \(X\)-এর সবকিছু থাকে, plus সেই rules-এর immediate consequences, যাদের grounded bodies ইতিমধ্যে \(X\)-এ আছে।
+অতএব $ICO_P(X)$-তে $X$-এর সবকিছু থাকে, plus সেই rules-এর immediate consequences, যাদের grounded bodies ইতিমধ্যে $X$-এ আছে।
 
 ### Operator-এর monotonicity
 
-\[
+$$
 X \subseteq ICO_P(X).
-\]
+$$
 
 Operator শুধু atoms যোগ করে; কখনও remove করে না।
 
@@ -732,50 +734,50 @@ Operator শুধু atoms যোগ করে; কখনও remove করে �
 
 Lecture Kleene’s fixed-point theorem ব্যবহার করে: sets-এর ওপর monotone operator-এর least fixed point exists এবং iterativeভাবে compute করা যায়:
 
-\[
+$$
 \bigcup_i ICO_P^i(\emptyset).
-\]
+$$
 
 এই least fixed point সাধারণত denote করা হয়:
 
-\[
+$$
 ICO_P^*(\emptyset).
-\]
+$$
 
 এটি finite এবং polynomial in size, কারণ:
 
-\[
+$$
 ICO_P^*(\emptyset) \subseteq HB(P),
-\]
+$$
 
-এবং \(HB(P)\) polynomial যখন predicate arity bounded।
+এবং $HB(P)$ polynomial যখন predicate arity bounded।
 
 ## ৭.২ Datalog-এর fixed-point theorem
 
 ### Theorem
 
-\[
+$$
 HM(P) = ICO_P^*(\emptyset).
-\]
+$$
 
 এটি Herbrand model compute করার algorithmic উপায় দেয়।
 
 ### Corollary
 
-Datalog program \(P\) এবং ground atom \(\alpha\)-এর জন্য:
+Datalog program $P$ এবং ground atom $\alpha$-এর জন্য:
 
-\[
+$$
 P \models \alpha
 \quad\text{iff}\quad
 \alpha \in ICO_P^*(\emptyset).
-\]
+$$
 
 তাই সব ground atomic entailments iterative rule application দিয়ে compute করা যায়।
 
 ## ৭.৩ সব ground atomic entailments compute করার naive algorithm
 
-Input: Datalog program \(P\)।  
-Output: \(HM(P)\)।
+Input: Datalog program $P$।  
+Output: $HM(P)$।
 
 Lecture algorithm-এর পরিষ্কার version:
 
@@ -801,10 +803,10 @@ repeat
 
 গুরুত্বপূর্ণ points:
 
-- \(X\) হলো currently derived ground atoms-এর set।
-- \(X'\) হলো next stage।
+- $X$ হলো currently derived ground atoms-এর set।
+- $X'$ হলো next stage।
 - প্রতিটি iteration সব rules এবং সব substitutions check করে।
-- Fixed point reached হয় যখন \(X' = X\), অর্থাৎ নতুন atom যোগ হয়নি।
+- Fixed point reached হয় যখন $X' = X$, অর্থাৎ নতুন atom যোগ হয়নি।
 
 ## ৭.৪ Optimisations
 
@@ -814,23 +816,23 @@ Lecture দুটি immediate optimisations দেয়।
 
 Lemma:
 
-\[
+$$
 ICO_P(\emptyset)
-\]
+$$
 
-হলো \(P\)-এর সব facts-এর set।
+হলো $P$-এর সব facts-এর set।
 
-তাই \(X := \emptyset\) দিয়ে শুরু না করে শুরু করা যায়:
+তাই $X := \emptyset$ দিয়ে শুরু না করে শুরু করা যায়:
 
-\[
+$$
 X := \{\text{facts in } P\}.
-\]
+$$
 
 এতে empty-body rules দিয়ে সব facts rediscover করতে হয় না।
 
 ### Optimisation 2: focused search for substitutions
 
-Blindly প্রতিটি substitution \(\sigma : V \to I\) try না করে শুধু সেই substitutions focus করা যায় যাদের succeed করার chance আছে: অর্থাৎ যাদের grounded body atoms ইতিমধ্যে \(X\)-এ আছে।
+Blindly প্রতিটি substitution $\sigma : V \to I$ try না করে শুধু সেই substitutions focus করা যায় যাদের succeed করার chance আছে: অর্থাৎ যাদের grounded body atoms ইতিমধ্যে $X$-এ আছে।
 
 Lecturer আরও বলেন rule ordering এবং body-literal ordering সাহায্য করতে পারে। উদাহরণ: যদি কোনো `BelowF(...)`-matching atom derive না হয়ে থাকে, তাহলে body-তে `BelowF` প্রয়োজন এমন rules consider করার point নেই।
 
@@ -848,25 +850,25 @@ Lecture কয়েক ধরনের reasoning task আলাদা করে।
 
 Task:
 
-Given \(P\), সব ground atoms \(\alpha\) compute করা যাতে:
+Given $P$, সব ground atoms $\alpha$ compute করা যাতে:
 
-\[
+$$
 P \models \alpha.
-\]
+$$
 
 Solution:
 
 Compute:
 
-\[
+$$
 HM(P)
-\]
+$$
 
 বা equivalently:
 
-\[
+$$
 ICO_P^*(\emptyset).
-\]
+$$
 
 Resulting Herbrand model-এর প্রতিটি atom একটি ground atomic entailment।
 
@@ -874,22 +876,22 @@ Resulting Herbrand model-এর প্রতিটি atom একটি ground a
 
 Task:
 
-Given \(P\) এবং ground atom \(\alpha\), decide whether:
+Given $P$ এবং ground atom $\alpha$, decide whether:
 
-\[
+$$
 P \models \alpha.
-\]
+$$
 
 Naive solution:
 
-1. \(HM(P)\) compute করা।
+1. $HM(P)$ compute করা।
 2. Check করা:
 
-\[
+$$
 \alpha \in HM(P).
-\]
+$$
 
-Lecturer বলেন এটি অনেক সময় wasteful, কারণ একটি yes/no question answer করতে সব entailments compute করে। Goal-directed reasoner \(\alpha\) থেকে backwards reason করতে পারে।
+Lecturer বলেন এটি অনেক সময় wasteful, কারণ একটি yes/no question answer করতে সব entailments compute করে। Goal-directed reasoner $\alpha$ থেকে backwards reason করতে পারে।
 
 ## ৮.৩ Conjunctive queries answer করা
 
@@ -899,34 +901,34 @@ Lecturer বলেন এটি অনেক সময় wasteful, কারণ �
 
 Query form:
 
-\[
+$$
 q(\vec{x}) :- A_1,\dots,A_n.
-\]
+$$
 
-Goal হলো সব tuples \(\vec{a}\) return করা যাতে প্রতিটি query atom \(\vec{a}\) substitute করার পর entailed হয়।
+Goal হলো সব tuples $\vec{a}$ return করা যাতে প্রতিটি query atom $\vec{a}$ substitute করার পর entailed হয়।
 
 ### Formal task
 
-সব tuples \(\vec{a}\) return করা যাতে:
+সব tuples $\vec{a}$ return করা যাতে:
 
-\[
+$$
 P \models A_1[\vec{x}/\vec{a}],\dots,
 P \models A_n[\vec{x}/\vec{a}].
-\]
+$$
 
-এখানে \(A_i[\vec{x}/\vec{a}]\) হলো ground atom, যেখানে প্রতিটি query variable \(x_j\)-কে corresponding individual \(a_j\) দিয়ে replace করা হয়েছে।
+এখানে $A_i[\vec{x}/\vec{a}]$ হলো ground atom, যেখানে প্রতিটি query variable $x_j$-কে corresponding individual $a_j$ দিয়ে replace করা হয়েছে।
 
 ### Naive solution
 
-1. \(HM(P)\) compute করা।
-2. \(P\)-এর individuals-এর ওপর প্রতিটি vector \(\vec{a}\)-এর জন্য check করা:
+1. $HM(P)$ compute করা।
+2. $P$-এর individuals-এর ওপর প্রতিটি vector $\vec{a}$-এর জন্য check করা:
 
-\[
+$$
 A_i[\vec{x}/\vec{a}] \in HM(P)
 \quad\text{for every } i.
-\]
+$$
 
-3. If yes, output \(\vec{a}\)।
+3. If yes, output $\vec{a}$।
 
 Again, এটি conceptually easy কিন্তু practice-এ optimisations দরকার।
 
@@ -938,21 +940,21 @@ Again, এটি conceptually easy কিন্তু practice-এ optimisations
 
 Task:
 
-Given Datalog program \(P\) এবং rule:
+Given Datalog program $P$ এবং rule:
 
-\[
+$$
 H :- A_1,\dots,A_n,
-\]
+$$
 
 decide whether:
 
-\[
+$$
 P \models H :- A_1,\dots,A_n.
-\]
+$$
 
 ### Formal definition
 
-\(P\) rule \(H :- A_1,\dots,A_n\) entail করে যদি প্রতিটি interpretation \(\mathcal{I}\) এবং substitution/valuation \(\sigma\)-এর জন্য, যখন \(\mathcal{I},\sigma\) \(P\)-এর প্রতিটি rule satisfy করে, তখন সেটি rule \(H :- A_1,\dots,A_n\)-ও satisfy করে।
+$P$ rule $H :- A_1,\dots,A_n$ entail করে যদি প্রতিটি interpretation $\mathcal{I}$ এবং substitution/valuation $\sigma$-এর জন্য, যখন $\mathcal{I},\sigma$ $P$-এর প্রতিটি rule satisfy করে, তখন সেটি rule $H :- A_1,\dots,A_n$-ও satisfy করে।
 
 ### Fresh-constant trick
 
@@ -960,39 +962,39 @@ Lecture Herbrand-model computation-এ reduce করার একটি neat tri
 
 Fresh constants বেছে নাও:
 
-\[
+$$
 \vec{c} = c_1,\dots,c_k
-\]
+$$
 
-rule-এর প্রতিটি variable-এর জন্য একটি, এমনভাবে যাতে কোনো \(c_i\) আগে \(P\)-তে না থাকে।
+rule-এর প্রতিটি variable-এর জন্য একটি, এমনভাবে যাতে কোনো $c_i$ আগে $P$-তে না থাকে।
 
 Grounded body atoms program-এ add করো:
 
-\[
+$$
 P \cup \{A_1(\vec{c}),\dots,A_n(\vec{c})\}.
-\]
+$$
 
 তারপর check করো grounded head Herbrand model-এ আছে কিনা:
 
-\[
+$$
 H(\vec{c})
 \in
 HM\bigl(P \cup \{A_1(\vec{c}),\dots,A_n(\vec{c})\}\bigr).
-\]
+$$
 
 Lemma states:
 
-\[
+$$
 P \models H :- A_1,\dots,A_n
-\]
+$$
 
 iff:
 
-\[
+$$
 H(\vec{c})
 \in
 HM\bigl(P \cup \{A_1(\vec{c}),\dots,A_n(\vec{c})\}\bigr).
-\]
+$$
 
 এটি lecture-এর প্রথম non-ground entailment task, এবং trick-টি এটিকে আবার ground reasoning-এ reduce করে।
 
@@ -1033,7 +1035,7 @@ Person(x) :- owns(x,y).
 InObj(y) :- owns(x,y).
 ```
 
-তাই `owns(x,y)` hold করলে infer করা হয় যে \(x\) একটি person এবং \(y\) একটি inanimate object।
+তাই `owns(x,y)` hold করলে infer করা হয় যে $x$ একটি person এবং $y$ একটি inanimate object।
 
 ## ৯.৩ Types in general, including higher-arity predicates
 
@@ -1047,7 +1049,7 @@ Assistant(y) :- Sale(x,y,z).
 Shop(z)      :- Sale(x,y,z).
 ```
 
-এটি বলে sale relation একটি product, sales assistant, এবং shop-কে connect করে। এটি description logics যেমন \(\mathcal{EL}\)-এর ওপর Datalog-এর advantage, কারণ সেখানে unary এবং binary predicates only।
+এটি বলে sale relation একটি product, sales assistant, এবং shop-কে connect করে। এটি description logics যেমন $\mathcal{EL}$-এর ওপর Datalog-এর advantage, কারণ সেখানে unary এবং binary predicates only।
 
 ## ৯.৪ Complex relational structures
 
@@ -1065,7 +1067,7 @@ Bicycle(x) :- hasPart(x,y), hasPart(x,z), hasPart(x,f),
               connectedTo(y,f), connectedTo(z,f).
 ```
 
-মূল point হলো variables \(y,z,f\) arbitrary graph-like pattern-এ connect হতে পারে। Slide-এ bicycle sketch আছে যা এই non-tree-shaped relational structure illustrate করে।
+মূল point হলো variables $y,z,f$ arbitrary graph-like pattern-এ connect হতে পারে। Slide-এ bicycle sketch আছে যা এই non-tree-shaped relational structure illustrate করে।
 
 ## ৯.৫ Implications between predicates/properties
 
@@ -1121,7 +1123,7 @@ Tempting invalid rule:
 hasParent(x,y) :- Person(x).
 ```
 
-কিন্তু \(y\) শুধু head-এ আছে, তাই fresh head variable। Datalog এটি forbid করে।
+কিন্তু $y$ শুধু head-এ আছে, তাই fresh head variable। Datalog এটি forbid করে।
 
 Express করা যায় না:
 
@@ -1202,12 +1204,12 @@ PGTStudent(Bob).
 
 ### Key concept: monotonicity
 
-**আনুষ্ঠানিক সংজ্ঞা।** ধরা যাক \(\mathcal{L}\) একটি logic যার entailment relation \(\models\). \(\mathcal{L}\) monotonic যদি সব sets of formulae \(P,P'\) এবং প্রতিটি axiom \(\alpha\)-এর জন্য:
+**আনুষ্ঠানিক সংজ্ঞা।** ধরা যাক $\mathcal{L}$ একটি logic যার entailment relation $\models$. $\mathcal{L}$ monotonic যদি সব sets of formulae $P,P'$ এবং প্রতিটি axiom $\alpha$-এর জন্য:
 
-\[
+$$
 \text{if } P \models \alpha,
 \text{ then } P \cup P' \models \alpha.
-\]
+$$
 
 এই property fail করলে logic non-monotonic।
 
@@ -1261,7 +1263,7 @@ Applications-এ Datalog data types দিয়ে extend করা হয়, যে
 - primitive types: numbers, strings;
 - composite/user-defined types: records of integers;
 - operations and aggregations;
-- comparisons such as \(\leq\), \(=\);
+- comparisons such as $\leq$, $=$;
 - arrays, lists, records;
 - pointers.
 
@@ -1297,14 +1299,14 @@ hasParent(x,y) :- Person(x)
 
 corresponding to:
 
-\[
+$$
 \forall x\,
 \bigl(
 Person(x) \Rightarrow \exists y\, hasParent(x,y)
 \bigr).
-\]
+$$
 
-এখানে universal variable \(x\) `Person(x)` দিয়ে guarded।
+এখানে universal variable $x$ `Person(x)` দিয়ে guarded।
 
 Example not guarded:
 
@@ -1330,19 +1332,19 @@ Happy(x) :- hasParent(x,y), Person(x).
 
 Lecture corresponding first-order reading দেয়:
 
-\[
+$$
 \forall x\,
 \bigl(
 Person(x) \land \exists y\,hasParent(x,y)
 \Rightarrow Happy(x)
 \bigr).
-\]
+$$
 
 Corresponding description logic axiom:
 
-\[
+$$
 Person \sqcap \exists hasParent.\top \sqsubseteq Happy.
-\]
+$$
 
 Plain forms-এ Datalog এবং relevant description logics দুটোই:
 
@@ -1388,13 +1390,13 @@ Examples:
 
 Description logic:
 
-\[
+$$
 Person \sqsubseteq Mammal
-\]
+$$
 
-\[
+$$
 Person \sqcap \exists hasChild.\top \sqsubseteq Parent
-\]
+$$
 
 Datalog:
 
@@ -1419,7 +1421,7 @@ Sale(x,y,z)
 
 এটি product, assistant, এবং shop-এর মধ্যে ternary relation সরাসরি represent করতে পারে।
 
-Description logics যেমন \(\mathcal{EL}\) এবং \(\mathcal{EL}^{++}\) unary এবং binary predicates ব্যবহার করে, তাই এই ধরনের ternary relation directly applicable নয়।
+Description logics যেমন $\mathcal{EL}$ এবং $\mathcal{EL}^{++}$ unary এবং binary predicates ব্যবহার করে, তাই এই ধরনের ternary relation directly applicable নয়।
 
 ### General relational structures
 
@@ -1453,9 +1455,9 @@ Description logics anonymous/existential individuals express করতে পা
 
 Example:
 
-\[
+$$
 Person \sqsubseteq \exists hasParent.\top.
-\]
+$$
 
 এটি বলে প্রতিটি person-এর কোনো parent আছে, parent-কে name না করেই।
 
@@ -1463,7 +1465,7 @@ Plain Datalog এটি express করতে পারে না, কারণ �
 
 Description logics bicycle-to-parts implications-ও express করতে পারে, যেমন:
 
-\[
+$$
 Bicycle
 \sqsubseteq
 \exists hasPart.(Wheel \sqcap Front)
@@ -1471,7 +1473,7 @@ Bicycle
 \exists hasPart.(Wheel \sqcap Back)
 \sqcap
 \exists hasPart.Frame.
-\]
+$$
 
 কিন্তু lecture জোর দেয় যে এটি শুধু tree-shaped anonymous structure দেয়, anonymous parts-এর মধ্যে arbitrary connections নয়।
 
@@ -1479,11 +1481,11 @@ Bicycle
 
 Lecture-এর মূল comparison:
 
-- Plain Datalog এবং \(\mathcal{EL}\) দুটোতেই full negation ও full disjunction নেই, যদিও দুটিরই extensions আছে।
+- Plain Datalog এবং $\mathcal{EL}$ দুটোতেই full negation ও full disjunction নেই, যদিও দুটিরই extensions আছে।
 - Datalog শুধু active domain নিয়ে কথা বলতে পারে, অর্থাৎ program-এর named individuals।
 - Datalog সেই active domain-এর ওপর general relational structures নিয়ে কথা বলতে পারে।
-- \(\mathcal{EL}\) anonymous individuals নিয়ে কথা বলতে পারে।
-- \(\mathcal{EL}\) শুধু tree-shaped anonymous relational structures নিয়ে কথা বলতে পারে।
+- $\mathcal{EL}$ anonymous individuals নিয়ে কথা বলতে পারে।
+- $\mathcal{EL}$ শুধু tree-shaped anonymous relational structures নিয়ে কথা বলতে পারে।
 - Restrictions রাখা হয়েছে reasoning decidable এবং polynomial-time রাখার জন্য।
 - Datalog± strengths combine করার attempt হিসেবে introduced।
 
@@ -1491,12 +1493,12 @@ Lecture-এর মূল comparison:
 
 Slide table-এ high-level comparison দেওয়া হয়েছে।
 
-| Feature | Propositional logic | \(\mathcal{EL}/\mathcal{EL}^{++}\) | Datalog |
+| Feature | Propositional logic | $\mathcal{EL}/\mathcal{EL}^{++}$ | Datalog |
 |---|---:|---:|---:|
-| Predicate arity | unary-like, \(p\)-কে \(p(x)\) হিসেবে পড়া | unary and binary | any arity |
+| Predicate arity | unary-like, $p$-কে $p(x)$ হিসেবে পড়া | unary and binary | any arity |
 | Conjunction | yes | yes | yes |
 | Disjunction | yes | only limited/subclass-style | only as implication in rules |
-| Negation | yes | no full negation; disjointness in \(\mathcal{EL}^{++}\) | no |
+| Negation | yes | no full negation; disjointness in $\mathcal{EL}^{++}$ | no |
 | Semantics | valuation, single point | interpretation with many elements | interpretation with named individuals / active domain |
 | Main reasoning task | satisfiability | entailment, classification | entailment, classification |
 | Complexity | NP-complete | polynomial | polynomial for low/bounded arity; ExpTime-complete if unrestricted as stated in the slide |
@@ -1523,17 +1525,17 @@ Datalog implement করা যায়:
 - directly by a Datalog engine;
 - SQL-এ translation করে।
 
-Non-recursive Datalog programs \(P\)-এর জন্য lecture states যে \(P\)-কে SQL queries \(Q_P^A\)-তে translate করা যায় যাতে:
+Non-recursive Datalog programs $P$-এর জন্য lecture states যে $P$-কে SQL queries $Q_P^A$-তে translate করা যায় যাতে:
 
-\[
+$$
 P \models A(b_1,\dots,b_m)
 \quad\text{iff}\quad
 (b_1,\dots,b_m)
 \in
 Answ(Q_P^A, GrFs(P)).
-\]
+$$
 
-এখানে \(GrFs(P)\) হলো \(P\)-এর ground facts দিয়ে তৈরি extensional database।
+এখানে $GrFs(P)$ হলো $P$-এর ground facts দিয়ে তৈরি extensional database।
 
 Recursive programs-এর জন্য translation কঠিন। Plain SQL নিচের মতো recursive rules express করে না:
 
@@ -1559,7 +1561,7 @@ Slide page 51-এর image-এ software engineers “on stage,” আর Datalog
 
 - data types: reals, integers, strings;
 - operations and aggregation;
-- comparisons such as \(\leq\) and \(=\);
+- comparisons such as $\leq$ and $=$;
 - complex data types: records, arrays, lists;
 - pointers.
 
@@ -1585,46 +1587,46 @@ Formal definitions জানতে হবে:
 - substitution;
 - satisfaction of atom/rule/program;
 - entailment;
-- Herbrand base \(HB(P)\);
-- Herbrand model \(HM(P)\);
-- immediate consequence operator \(ICO_P\);
+- Herbrand base $HB(P)$;
+- Herbrand model $HM(P)$;
+- immediate consequence operator $ICO_P$;
 - monotonicity.
 
 ## ১৪.২ Very high-value theorems
 
 Memorise করতে হবে এবং use করতে জানতে হবে:
 
-\[
+$$
 P \models \alpha
 \quad\text{iff}\quad
 \alpha \in HM(P)
-\]
+$$
 
-ground atoms \(\alpha\)-এর জন্য।
+ground atoms $\alpha$-এর জন্য।
 
 আরও:
 
-\[
+$$
 HM(P) = ICO_P^*(\emptyset)
-\]
+$$
 
 তাই:
 
-\[
+$$
 P \models \alpha
 \quad\text{iff}\quad
 \alpha \in ICO_P^*(\emptyset).
-\]
+$$
 
 এগুলো semantics, canonical models, এবং algorithms connect করে।
 
 ## ১৪.৩ Critical complexity caveat
 
-Datalog-এর Herbrand base এবং Herbrand model polynomial-sized শুধু তখনই যখন predicate arity bounded। Arity unbounded হলে \(p \cdot m^n\) bound exponential হতে পারে। Lecturer এটিকে explicitly critical বলেন।
+Datalog-এর Herbrand base এবং Herbrand model polynomial-sized শুধু তখনই যখন predicate arity bounded। Arity unbounded হলে $p \cdot m^n$ bound exponential হতে পারে। Lecturer এটিকে explicitly critical বলেন।
 
 ## ১৪.৪ Common mistakes to avoid
 
-- `:-` ভুল direction-এ পড়া। `H :- A1, A2` মানে \(A_1 \land A_2 \Rightarrow H\)।
+- `:-` ভুল direction-এ পড়া। `H :- A1, A2` মানে $A_1 \land A_2 \Rightarrow H$।
 - Facts যে empty bodies-সহ rules—এটি ভুলে যাওয়া।
 - Head-এ fresh variables allow করা। Plain Datalog-এ allowed নয়।
 - Datalog anonymous individuals create করতে পারে ভাবা। পারে না।
@@ -1636,7 +1638,7 @@ Datalog-এর Herbrand base এবং Herbrand model polynomial-sized শুধ
 
 - Datalog: active domain, general relational structures, recursion.
 - Description logic: anonymous individuals, tree-shaped anonymous structures.
-- Plain Datalog এবং \(\mathcal{EL}\): reasoning decidable এবং polynomial রাখতে দুটোই restricted।
+- Plain Datalog এবং $\mathcal{EL}$: reasoning decidable এবং polynomial রাখতে দুটোই restricted।
 - Datalog±: strengths combine করতে চায়, complexity control রেখে।
 
 ---
@@ -1647,11 +1649,11 @@ Datalog-এর Herbrand base এবং Herbrand model polynomial-sized শুধ
 
 Datalog rules-কে Horn clauses-এ translate করা যায়, propositional logic-এ দেখা implication/disjunction equivalences ব্যবহার করে:
 
-\[
+$$
 \varphi \Rightarrow \psi
 \equiv
 \neg \varphi \lor \psi.
-\]
+$$
 
 Datalog rule:
 
@@ -1661,9 +1663,9 @@ Slippery(x) :- Rain(x), BelowF(x).
 
 becomes:
 
-\[
+$$
 Slippery(x) \lor \neg Rain(x) \lor \neg BelowF(x).
-\]
+$$
 
 ## ১৫.২ Connection to description logic
 
@@ -1693,7 +1695,7 @@ Datalog static analysis, program verification, এবং repair-এ behind the s
 
 3. **Herbrand model worked example.** Displayed program-এ `Cold(W)` থেকে `Temp(W)` এবং `WeatherC(W)` derive করার rules আছে, কিন্তু shown Herbrand model list-এ এগুলো omitted। Slide intentionally truncated কিনা, না এটি error—check করা দরকার।
 
-4. **Model-theoretic satisfaction symbol.** Parsed slide text atom satisfaction-এর জন্য subset symbol দেখায়, কিন্তু transcript tuple belongs to predicate relation বলে। Intended condition membership \(\in\), subset নয়।
+4. **Model-theoretic satisfaction symbol.** Parsed slide text atom satisfaction-এর জন্য subset symbol দেখায়, কিন্তু transcript tuple belongs to predicate relation বলে। Intended condition membership $\in$, subset নয়।
 
 5. **Datalog reasoner name.** Transcript disjunctive Datalog reasoner-এর name garble করে; slide-এ DLV আছে।
 

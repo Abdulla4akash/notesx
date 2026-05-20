@@ -40,7 +40,7 @@ By the end of the lecture, the intended learning outcomes are:
 
 ---
 
-# Part I — Independent Component Analysis \(\mathrm{ICA}\)
+# Part I — Independent Component Analysis $\mathrm{ICA}$
 
 ---
 
@@ -73,15 +73,15 @@ This process is called **unmixing**.
 
 The underlying source signals are assumed to be:
 
-\[
+$$
 \text{statistically independent}
-\]
+$$
 
 and to have:
 
-\[
+$$
 \text{non-Gaussian distributions}.
-\]
+$$
 
 This assumption is central. ICA is not presented as a method for Gaussian source signals.
 
@@ -113,15 +113,15 @@ ICA works from the **mixed signals only**. The original sources are not observed
 
 ### Source signals
 
-There are \(n\) source signals:
+There are $n$ source signals:
 
-\[
+$$
 s_1, \ldots, s_n.
-\]
+$$
 
 They are written in vector form as:
 
-\[
+$$
 s =
 \begin{pmatrix}
 s_1 \\
@@ -129,26 +129,26 @@ s_1 \\
 s_n
 \end{pmatrix}
 \in \mathbb{R}^n.
-\]
+$$
 
 The source signals satisfy the ICA assumptions:
 
-\[
+$$
 s_1,\ldots,s_n
 \quad\text{are statistically independent and have non-Gaussian distributions.}
-\]
+$$
 
 ### Mixed signals
 
-There are \(m\) mixed signals:
+There are $m$ mixed signals:
 
-\[
+$$
 x_1, \ldots, x_m.
-\]
+$$
 
 They are written in vector form as:
 
-\[
+$$
 x =
 \begin{pmatrix}
 x_1 \\
@@ -156,23 +156,23 @@ x_1 \\
 x_m
 \end{pmatrix}
 \in \mathbb{R}^m.
-\]
+$$
 
 ### Observables
 
 Only the mixed signals are observed:
 
-\[
+$$
 x_1, \ldots, x_m.
-\]
+$$
 
 ### Goal
 
 The goal is to estimate the source signals:
 
-\[
+$$
 s_1,\ldots,s_n.
-\]
+$$
 
 These estimated source signals are also called the **independent components**.
 
@@ -186,13 +186,13 @@ The mixed signals are assumed to be linear combinations of the source signals.
 
 The model is:
 
-\[
+$$
 x = As.
-\]
+$$
 
 In matrix form:
 
-\[
+$$
 \begin{pmatrix}
 x_1 \\
 x_2 \\
@@ -212,13 +212,13 @@ s_2 \\
 \vdots \\
 s_n
 \end{pmatrix}.
-\]
+$$
 
 Here:
 
-\[
+$$
 A \in \mathbb{R}^{m \times n}
-\]
+$$
 
 is the **mixing matrix**.
 
@@ -226,17 +226,17 @@ is the **mixing matrix**.
 
 Only the left-hand side is observed:
 
-\[
+$$
 x.
-\]
+$$
 
 ### What must be estimated?
 
 Both the mixing matrix and the source signals are unknown:
 
-\[
+$$
 A \quad\text{and}\quad s.
-\]
+$$
 
 Therefore ICA must estimate the original source signals from only the observed mixtures.
 
@@ -246,9 +246,9 @@ Therefore ICA must estimate the original source signals from only the observed m
 
 The lecture introduces a whitened-source condition:
 
-\[
+$$
 \mathbb{E}[ss^\top] = I.
-\]
+$$
 
 This means the covariance matrix of the random signal is the identity matrix.
 
@@ -256,9 +256,9 @@ This means the covariance matrix of the random signal is the identity matrix.
 
 If:
 
-\[
+$$
 \mathbb{E}[ss^\top] = I,
-\]
+$$
 
 then:
 
@@ -276,9 +276,9 @@ Whitening is described as a **linear change of basis**. It transforms signals so
 
 The slide writes:
 
-\[
+$$
 \mathbb{E}[ss^\top] = I
-\]
+$$
 
 and describes this as the covariance matrix being the identity. This is exactly the covariance matrix when the signal has zero mean. The transcript is needed to confirm whether the lecturer explicitly assumed or stated centering / zero mean at this point.
 
@@ -288,21 +288,21 @@ and describes this as the covariance matrix being the identity. This is exactly 
 
 ### Unmixing matrix
 
-ICA seeks an **unmixing matrix** \(W\) such that the estimated source vector is:
+ICA seeks an **unmixing matrix** $W$ such that the estimated source vector is:
 
-\[
+$$
 \hat{s} = Wx.
-\]
+$$
 
-The matrix \(W\) is intended to undo the mixing caused by \(A\).
+The matrix $W$ is intended to undo the mixing caused by $A$.
 
 ### Optimisation objective
 
 The optimisation objective is:
 
-\[
+$$
 \text{Find } W \text{ that maximises the statistical independence of the components of } \hat{s}.
-\]
+$$
 
 This is the key distinction from PCA:
 
@@ -313,9 +313,9 @@ This is the key distinction from PCA:
 
 For the derivation that follows, the lecture assumes:
 
-\[
+$$
 m = n.
-\]
+$$
 
 That is, the number of observed mixed signals equals the number of source signals.
 
@@ -327,13 +327,13 @@ That is, the number of observed mixed signals equals the number of source signal
 
 Given data points:
 
-\[
+$$
 x_1, \ldots, x_N \in \mathbb{R}^m,
-\]
+$$
 
 the data matrix is:
 
-\[
+$$
 X =
 \begin{pmatrix}
 x_1^\top \\
@@ -342,7 +342,7 @@ x_2^\top \\
 x_N^\top
 \end{pmatrix}
 \in \mathbb{R}^{N \times m}.
-\]
+$$
 
 ---
 
@@ -350,101 +350,101 @@ x_N^\top
 
 The slides write the singular value decomposition of the unmixing matrix as:
 
-\[
+$$
 W = USV^\top.
-\]
+$$
 
 Then:
 
-\[
+$$
 WW^\top = USV^\top(USV^\top)^\top.
-\]
+$$
 
 Expanding the transpose:
 
-\[
+$$
 (USV^\top)^\top = VS^\top U^\top.
-\]
+$$
 
 So:
 
-\[
+$$
 WW^\top = USV^\top VS^\top U^\top.
-\]
+$$
 
 Using orthogonality:
 
-\[
+$$
 V^\top V = I,
-\]
+$$
 
 the expression becomes:
 
-\[
+$$
 WW^\top = USS^\top U^\top.
-\]
+$$
 
 The slides write this as:
 
-\[
+$$
 WW^\top = US^2U^\top.
-\]
+$$
 
 ### Comparison with eigenvalue decomposition
 
-The eigenvalue decomposition of \(X^\top X\) is given as:
+The eigenvalue decomposition of $X^\top X$ is given as:
 
-\[
+$$
 X^\top X = QDQ^\top.
-\]
+$$
 
 The slides then state:
 
-\[
+$$
 X^\top X = WW^\top.
-\]
+$$
 
 Comparing:
 
-\[
+$$
 WW^\top = US^2U^\top
-\]
+$$
 
 with:
 
-\[
+$$
 X^\top X = QDQ^\top,
-\]
+$$
 
 the conclusion is:
 
-\[
+$$
 U = Q
-\]
+$$
 
 and:
 
-\[
+$$
 S^2 = D.
-\]
+$$
 
 Therefore:
 
-\[
+$$
 S = D^{1/2}.
-\]
+$$
 
 So the unmixing matrix has the form:
 
-\[
+$$
 W = QD^{1/2}V^\top.
-\]
+$$
 
 The remaining task is estimating the orthogonal matrix:
 
-\[
+$$
 V.
-\]
+$$
 
 The slides refer to this remaining task as **projection pursuit**.
 
@@ -452,9 +452,9 @@ The slides refer to this remaining task as **projection pursuit**.
 
 The equality:
 
-\[
+$$
 X^\top X = WW^\top
-\]
+$$
 
 is stated in the slides, but the visible slide content does not justify why it holds. The transcript is needed to recover the missing assumption or intermediate step.
 
@@ -468,9 +468,9 @@ ICA requires source signals to be non-Gaussian. The lecture introduces **kurtosi
 
 ### 9.1 Kurtosis
 
-For a random variable \(X\), the kurtosis is:
+For a random variable $X$, the kurtosis is:
 
-\[
+$$
 \kappa
 =
 \mathbb{E}
@@ -479,33 +479,33 @@ For a random variable \(X\), the kurtosis is:
 \frac{X-\mu}{\sigma}
 \right)^4
 \right],
-\]
+$$
 
 where:
 
-\[
+$$
 \mu = \text{mean of } X,
-\]
+$$
 
 and:
 
-\[
+$$
 \sigma = \text{standard deviation of } X.
-\]
+$$
 
 For Gaussian variables:
 
-\[
+$$
 \kappa = 3.
-\]
+$$
 
 ---
 
 ### 9.2 Excess kurtosis
 
-The **excess kurtosis** of \(X\) is:
+The **excess kurtosis** of $X$ is:
 
-\[
+$$
 \kappa - 3
 =
 \mathbb{E}
@@ -515,7 +515,7 @@ The **excess kurtosis** of \(X\) is:
 \right)^4
 \right]
 -3.
-\]
+$$
 
 It can be used as a measure of non-Gaussianity.
 
@@ -525,9 +525,9 @@ It can be used as a measure of non-Gaussianity.
 
 #### Mesokurtic
 
-\[
+$$
 \kappa - 3 = 0.
-\]
+$$
 
 Interpretation:
 
@@ -535,9 +535,9 @@ Interpretation:
 
 #### Leptokurtic
 
-\[
+$$
 \kappa - 3 > 0.
-\]
+$$
 
 Interpretation:
 
@@ -547,9 +547,9 @@ Interpretation:
 
 #### Platykurtic
 
-\[
+$$
 \kappa - 3 < 0.
-\]
+$$
 
 Interpretation:
 
@@ -585,9 +585,9 @@ This connects directly to the core assumption that source components must be non
 
 The model discussed assumes a linear mixture:
 
-\[
+$$
 x = As.
-\]
+$$
 
 The slides state that this form of ICA cannot handle nonlinear mixtures.
 
@@ -597,7 +597,7 @@ The slides state:
 
 > Can only recover as many sources as you have observations.
 
-In notation, if there are \(m\) observed mixed signals, this setup cannot recover more than \(m\) source signals.
+In notation, if there are $m$ observed mixed signals, this setup cannot recover more than $m$ source signals.
 
 ### 11.4 Noise-free assumption
 
@@ -605,9 +605,9 @@ The model discussed assumes clean mixed signals with no noise.
 
 The noisy additive model is:
 
-\[
+$$
 x = As + \epsilon.
-\]
+$$
 
 The slides state that this additive-noise version exists, but its solution needs more work.
 
@@ -649,9 +649,9 @@ PCA finds directions of maximum variance. ICA finds components that are statisti
 
 The Kernel PCA section begins with the limitation:
 
-\[
+$$
 \text{Linear PCA assumes a linear manifold.}
-\]
+$$
 
 The slide illustration shows data points around a flat linear plane, making the point that ordinary PCA fits linear directions or subspaces. This can be restrictive when the structure of the data is nonlinear.
 
@@ -667,13 +667,13 @@ Kernel PCA addresses this by embedding the data into another space, where applyi
 
 Given data points:
 
-\[
+$$
 x_1, \ldots, x_N \in \mathbb{R}^d,
-\]
+$$
 
 the data matrix is:
 
-\[
+$$
 X =
 \begin{pmatrix}
 x_1^\top \\
@@ -682,9 +682,9 @@ x_2^\top \\
 x_N^\top
 \end{pmatrix}
 \in \mathbb{R}^{N \times d}.
-\]
+$$
 
-Each data point is stored as a row of \(X\).
+Each data point is stored as a row of $X$.
 
 ---
 
@@ -692,63 +692,63 @@ Each data point is stored as a row of \(X\).
 
 The sample covariance matrix is:
 
-\[
+$$
 \Sigma
 =
 \frac{1}{N}
 \sum_{i=1}^{N}
 (x_i-\hat{\mu})(x_i-\hat{\mu})^\top,
-\]
+$$
 
 where:
 
-\[
+$$
 \hat{\mu}
 =
 \frac{1}{N}
 \sum_{i=1}^{N}x_i.
-\]
+$$
 
 For centred data:
 
-\[
+$$
 \Sigma
 =
 \frac{1}{N}
 \sum_{i=1}^{N}x_i x_i^\top.
-\]
+$$
 
 Equivalently:
 
-\[
+$$
 \Sigma
 =
 \frac{1}{N}X^\top X.
-\]
+$$
 
 ---
 
-## 16. Pen-and-paper exercise: showing \(X^\top X = \sum_i x_i x_i^\top\)
+## 16. Pen-and-paper exercise: showing $X^\top X = \sum_i x_i x_i^\top$
 
 ### Exercise statement
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d
-\]
+$$
 
-with data matrix \(X\), show that:
+with data matrix $X$, show that:
 
-\[
+$$
 X^\top X = \sum_{i=1}^{N}x_i x_i^\top.
-\]
+$$
 
 ### Derivation
 
 Since:
 
-\[
+$$
 X =
 \begin{pmatrix}
 x_1^\top \\
@@ -756,20 +756,20 @@ x_2^\top \\
 \vdots \\
 x_N^\top
 \end{pmatrix},
-\]
+$$
 
 we have:
 
-\[
+$$
 X^\top =
 \begin{pmatrix}
 x_1 & x_2 & \cdots & x_N
 \end{pmatrix}.
-\]
+$$
 
 Therefore:
 
-\[
+$$
 X^\top X
 =
 \begin{pmatrix}
@@ -781,23 +781,23 @@ x_2^\top \\
 \vdots \\
 x_N^\top
 \end{pmatrix}.
-\]
+$$
 
 Multiplying blockwise gives:
 
-\[
+$$
 X^\top X
 =
 x_1x_1^\top + x_2x_2^\top + \cdots + x_Nx_N^\top.
-\]
+$$
 
 Hence:
 
-\[
+$$
 X^\top X
 =
 \sum_{i=1}^{N}x_i x_i^\top.
-\]
+$$
 
 ---
 
@@ -805,138 +805,138 @@ X^\top X
 
 ### Core idea
 
-The PCA basis vectors, also called **principal component vectors**, are the eigenvectors of the covariance matrix \(\Sigma\). They are arranged according to the corresponding eigenvalues.
+The PCA basis vectors, also called **principal component vectors**, are the eigenvectors of the covariance matrix $\Sigma$. They are arranged according to the corresponding eigenvalues.
 
-The \(k\)-th principal component is:
+The $k$-th principal component is:
 
-\[
+$$
 \text{eigenvector corresponding to the } k\text{-th largest eigenvalue}.
-\]
+$$
 
 ### Algorithm from the slides
 
 Inputs:
 
-\[
+$$
 x_1,\ldots,x_N,
-\]
+$$
 
 and a positive integer:
 
-\[
+$$
 k.
-\]
+$$
 
 Step 1. Recentre the data:
 
-\[
+$$
 x_i \leftarrow x_i - \hat{\mu}.
-\]
+$$
 
 Step 2. Construct the centred data matrix:
 
-\[
+$$
 X =
 \begin{pmatrix}
 x_1^\top \\
 \vdots \\
 x_N^\top
 \end{pmatrix}.
-\]
+$$
 
 Step 3. Compute:
 
-\[
+$$
 \Sigma' = X^\top X.
-\]
+$$
 
 Step 4. Compute eigenvalues and eigenvectors:
 
-\[
+$$
 (\lambda_i,v_i)
-\]
+$$
 
 of:
 
-\[
+$$
 \Sigma'.
-\]
+$$
 
 Step 5. Reorder them so that:
 
-\[
+$$
 \lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d \geq 0.
-\]
+$$
 
-Step 6. Return the top \(k\) principal components:
+Step 6. Return the top $k$ principal components:
 
-\[
+$$
 v_1,\ldots,v_k.
-\]
+$$
 
 ### Note on scaling
 
 Earlier, the covariance matrix was written as:
 
-\[
+$$
 \Sigma = \frac{1}{N}X^\top X.
-\]
+$$
 
 The algorithm slide uses:
 
-\[
+$$
 \Sigma' = X^\top X.
-\]
+$$
 
-This rescales eigenvalues by a factor of \(N\), but it does not change the eigenvectors.
+This rescales eigenvalues by a factor of $N$, but it does not change the eigenvectors.
 
 ---
 
-## 18. Pen-and-paper exercise: showing \(XX^\top\) is the Gram matrix
+## 18. Pen-and-paper exercise: showing $XX^\top$ is the Gram matrix
 
 ### Exercise statement
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d
-\]
+$$
 
-with data matrix \(X\), show that:
+with data matrix $X$, show that:
 
-\[
+$$
 XX^\top
-\]
+$$
 
-is the Gram matrix with \((j,k)\)-entry:
+is the Gram matrix with $(j,k)$-entry:
 
-\[
+$$
 x_j^\top x_k.
-\]
+$$
 
 ### Derivation
 
-The \(j\)-th row of \(X\) is:
+The $j$-th row of $X$ is:
 
-\[
+$$
 x_j^\top.
-\]
+$$
 
-The \(k\)-th column of \(X^\top\) is:
+The $k$-th column of $X^\top$ is:
 
-\[
+$$
 x_k.
-\]
+$$
 
-Therefore, the \((j,k)\)-entry of \(XX^\top\) is:
+Therefore, the $(j,k)$-entry of $XX^\top$ is:
 
-\[
+$$
 (XX^\top)_{jk} = x_j^\top x_k.
-\]
+$$
 
 So:
 
-\[
+$$
 XX^\top
 =
 \begin{pmatrix}
@@ -945,7 +945,7 @@ x_2^\top x_1 & x_2^\top x_2 & \cdots & x_2^\top x_N \\
 \vdots & \vdots & \ddots & \vdots \\
 x_N^\top x_1 & x_N^\top x_2 & \cdots & x_N^\top x_N
 \end{pmatrix}.
-\]
+$$
 
 This is exactly the Gram matrix.
 
@@ -955,58 +955,58 @@ This is exactly the Gram matrix.
 
 ### Core idea
 
-The PCA basis vectors, or principal components, are the column vectors of the matrix \(V\) obtained from the SVD of the centred data matrix \(X\).
+The PCA basis vectors, or principal components, are the column vectors of the matrix $V$ obtained from the SVD of the centred data matrix $X$.
 
 ### Algorithm from the slides
 
 Inputs:
 
-\[
+$$
 x_1,\ldots,x_N,
-\]
+$$
 
 and a positive integer:
 
-\[
+$$
 k.
-\]
+$$
 
 Step 1. Recentre data:
 
-\[
+$$
 x_i \leftarrow x_i - \hat{\mu}.
-\]
+$$
 
 Step 2. Construct the centred data matrix:
 
-\[
+$$
 X =
 \begin{pmatrix}
 x_1^\top \\
 \vdots \\
 x_N^\top
 \end{pmatrix}.
-\]
+$$
 
 Step 3. Compute the SVD:
 
-\[
+$$
 X = USV^\top.
-\]
+$$
 
 Step 4. Let:
 
-\[
+$$
 v_1,\ldots,v_d
-\]
+$$
 
-be the column vectors of \(V\).
+be the column vectors of $V$.
 
 Step 5. Return:
 
-\[
+$$
 v_1,\ldots,v_k.
-\]
+$$
 
 ---
 
@@ -1016,53 +1016,53 @@ v_1,\ldots,v_k.
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d
-\]
+$$
 
 with data matrix:
 
-\[
+$$
 X \in \mathbb{R}^{N \times d},
-\]
+$$
 
 a pair of singular vectors:
 
-\[
+$$
 u \in \mathbb{R}^N,
 \qquad
 v \in \mathbb{R}^d,
-\]
+$$
 
 and singular value:
 
-\[
+$$
 \sigma > 0
-\]
+$$
 
 satisfy:
 
-\[
+$$
 \sigma u = Xv
-\]
+$$
 
 and:
 
-\[
+$$
 \sigma v = X^\top u.
-\]
+$$
 
 Equivalently:
 
-\[
+$$
 Xv = \sigma u,
-\]
+$$
 
 and:
 
-\[
+$$
 X^\top u = \sigma v.
-\]
+$$
 
 ---
 
@@ -1070,95 +1070,95 @@ X^\top u = \sigma v.
 
 The slides state:
 
-\[
+$$
 v \text{ is an eigenvector of } X^\top X \text{ with eigenvalue } \sigma^2,
-\]
+$$
 
 and:
 
-\[
+$$
 u \text{ is an eigenvector of } XX^\top \text{ with eigenvalue } \sigma^2.
-\]
+$$
 
-#### Derivation for \(v\)
+#### Derivation for $v$
 
 Start with:
 
-\[
+$$
 Xv = \sigma u.
-\]
+$$
 
-Left-multiply by \(X^\top\):
+Left-multiply by $X^\top$:
 
-\[
+$$
 X^\top Xv = X^\top(\sigma u).
-\]
+$$
 
-Pull out \(\sigma\):
+Pull out $\sigma$:
 
-\[
+$$
 X^\top Xv = \sigma X^\top u.
-\]
+$$
 
 Using:
 
-\[
+$$
 X^\top u = \sigma v,
-\]
+$$
 
 we get:
 
-\[
+$$
 X^\top Xv = \sigma(\sigma v).
-\]
+$$
 
 Therefore:
 
-\[
+$$
 X^\top Xv = \sigma^2 v.
-\]
+$$
 
-So \(v\) is an eigenvector of \(X^\top X\) with eigenvalue \(\sigma^2\).
+So $v$ is an eigenvector of $X^\top X$ with eigenvalue $\sigma^2$.
 
-#### Derivation for \(u\)
+#### Derivation for $u$
 
 Start with:
 
-\[
+$$
 X^\top u = \sigma v.
-\]
+$$
 
-Left-multiply by \(X\):
+Left-multiply by $X$:
 
-\[
+$$
 XX^\top u = X(\sigma v).
-\]
+$$
 
-Pull out \(\sigma\):
+Pull out $\sigma$:
 
-\[
+$$
 XX^\top u = \sigma Xv.
-\]
+$$
 
 Using:
 
-\[
+$$
 Xv = \sigma u,
-\]
+$$
 
 we get:
 
-\[
+$$
 XX^\top u = \sigma(\sigma u).
-\]
+$$
 
 Therefore:
 
-\[
+$$
 XX^\top u = \sigma^2 u.
-\]
+$$
 
-So \(u\) is an eigenvector of \(XX^\top\) with eigenvalue \(\sigma^2\).
+So $u$ is an eigenvector of $XX^\top$ with eigenvalue $\sigma^2$.
 
 ---
 
@@ -1166,63 +1166,63 @@ So \(u\) is an eigenvector of \(XX^\top\) with eigenvalue \(\sigma^2\).
 
 The SVD is:
 
-\[
+$$
 X = USV^\top.
-\]
+$$
 
 The slides give the following shapes:
 
-\[
+$$
 U \in \mathbb{R}^{N \times d},
-\]
+$$
 
 with columns:
 
-\[
+$$
 u_1,\ldots,u_d
-\]
+$$
 
 forming an orthonormal system in:
 
-\[
+$$
 \mathbb{R}^N.
-\]
+$$
 
 Also:
 
-\[
+$$
 V \in \mathbb{R}^{d \times d},
-\]
+$$
 
 with columns:
 
-\[
+$$
 v_1,\ldots,v_d
-\]
+$$
 
 forming an orthonormal basis of:
 
-\[
+$$
 \mathbb{R}^d.
-\]
+$$
 
 The diagonal matrix is:
 
-\[
+$$
 S = \operatorname{diag}(\sigma_1,\ldots,\sigma_d),
-\]
+$$
 
 with shape:
 
-\[
+$$
 d \times d.
-\]
+$$
 
 The singular values are ordered:
 
-\[
+$$
 \sigma_1 \geq \sigma_2 \geq \cdots \geq \sigma_d.
-\]
+$$
 
 The slide states that the singular values are all positive.
 
@@ -1238,13 +1238,13 @@ The statement that all singular values are positive assumes a full-rank setting.
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d,
-\]
+$$
 
 the Gram matrix is:
 
-\[
+$$
 G =
 \begin{pmatrix}
 x_1^\top x_1 & x_1^\top x_2 & \cdots & x_1^\top x_N \\
@@ -1252,29 +1252,29 @@ x_2^\top x_1 & x_2^\top x_2 & \cdots & x_2^\top x_N \\
 \vdots & \vdots & \ddots & \vdots \\
 x_N^\top x_1 & x_N^\top x_2 & \cdots & x_N^\top x_N
 \end{pmatrix}.
-\]
+$$
 
 It has shape:
 
-\[
+$$
 N \times N,
-\]
+$$
 
-where \(N\) is the number of data points.
+where $N$ is the number of data points.
 
 ### Matrix form
 
 The Gram matrix is:
 
-\[
+$$
 G = XX^\top,
-\]
+$$
 
 where:
 
-\[
+$$
 X \in \mathbb{R}^{N \times d}
-\]
+$$
 
 is the data matrix.
 
@@ -1284,15 +1284,15 @@ is the data matrix.
 
 If the data are not centred, they need to be recentred:
 
-\[
+$$
 \tilde{x}_i \leftarrow x_i - \hat{\mu}.
-\]
+$$
 
 This changes the Gram matrix.
 
 The centred Gram matrix is:
 
-\[
+$$
 \tilde{G}
 =
 G
@@ -1302,23 +1302,23 @@ G
 \frac{1}{N}G\mathbf{1}
 +
 \frac{1}{N^2}\mathbf{1}G\mathbf{1}.
-\]
+$$
 
 Here:
 
-\[
+$$
 \mathbf{1}
-\]
+$$
 
-is the \(N \times N\) matrix whose entries are all \(1\)'s.
+is the $N \times N$ matrix whose entries are all $1$'s.
 
 Important notation point:
 
-\[
+$$
 \mathbf{1} \neq I.
-\]
+$$
 
-That is, \(\mathbf{1}\) is the all-ones matrix, not the identity matrix.
+That is, $\mathbf{1}$ is the all-ones matrix, not the identity matrix.
 
 ---
 
@@ -1326,45 +1326,51 @@ That is, \(\mathbf{1}\) is the all-ones matrix, not the identity matrix.
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d,
-\]
+$$
 
 the slide procedure is:
 
 1. Construct the Gram matrix:
 
-   \[
-   G.
-   \]
+   
+
+$$
+G.
+$$
 
 2. Construct the centred Gram matrix:
 
-   \[
-   \tilde{G}.
-   \]
+   
+
+$$
+\tilde{G}.
+$$
 
 3. Apply EVD to the centred Gram matrix.
 
 4. Obtain eigenvalues:
 
-   \[
-   \lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_N \geq 0.
-   \]
+   
 
-5. For a positive integer \(k\), choose the top \(k\) eigenvalues.
+$$
+\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_N \geq 0.
+$$
+
+5. For a positive integer $k$, choose the top $k$ eigenvalues.
 
 ### Key warning from the slide
 
 The eigenvectors in this Gram-matrix formulation are in:
 
-\[
+$$
 \mathbb{R}^N,
-\]
+$$
 
 not in the original data space.
 
-This point is important because Kernel PCA also works through an \(N \times N\) matrix rather than directly through a \(d \times d\) covariance matrix.
+This point is important because Kernel PCA also works through an $N \times N$ matrix rather than directly through a $d \times d$ covariance matrix.
 
 ---
 
@@ -1404,23 +1410,23 @@ The point of the example is that Kernel PCA can use a nonlinear embedding before
 
 Suppose the original data space is:
 
-\[
+$$
 \mathbb{R}^2.
-\]
+$$
 
 Let:
 
-\[
+$$
 x =
 \begin{pmatrix}
 x_1 \\
 x_2
 \end{pmatrix}.
-\]
+$$
 
 The slides give a degree-2 polynomial expansion:
 
-\[
+$$
 \phi(x)
 =
 \begin{pmatrix}
@@ -1431,13 +1437,13 @@ x_1^2 \\
 x_2^2 \\
 \sqrt{2}x_1x_2
 \end{pmatrix}.
-\]
+$$
 
 This defines a nonlinear embedding:
 
-\[
+$$
 \phi : \mathbb{R}^2 \to \mathbb{R}^6.
-\]
+$$
 
 ---
 
@@ -1445,7 +1451,7 @@ This defines a nonlinear embedding:
 
 For two points:
 
-\[
+$$
 x =
 \begin{pmatrix}
 x_1 \\
@@ -1457,11 +1463,11 @@ x_2
 y_1 \\
 y_2
 \end{pmatrix},
-\]
+$$
 
 the scalar product in the feature space is:
 
-\[
+$$
 \phi(x)^\top \phi(y)
 =
 1
@@ -1470,29 +1476,29 @@ the scalar product in the feature space is:
 +x_1^2y_1^2
 +x_2^2y_2^2
 +2x_1x_2y_1y_2.
-\]
+$$
 
 This can be rewritten as:
 
-\[
+$$
 \phi(x)^\top \phi(y)
 =
 (1+x_1y_1+x_2y_2)^2.
-\]
+$$
 
 Since:
 
-\[
+$$
 x^\top y = x_1y_1+x_2y_2,
-\]
+$$
 
 we get:
 
-\[
+$$
 \phi(x)^\top \phi(y)
 =
 (1+x^\top y)^2.
-\]
+$$
 
 ---
 
@@ -1500,21 +1506,21 @@ we get:
 
 Define:
 
-\[
+$$
 \kappa(x,y)
 =
 (1+x^\top y)^2.
-\]
+$$
 
 Then:
 
-\[
+$$
 \phi(x)^\top \phi(y)
 =
 \kappa(x,y).
-\]
+$$
 
-This is the key computational idea: an inner product in the expanded feature space can be computed using only the original vectors \(x\) and \(y\).
+This is the key computational idea: an inner product in the expanded feature space can be computed using only the original vectors $x$ and $y$.
 
 ---
 
@@ -1522,13 +1528,13 @@ This is the key computational idea: an inner product in the expanded feature spa
 
 ### Formal-ish definition
 
-Let \(\mathcal{X}\) be a set.
+Let $\mathcal{X}$ be a set.
 
-A kernel on \(\mathcal{X}\) is a function:
+A kernel on $\mathcal{X}$ is a function:
 
-\[
+$$
 \kappa : \mathcal{X} \times \mathcal{X} \to \mathbb{R}
-\]
+$$
 
 satisfying two properties:
 
@@ -1541,15 +1547,15 @@ satisfying two properties:
 
 The kernel must satisfy:
 
-\[
+$$
 \kappa(x,x') = \kappa(x',x)
-\]
+$$
 
 for any:
 
-\[
+$$
 x,x' \in \mathcal{X}.
-\]
+$$
 
 ---
 
@@ -1557,42 +1563,42 @@ x,x' \in \mathcal{X}.
 
 The kernel must satisfy:
 
-\[
+$$
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \kappa(x_i,x_j)
 \geq 0.
-\]
+$$
 
 This must hold for:
 
-\[
+$$
 n \in \mathbb{N},
-\]
+$$
 
 any:
 
-\[
+$$
 x_1,\ldots,x_n \in \mathcal{X},
-\]
+$$
 
 and any:
 
-\[
+$$
 c_1,\ldots,c_n \in \mathbb{R}.
-\]
+$$
 
 ---
 
-## 27. Pen-and-paper exercise: showing \(\kappa(x,y)=(1+x^\top y)^2\) is a kernel
+## 27. Pen-and-paper exercise: showing $\kappa(x,y)=(1+x^\top y)^2$ is a kernel
 
 ### Exercise statement
 
 Show that:
 
-\[
+$$
 \kappa(x,y)=(1+x^\top y)^2
-\]
+$$
 
 meets the properties to be a kernel.
 
@@ -1600,27 +1606,27 @@ meets the properties to be a kernel.
 
 Because:
 
-\[
+$$
 x^\top y = y^\top x,
-\]
+$$
 
 we have:
 
-\[
+$$
 1+x^\top y = 1+y^\top x.
-\]
+$$
 
 Therefore:
 
-\[
+$$
 (1+x^\top y)^2 = (1+y^\top x)^2.
-\]
+$$
 
 So:
 
-\[
+$$
 \kappa(x,y)=\kappa(y,x).
-\]
+$$
 
 Thus the kernel is symmetric.
 
@@ -1628,13 +1634,13 @@ Thus the kernel is symmetric.
 
 From the feature-map example:
 
-\[
+$$
 \kappa(x,y)=\phi(x)^\top \phi(y).
-\]
+$$
 
-Then for any \(x_1,\ldots,x_n\) and \(c_1,\ldots,c_n\):
+Then for any $x_1,\ldots,x_n$ and $c_1,\ldots,c_n$:
 
-\[
+$$
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \kappa(x_i,x_j)
@@ -1642,11 +1648,11 @@ c_i c_j \kappa(x_i,x_j)
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \phi(x_i)^\top \phi(x_j).
-\]
+$$
 
 Regroup:
 
-\[
+$$
 =
 \left(
 \sum_{i=1}^{n}c_i\phi(x_i)
@@ -1654,25 +1660,25 @@ Regroup:
 \left(
 \sum_{j=1}^{n}c_j\phi(x_j)
 \right).
-\]
+$$
 
 This is a squared norm:
 
-\[
+$$
 =
 \left\|
 \sum_{i=1}^{n}c_i\phi(x_i)
 \right\|^2
 \geq 0.
-\]
+$$
 
-Therefore \(\kappa\) is positive semi-definite.
+Therefore $\kappa$ is positive semi-definite.
 
 So:
 
-\[
+$$
 \kappa(x,y)=(1+x^\top y)^2
-\]
+$$
 
 is a kernel.
 
@@ -1680,31 +1686,31 @@ is a kernel.
 
 ## 28. From feature map to kernel
 
-Let \(\mathcal{X}\) be a set, and let:
+Let $\mathcal{X}$ be a set, and let:
 
-\[
+$$
 \phi : \mathcal{X} \to H
-\]
+$$
 
-be a mapping into a Hilbert space \(H\).
+be a mapping into a Hilbert space $H$.
 
 Define:
 
-\[
+$$
 \kappa : \mathcal{X} \times \mathcal{X} \to \mathbb{R}
-\]
+$$
 
 by:
 
-\[
+$$
 \kappa(x,y)=\phi(x)^\top \phi(y).
-\]
+$$
 
 The slide states the claim:
 
-\[
+$$
 \kappa(\cdot,\cdot) \text{ is a kernel.}
-\]
+$$
 
 The proof is described as “routine calculations.”
 
@@ -1714,7 +1720,7 @@ Symmetry comes from the symmetry of the inner product.
 
 Positive semi-definiteness comes from:
 
-\[
+$$
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \kappa(x_i,x_j)
@@ -1723,21 +1729,21 @@ c_i c_j \kappa(x_i,x_j)
 \sum_{i=1}^{n}c_i\phi(x_i)
 \right\|^2
 \geq 0.
-\]
+$$
 
 ### [UNCLEAR]
 
 The slide uses transpose notation:
 
-\[
+$$
 \phi(x)^\top \phi(y),
-\]
+$$
 
-even though \(H\) is described as a Hilbert space. The next slide uses Hilbert-space inner product notation:
+even though $H$ is described as a Hilbert space. The next slide uses Hilbert-space inner product notation:
 
-\[
+$$
 \langle \phi(x),\phi(y)\rangle_H.
-\]
+$$
 
 The transcript is needed to confirm whether the lecturer was temporarily using finite-dimensional Euclidean notation for intuition or moving directly to the general Hilbert-space setting.
 
@@ -1749,42 +1755,42 @@ The slides state the converse direction.
 
 Let:
 
-\[
+$$
 \kappa : \mathcal{X} \times \mathcal{X} \to \mathbb{R}
-\]
+$$
 
-be a kernel on \(\mathcal{X}\).
+be a kernel on $\mathcal{X}$.
 
 Then there exists:
 
-- a Hilbert space \(H\),
+- a Hilbert space $H$,
 - a feature map:
 
-\[
+$$
 \phi : \mathcal{X} \to H,
-\]
+$$
 
 such that:
 
-\[
+$$
 \kappa(x,y)
 =
 \langle \phi(x),\phi(y)\rangle_H
-\]
+$$
 
 for every:
 
-\[
+$$
 x,y \in \mathcal{X}.
-\]
+$$
 
 The slides state that proving this claim is highly nontrivial and requires a lot of work.
 
-The Hilbert space \(H\) is called a:
+The Hilbert space $H$ is called a:
 
-\[
+$$
 \text{Reproducing Kernel Hilbert Space, or RKHS}.
-\]
+$$
 
 The slide also notes that RKHS theory could take a whole course unit to cover.
 
@@ -1796,25 +1802,25 @@ The slide also notes that RKHS theory could take a whole course unit to cover.
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d,
-\]
+$$
 
 and a kernel:
 
-\[
+$$
 \kappa(\cdot,\cdot)
-\]
+$$
 
 on:
 
-\[
+$$
 \mathbb{R}^d,
-\]
+$$
 
 the kernel matrix is:
 
-\[
+$$
 K =
 \begin{pmatrix}
 \kappa(x_1,x_1) & \kappa(x_1,x_2) & \cdots & \kappa(x_1,x_N) \\
@@ -1822,45 +1828,45 @@ K =
 \vdots & \vdots & \ddots & \vdots \\
 \kappa(x_N,x_1) & \kappa(x_N,x_2) & \cdots & \kappa(x_N,x_N)
 \end{pmatrix}.
-\]
+$$
 
 Thus:
 
-\[
+$$
 K_{ij} = \kappa(x_i,x_j).
-\]
+$$
 
 ### Relationship to feature maps
 
-If a feature map \(\phi\) were known, the slides write:
+If a feature map $\phi$ were known, the slides write:
 
-\[
+$$
 K = \phi(X)\phi(X)^\top.
-\]
+$$
 
 This mirrors the Gram matrix identity:
 
-\[
+$$
 G = XX^\top.
-\]
+$$
 
 The difference is that the ordinary dot product:
 
-\[
+$$
 x_i^\top x_j
-\]
+$$
 
 is replaced by the kernel value:
 
-\[
+$$
 \kappa(x_i,x_j),
-\]
+$$
 
 which corresponds to an inner product after embedding.
 
 ### [UNCLEAR]
 
-The notation \(\phi(X)\) is compact. The transcript is needed to confirm whether the lecturer explicitly defined it as the data matrix after applying \(\phi\) row-wise to each data point.
+The notation $\phi(X)$ is compact. The transcript is needed to confirm whether the lecturer explicitly defined it as the data matrix after applying $\phi$ row-wise to each data point.
 
 ---
 
@@ -1868,19 +1874,19 @@ The notation \(\phi(X)\) is compact. The transcript is needed to confirm whether
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d,
-\]
+$$
 
 and kernel:
 
-\[
+$$
 \kappa(\cdot,\cdot),
-\]
+$$
 
 the centred kernel matrix is:
 
-\[
+$$
 \tilde{K}
 =
 K
@@ -1890,19 +1896,19 @@ K
 \frac{1}{N}K\mathbf{1}
 +
 \frac{1}{N^2}\mathbf{1}K\mathbf{1}.
-\]
+$$
 
 Here:
 
-\[
+$$
 \mathbf{1}
-\]
+$$
 
-is the \(N \times N\) matrix whose entries are all \(1\)'s.
+is the $N \times N$ matrix whose entries are all $1$'s.
 
 This is directly analogous to the centred Gram matrix formula:
 
-\[
+$$
 \tilde{G}
 =
 G
@@ -1912,7 +1918,7 @@ G
 \frac{1}{N}G\mathbf{1}
 +
 \frac{1}{N^2}\mathbf{1}G\mathbf{1}.
-\]
+$$
 
 ---
 
@@ -1922,49 +1928,55 @@ The Kernel PCA procedure from the slides is as follows.
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d
-\]
+$$
 
 and a kernel:
 
-\[
+$$
 \kappa(\cdot,\cdot)
-\]
+$$
 
-on \(\mathbb{R}^d\):
+on $\mathbb{R}^d$:
 
 1. Construct the kernel matrix:
 
-   \[
-   K.
-   \]
+   
+
+$$
+K.
+$$
 
 2. Construct the centred kernel matrix:
 
-   \[
-   \tilde{K}.
-   \]
+   
+
+$$
+\tilde{K}.
+$$
 
 3. Apply EVD to the centred kernel matrix.
 
 4. This produces eigenvalues:
 
-   \[
-   \lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_N \geq 0.
-   \]
+   
 
-5. For a positive integer \(k\), choose the top \(k\) eigenvalues.
+$$
+\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_N \geq 0.
+$$
+
+5. For a positive integer $k$, choose the top $k$ eigenvalues.
 
 ### Slide warning
 
 The slide states:
 
-> The eigenvectors in this case are in \(H\), not in data space.
+> The eigenvectors in this case are in $H$, not in data space.
 
 ### [UNCLEAR]
 
-The centred kernel matrix \(\tilde{K}\) is an \(N \times N\) matrix, so its literal eigenvectors are \(N\)-dimensional coefficient vectors. The corresponding principal directions live in the feature / Hilbert space \(H\). The transcript is needed to confirm exactly how the lecturer explained this point.
+The centred kernel matrix $\tilde{K}$ is an $N \times N$ matrix, so its literal eigenvectors are $N$-dimensional coefficient vectors. The corresponding principal directions live in the feature / Hilbert space $H$. The transcript is needed to confirm exactly how the lecturer explained this point.
 
 ---
 
@@ -1996,7 +2008,7 @@ Kernel PCA:
 
 ---
 
-## Independent Component Analysis \(\mathrm{ICA}\)
+## Independent Component Analysis $\mathrm{ICA}$
 
 ### Intuition
 
@@ -2016,11 +2028,11 @@ The original sources are hidden. Only their mixtures are observed.
 
 ### Formal setting in this lecture
 
-\[
+$$
 x = As.
-\]
+$$
 
-Here \(x\) is observed, while \(A\) and \(s\) must be estimated.
+Here $x$ is observed, while $A$ and $s$ must be estimated.
 
 ---
 
@@ -2028,15 +2040,15 @@ Here \(x\) is observed, while \(A\) and \(s\) must be estimated.
 
 The matrix:
 
-\[
+$$
 A
-\]
+$$
 
 in:
 
-\[
+$$
 x=As.
-\]
+$$
 
 It maps source signals to observed mixed signals.
 
@@ -2046,17 +2058,17 @@ It maps source signals to observed mixed signals.
 
 The matrix:
 
-\[
+$$
 W
-\]
+$$
 
 used to estimate sources by:
 
-\[
+$$
 \hat{s}=Wx.
-\]
+$$
 
-ICA seeks \(W\) such that the components of \(\hat{s}\) are statistically independent.
+ICA seeks $W$ such that the components of $\hat{s}$ are statistically independent.
 
 ---
 
@@ -2064,9 +2076,9 @@ ICA seeks \(W\) such that the components of \(\hat{s}\) are statistically indepe
 
 A linear change of basis such that:
 
-\[
+$$
 \mathbb{E}[ss^\top]=I.
-\]
+$$
 
 In the lecture slides, this corresponds to identity covariance, uncorrelated components, and unit variance components.
 
@@ -2074,9 +2086,9 @@ In the lecture slides, this corresponds to identity covariance, uncorrelated com
 
 ## Kurtosis
 
-For random variable \(X\):
+For random variable $X$:
 
-\[
+$$
 \kappa
 =
 \mathbb{E}
@@ -2085,21 +2097,21 @@ For random variable \(X\):
 \frac{X-\mu}{\sigma}
 \right)^4
 \right].
-\]
+$$
 
 Gaussian variables have:
 
-\[
+$$
 \kappa=3.
-\]
+$$
 
 ---
 
 ## Excess kurtosis
 
-\[
+$$
 \kappa-3.
-\]
+$$
 
 Used in the lecture as a measure of non-Gaussianity.
 
@@ -2107,17 +2119,17 @@ Used in the lecture as a measure of non-Gaussianity.
 
 ## Gram matrix
 
-For data points \(x_1,\ldots,x_N\):
+For data points $x_1,\ldots,x_N$:
 
-\[
+$$
 G_{jk}=x_j^\top x_k.
-\]
+$$
 
 Matrix form:
 
-\[
+$$
 G=XX^\top.
-\]
+$$
 
 ---
 
@@ -2125,18 +2137,18 @@ G=XX^\top.
 
 A function:
 
-\[
+$$
 \kappa : \mathcal{X}\times \mathcal{X}\to \mathbb{R}
-\]
+$$
 
 that is symmetric and positive semi-definite:
 
-\[
+$$
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \kappa(x_i,x_j)
 \geq 0.
-\]
+$$
 
 ---
 
@@ -2144,15 +2156,15 @@ c_i c_j \kappa(x_i,x_j)
 
 A mapping:
 
-\[
+$$
 \phi:\mathcal{X}\to H
-\]
+$$
 
 into a Hilbert space. If:
 
-\[
+$$
 \kappa(x,y)=\langle \phi(x),\phi(y)\rangle_H,
-\]
+$$
 
 then the kernel computes inner products in the feature space.
 
@@ -2160,11 +2172,11 @@ then the kernel computes inner products in the feature space.
 
 ## Kernel matrix
 
-For data points \(x_1,\ldots,x_N\):
+For data points $x_1,\ldots,x_N$:
 
-\[
+$$
 K_{ij}=\kappa(x_i,x_j).
-\]
+$$
 
 It is the kernel analogue of the Gram matrix.
 
@@ -2172,11 +2184,11 @@ It is the kernel analogue of the Gram matrix.
 
 ## RKHS
 
-A **Reproducing Kernel Hilbert Space** is the Hilbert space \(H\) associated with a kernel \(\kappa\), where there exists a feature map \(\phi\) such that:
+A **Reproducing Kernel Hilbert Space** is the Hilbert space $H$ associated with a kernel $\kappa$, where there exists a feature map $\phi$ such that:
 
-\[
+$$
 \kappa(x,y)=\langle \phi(x),\phi(y)\rangle_H.
-\]
+$$
 
 The slides state that proving this existence result is highly nontrivial.
 
@@ -2190,37 +2202,45 @@ The slides state that proving this existence result is highly nontrivial.
 
 Given observed mixtures:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^m,
-\]
+$$
 
 1. Form the data matrix:
 
-   \[
-   X \in \mathbb{R}^{N\times m}.
-   \]
+   
+
+$$
+X \in \mathbb{R}^{N\times m}.
+$$
 
 2. Seek an unmixing matrix:
 
-   \[
-   W.
-   \]
+   
+
+$$
+W.
+$$
 
 3. Estimate sources by:
 
-   \[
-   \hat{s}=Wx.
-   \]
+   
 
-4. Choose \(W\) to maximise statistical independence of the components of \(\hat{s}\).
+$$
+\hat{s}=Wx.
+$$
+
+4. Choose $W$ to maximise statistical independence of the components of $\hat{s}$.
 
 5. Under the SVD/eigendecomposition argument in the slides:
 
-   \[
-   W=QD^{1/2}V^\top.
-   \]
+   
 
-6. The remaining task is estimating the orthogonal matrix \(V\), called projection pursuit.
+$$
+W=QD^{1/2}V^\top.
+$$
+
+6. The remaining task is estimating the orthogonal matrix $V$, called projection pursuit.
 
 ---
 
@@ -2228,53 +2248,67 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
 
 1. Recentre:
 
-   \[
-   x_i\leftarrow x_i-\hat{\mu}.
-   \]
+   
 
-2. Form centred data matrix \(X\).
+$$
+x_i\leftarrow x_i-\hat{\mu}.
+$$
+
+2. Form centred data matrix $X$.
 
 3. Compute:
 
-   \[
-   \Sigma'=X^\top X.
-   \]
+   
+
+$$
+\Sigma'=X^\top X.
+$$
 
 4. Compute eigenpairs:
 
-   \[
-   (\lambda_i,v_i).
-   \]
+   
+
+$$
+(\lambda_i,v_i).
+$$
 
 5. Sort:
 
-   \[
-   \lambda_1\geq \cdots \geq \lambda_d\geq 0.
-   \]
+   
+
+$$
+\lambda_1\geq \cdots \geq \lambda_d\geq 0.
+$$
 
 6. Return:
 
-   \[
-   v_1,\ldots,v_k.
-   \]
+   
+
+$$
+v_1,\ldots,v_k.
+$$
 
 ---
 
 ## Linear PCA via SVD
 
 1. Recentre data.
-2. Form centred data matrix \(X\).
+2. Form centred data matrix $X$.
 3. Compute:
 
-   \[
-   X=USV^\top.
-   \]
+   
 
-4. Return the first \(k\) columns of \(V\):
+$$
+X=USV^\top.
+$$
 
-   \[
-   v_1,\ldots,v_k.
-   \]
+4. Return the first $k$ columns of $V$:
+
+   
+
+$$
+v_1,\ldots,v_k.
+$$
 
 ---
 
@@ -2282,14 +2316,18 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
 
 1. Construct:
 
-   \[
-   G=XX^\top.
-   \]
+   
+
+$$
+G=XX^\top.
+$$
 
 2. Centre it:
 
-   \[
-   \tilde{G}
+   
+
+$$
+\tilde{G}
    =
    G
    -
@@ -2298,11 +2336,11 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
    \frac{1}{N}G\mathbf{1}
    +
    \frac{1}{N^2}\mathbf{1}G\mathbf{1}.
-   \]
+$$
 
 3. Apply EVD.
-4. Choose the top \(k\) eigenvalues.
-5. Remember: the eigenvectors here are in \(\mathbb{R}^N\), not data space.
+4. Choose the top $k$ eigenvalues.
+5. Remember: the eigenvectors here are in $\mathbb{R}^N$, not data space.
 
 ---
 
@@ -2310,20 +2348,26 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
 
 1. Choose a kernel:
 
-   \[
-   \kappa(\cdot,\cdot).
-   \]
+   
+
+$$
+\kappa(\cdot,\cdot).
+$$
 
 2. Construct:
 
-   \[
-   K_{ij}=\kappa(x_i,x_j).
-   \]
+   
+
+$$
+K_{ij}=\kappa(x_i,x_j).
+$$
 
 3. Centre it:
 
-   \[
-   \tilde{K}
+   
+
+$$
+\tilde{K}
    =
    K
    -
@@ -2332,16 +2376,18 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
    \frac{1}{N}K\mathbf{1}
    +
    \frac{1}{N^2}\mathbf{1}K\mathbf{1}.
-   \]
+$$
 
-4. Apply EVD to \(\tilde{K}\).
+4. Apply EVD to $\tilde{K}$.
 5. Sort eigenvalues:
 
-   \[
-   \lambda_1\geq \cdots \geq \lambda_N\geq 0.
-   \]
+   
 
-6. Choose the top \(k\).
+$$
+\lambda_1\geq \cdots \geq \lambda_N\geq 0.
+$$
+
+6. Choose the top $k$.
 
 ---
 
@@ -2349,39 +2395,39 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
 
 ---
 
-## Exercise 1: \(X^\top X = \sum_i x_i x_i^\top\)
+## Exercise 1: $X^\top X = \sum_i x_i x_i^\top$
 
 See Section 16.
 
 Key result:
 
-\[
+$$
 X^\top X
 =
 \sum_{i=1}^{N}x_i x_i^\top.
-\]
+$$
 
 ---
 
-## Exercise 2: \(XX^\top\) is the Gram matrix
+## Exercise 2: $XX^\top$ is the Gram matrix
 
 See Section 18.
 
 Key result:
 
-\[
+$$
 (XX^\top)_{jk}=x_j^\top x_k.
-\]
+$$
 
 Therefore:
 
-\[
+$$
 XX^\top = G.
-\]
+$$
 
 ---
 
-## Exercise 3: \(\kappa(x,y)=(1+x^\top y)^2\) is a kernel
+## Exercise 3: $\kappa(x,y)=(1+x^\top y)^2$ is a kernel
 
 See Section 27.
 
@@ -2389,24 +2435,30 @@ Key steps:
 
 1. Symmetry follows from:
 
-   \[
-   x^\top y = y^\top x.
-   \]
+   
+
+$$
+x^\top y = y^\top x.
+$$
 
 2. Positive semi-definiteness follows from the feature map representation:
 
-   \[
-   \kappa(x,y)=\phi(x)^\top\phi(y).
-   \]
+   
+
+$$
+\kappa(x,y)=\phi(x)^\top\phi(y).
+$$
 
 3. Therefore:
 
-   \[
-   \sum_{i,j}c_ic_j\kappa(x_i,x_j)
+   
+
+$$
+\sum_{i,j}c_ic_j\kappa(x_i,x_j)
    =
    \left\|\sum_i c_i\phi(x_i)\right\|^2
    \geq 0.
-   \]
+$$
 
 ---
 
@@ -2428,28 +2480,36 @@ The slides explicitly mark three pen-and-paper exercises:
 
 1. Show:
 
-   \[
-   X^\top X=
+   
+
+$$
+X^\top X=
    \sum_{i=1}^{N}x_ix_i^\top.
-   \]
+$$
 
 2. Show:
 
-   \[
-   XX^\top
-   \]
+   
 
-   is the Gram matrix with \((j,k)\)-entry:
+$$
+XX^\top
+$$
 
-   \[
-   x_j^\top x_k.
-   \]
+   is the Gram matrix with $(j,k)$-entry:
+
+   
+
+$$
+x_j^\top x_k.
+$$
 
 3. Show:
 
-   \[
-   \kappa(x,y)=(1+x^\top y)^2
-   \]
+   
+
+$$
+\kappa(x,y)=(1+x^\top y)^2
+$$
 
    is a kernel.
 
@@ -2464,15 +2524,19 @@ Based on slide emphasis, the following are core revision targets:
 - ICA as blind source separation.
 - The ICA linear mixing model:
 
-  \[
-  x=As.
-  \]
+  
+
+$$
+x=As.
+$$
 
 - The ICA unmixing model:
 
-  \[
-  \hat{s}=Wx.
-  \]
+  
+
+$$
+\hat{s}=Wx.
+$$
 
 - ICA assumptions:
   - independent sources,
@@ -2514,33 +2578,33 @@ Distributional assumptions also differ:
 
 Linear PCA can be expressed using the Gram matrix:
 
-\[
+$$
 G=XX^\top.
-\]
+$$
 
 Kernel PCA replaces the ordinary dot product entries:
 
-\[
+$$
 x_i^\top x_j
-\]
+$$
 
 with kernel entries:
 
-\[
+$$
 \kappa(x_i,x_j).
-\]
+$$
 
 Thus:
 
-\[
+$$
 G_{ij}=x_i^\top x_j
-\]
+$$
 
 becomes:
 
-\[
+$$
 K_{ij}=\kappa(x_i,x_j).
-\]
+$$
 
 This is the main analogy between linear PCA via Gram matrices and Kernel PCA via kernel matrices.
 
@@ -2550,9 +2614,9 @@ This is the main analogy between linear PCA via Gram matrices and Kernel PCA via
 
 The kernel corresponds to an inner product in some Hilbert space:
 
-\[
+$$
 \kappa(x,y)=\langle \phi(x),\phi(y)\rangle_H.
-\]
+$$
 
 Kernel PCA performs PCA-like operations in the embedded space using kernel evaluations rather than explicit coordinates in the feature space.
 
@@ -2566,31 +2630,37 @@ The following sections need the lecture recording or transcript to resolve fully
 
 2. **ICA SVD step.** The slides state:
 
-   \[
-   X^\top X = WW^\top,
-   \]
+   
+
+$$
+X^\top X = WW^\top,
+$$
 
    but the visible slide content does not justify this equality.
 
 3. **Whitening and centering.** The slide writes:
 
-   \[
-   \mathbb{E}[ss^\top]=I
-   \]
+   
+
+$$
+\mathbb{E}[ss^\top]=I
+$$
 
    and describes it as covariance identity. The transcript is needed to confirm whether zero-mean centering was explicitly assumed.
 
 4. **SVD rank assumptions.** The slide describes all singular values as positive. The transcript is needed to check whether full rank was assumed or whether rank-deficient cases were ignored for simplicity.
 
-5. **Kernel PCA eigenvectors.** The slide says eigenvectors are in \(H\), but EVD of the \(N\times N\) kernel matrix gives \(N\)-dimensional coefficient vectors. The associated principal directions live in \(H\). The transcript is needed for the lecturer’s exact explanation.
+5. **Kernel PCA eigenvectors.** The slide says eigenvectors are in $H$, but EVD of the $N\times N$ kernel matrix gives $N$-dimensional coefficient vectors. The associated principal directions live in $H$. The transcript is needed for the lecturer’s exact explanation.
 
-6. **\(\phi(X)\) notation.** The slide writes:
+6. **$\phi(X)$ notation.** The slide writes:
 
-   \[
-   K=\phi(X)\phi(X)^\top.
-   \]
+   
 
-   The transcript may clarify whether \(\phi(X)\) was defined explicitly as the row-wise feature-mapped data matrix.
+$$
+K=\phi(X)\phi(X)^\top.
+$$
+
+   The transcript may clarify whether $\phi(X)$ was defined explicitly as the row-wise feature-mapped data matrix.
 
 7. **Slide typos.** The slide deck contains minor typos, including “Prerform ICA” and “Optimisation opbjective.” These are treated as “Perform ICA” and “Optimisation objective.”
 
@@ -2602,49 +2672,49 @@ The following sections need the lecture recording or transcript to resolve fully
 
 Source vector:
 
-\[
+$$
 s=(s_1,\ldots,s_n)^\top \in \mathbb{R}^n.
-\]
+$$
 
 Mixed vector:
 
-\[
+$$
 x=(x_1,\ldots,x_m)^\top \in \mathbb{R}^m.
-\]
+$$
 
 Linear mixing model:
 
-\[
+$$
 x=As.
-\]
+$$
 
 Whitened source condition:
 
-\[
+$$
 \mathbb{E}[ss^\top]=I.
-\]
+$$
 
 Unmixing model:
 
-\[
+$$
 \hat{s}=Wx.
-\]
+$$
 
-SVD of \(W\):
+SVD of $W$:
 
-\[
+$$
 W=USV^\top.
-\]
+$$
 
 Derived form from slides:
 
-\[
+$$
 W=QD^{1/2}V^\top.
-\]
+$$
 
 Kurtosis:
 
-\[
+$$
 \kappa
 =
 \mathbb{E}
@@ -2653,19 +2723,19 @@ Kurtosis:
 \frac{X-\mu}{\sigma}
 \right)^4
 \right].
-\]
+$$
 
 Excess kurtosis:
 
-\[
+$$
 \kappa-3.
-\]
+$$
 
 Additive noise model:
 
-\[
+$$
 x=As+\epsilon.
-\]
+$$
 
 ---
 
@@ -2673,7 +2743,7 @@ x=As+\epsilon.
 
 Data matrix:
 
-\[
+$$
 X=
 \begin{pmatrix}
 x_1^\top \\
@@ -2681,61 +2751,61 @@ x_1^\top \\
 x_N^\top
 \end{pmatrix}
 \in \mathbb{R}^{N\times d}.
-\]
+$$
 
 Sample mean:
 
-\[
+$$
 \hat{\mu}=\frac{1}{N}\sum_{i=1}^N x_i.
-\]
+$$
 
 Sample covariance:
 
-\[
+$$
 \Sigma=
 \frac{1}{N}
 \sum_{i=1}^{N}(x_i-\hat{\mu})(x_i-\hat{\mu})^\top.
-\]
+$$
 
 For centred data:
 
-\[
+$$
 \Sigma = \frac{1}{N}X^\top X.
-\]
+$$
 
 SVD:
 
-\[
+$$
 X=USV^\top.
-\]
+$$
 
 Singular vector equations:
 
-\[
+$$
 \sigma u = Xv,
 \qquad
 \sigma v = X^\top u.
-\]
+$$
 
 Eigenvector relationships:
 
-\[
+$$
 X^\top Xv=\sigma^2v,
-\]
+$$
 
-\[
+$$
 XX^\top u=\sigma^2u.
-\]
+$$
 
 Gram matrix:
 
-\[
+$$
 G=XX^\top.
-\]
+$$
 
 Centred Gram matrix:
 
-\[
+$$
 \tilde{G}
 =
 G
@@ -2745,7 +2815,7 @@ G
 \frac{1}{N}G\mathbf{1}
 +
 \frac{1}{N^2}\mathbf{1}G\mathbf{1}.
-\]
+$$
 
 ---
 
@@ -2753,7 +2823,7 @@ G
 
 Feature map example:
 
-\[
+$$
 \phi(x)
 =
 \begin{pmatrix}
@@ -2764,44 +2834,44 @@ x_1^2 \\
 x_2^2 \\
 \sqrt{2}x_1x_2
 \end{pmatrix}.
-\]
+$$
 
 Polynomial kernel from the feature map:
 
-\[
+$$
 \kappa(x,y)=(1+x^\top y)^2.
-\]
+$$
 
 Kernel symmetry:
 
-\[
+$$
 \kappa(x,x')=\kappa(x',x).
-\]
+$$
 
 Kernel PSD condition:
 
-\[
+$$
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \kappa(x_i,x_j)
 \geq 0.
-\]
+$$
 
 Kernel as inner product:
 
-\[
+$$
 \kappa(x,y)=\langle \phi(x),\phi(y)\rangle_H.
-\]
+$$
 
 Kernel matrix:
 
-\[
+$$
 K_{ij}=\kappa(x_i,x_j).
-\]
+$$
 
 Centred kernel matrix:
 
-\[
+$$
 \tilde{K}
 =
 K
@@ -2811,5 +2881,5 @@ K
 \frac{1}{N}K\mathbf{1}
 +
 \frac{1}{N^2}\mathbf{1}K\mathbf{1}.
-\]
+$$
 

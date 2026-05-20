@@ -181,9 +181,9 @@ A desirable clustering method should require minimal domain knowledge to determi
 
 K-means partly violates this desirable property because the user must specify:
 
-\[
+$$
 K,
-\]
+$$
 
 the number of clusters, before running the algorithm.
 
@@ -238,11 +238,11 @@ _Source: slide p. 7._
 
 Given data points, also called objects,
 
-\[
+$$
 x_1, \ldots, x_N,
-\]
+$$
 
-K-means aims to partition them into \(K\) clusters.
+K-means aims to partition them into $K$ clusters.
 
 _Source: slide p. 8._
 
@@ -252,16 +252,16 @@ _Source: slide p. 8._
 
 ### Inputs
 
-- Data points \(x_1, \ldots, x_N\)
-- A chosen number of clusters \(K\)
+- Data points $x_1, \ldots, x_N$
+- A chosen number of clusters $K$
 
 ### Algorithm from the slides
 
-1. Choose a value for \(K\), the number of clusters.
-2. Initialize the \(K\) cluster centres, randomly if necessary.
-3. Decide the class memberships of the \(N\) objects by assigning each object to the nearest cluster centre.
-4. Re-estimate the \(K\) cluster centres, assuming the memberships found above are correct.
-5. Repeat steps 3 and 4 until none of the \(N\) objects changed membership in the last iteration.
+1. Choose a value for $K$, the number of clusters.
+2. Initialize the $K$ cluster centres, randomly if necessary.
+3. Decide the class memberships of the $N$ objects by assigning each object to the nearest cluster centre.
+4. Re-estimate the $K$ cluster centres, assuming the memberships found above are correct.
+5. Repeat steps 3 and 4 until none of the $N$ objects changed membership in the last iteration.
 
 _Source: slide p. 8._
 
@@ -284,15 +284,15 @@ A cluster centre represents the “middle” or representative point of a cluste
 
 ### Formalism available in the slides
 
-The slides use \(\mu_k\) as the centre of cluster \(C_k\) in the K-means objective:
+The slides use $\mu_k$ as the centre of cluster $C_k$ in the K-means objective:
 
-\[
+$$
 \sum_{k=1}^{K} \sum_{x \in C_k} \|x - \mu_k\|^2.
-\]
+$$
 
 _Source: slide p. 10._
 
-**[UNCLEAR: transcript not provided]** The slides do not explicitly define \(\mu_k\) as the arithmetic mean of the assigned points, though that is the standard K-means update. Only the slide content is included here.
+**[UNCLEAR: transcript not provided]** The slides do not explicitly define $\mu_k$ as the arithmetic mean of the assigned points, though that is the standard K-means update. Only the slide content is included here.
 
 ---
 
@@ -312,17 +312,17 @@ _Source: slide p. 9._
 
 K-means optimises the total squared distance of data points to their cluster centres:
 
-\[
+$$
 \sum_{k=1}^{K} \sum_{x \in C_k} \|x - \mu_k\|^2.
-\]
+$$
 
 Where:
 
-- \(K\) is the number of clusters;
-- \(C_k\) is cluster \(k\);
-- \(x\) is a data point assigned to \(C_k\);
-- \(\mu_k\) is the centre of cluster \(C_k\);
-- \(\|x - \mu_k\|^2\) is the squared Euclidean distance between the point and its cluster centre.
+- $K$ is the number of clusters;
+- $C_k$ is cluster $k$;
+- $x$ is a data point assigned to $C_k$;
+- $\mu_k$ is the centre of cluster $C_k$;
+- $\|x - \mu_k\|^2$ is the squared Euclidean distance between the point and its cluster centre.
 
 _Source: slide p. 10._
 
@@ -336,11 +336,11 @@ _Source: slide p. 10._
 
 The intuition is:
 
-\[
+$$
 \text{small distance to cluster centre}
 \quad \Rightarrow \quad
 \text{high similarity within cluster}.
-\]
+$$
 
 ---
 
@@ -443,9 +443,9 @@ _Source: slide p. 13._
 
 ## 7.2 Weaknesses of K-means
 
-### Need to specify \(K\) in advance
+### Need to specify $K$ in advance
 
-K-means requires the number of clusters \(K\) before running the algorithm.
+K-means requires the number of clusters $K$ before running the algorithm.
 
 ### Only applicable when the mean is defined
 
@@ -549,17 +549,17 @@ _Source: slide p. 25._
 
 Given data points
 
-\[
+$$
 x_1, \ldots, x_N,
-\]
+$$
 
 define similarity weights
 
-\[
+$$
 w_{i,j} = s(x_i, x_j),
-\]
+$$
 
-where \(s\) is a chosen similarity function.
+where $s$ is a chosen similarity function.
 
 _Source: slide p. 16._
 
@@ -573,15 +573,15 @@ Instead of clustering directly from coordinates, spectral clustering first build
 
 The data are represented as a weighted graph:
 
-\[
+$$
 G = (V, E, W).
-\]
+$$
 
 The components are:
 
-- \(V\): vertices, corresponding to data points;
-- \(E\): edges, where an edge exists if \(w_{i,j} > 0\);
-- \(W\): weights over edges.
+- $V$: vertices, corresponding to data points;
+- $E$: edges, where an edge exists if $w_{i,j} > 0$;
+- $W$: weights over edges.
 
 _Source: slide p. 16._
 
@@ -589,13 +589,13 @@ _Source: slide p. 16._
 
 The diagram shows the transformation:
 
-\[
+$$
 \text{data points}
 \quad \rightarrow \quad
 \text{similarity matrix}
 \quad \rightarrow \quad
 \text{similarity graph}.
-\]
+$$
 
 The original points are shown as groups, then encoded in a similarity matrix, and finally represented as a graph with weighted connections.
 
@@ -607,13 +607,13 @@ The original points are shown as groups, then encoded in a similarity matrix, an
 
 The Gaussian kernel similarity is:
 
-\[
+$$
 w_{i,j}
 =
 \exp\left(
 -\frac{\|x_i - x_j\|^2}{2\sigma^2}
 \right).
-\]
+$$
 
 _Source: slide p. 17._
 
@@ -623,16 +623,16 @@ _Source: slide p. 17._
 
 The Gaussian kernel produces values in the range:
 
-\[
+$$
 (0,1].
-\]
+$$
 
 The interpretation is:
 
-- the closer \(w_{i,j}\) is to \(1\), the more similar \(x_i\) and \(x_j\) are;
-- \(w_{i,j}=1\) when \(x_i=x_j\);
-- the closer \(w_{i,j}\) is to \(0\), the less similar the points are;
-- \(w_{i,j} \to 0\) when \(\|x_i-x_j\| \to \infty\).
+- the closer $w_{i,j}$ is to $1$, the more similar $x_i$ and $x_j$ are;
+- $w_{i,j}=1$ when $x_i=x_j$;
+- the closer $w_{i,j}$ is to $0$, the less similar the points are;
+- $w_{i,j} \to 0$ when $\|x_i-x_j\| \to \infty$.
 
 _Source: slide p. 17._
 
@@ -642,21 +642,21 @@ _Source: slide p. 17._
 
 The Gaussian kernel turns distance into similarity:
 
-\[
+$$
 \text{small distance}
 \quad \Rightarrow \quad
 \text{similarity near }1,
-\]
+$$
 
-\[
+$$
 \text{large distance}
 \quad \Rightarrow \quad
 \text{similarity near }0.
-\]
+$$
 
-The parameter \(\sigma\) controls how distance is scaled inside the similarity calculation.
+The parameter $\sigma$ controls how distance is scaled inside the similarity calculation.
 
-**[UNCLEAR: transcript not provided]** The slides do not discuss how to choose \(\sigma\).
+**[UNCLEAR: transcript not provided]** The slides do not discuss how to choose $\sigma$.
 
 ---
 
@@ -666,13 +666,13 @@ The parameter \(\sigma\) controls how distance is scaled inside the similarity c
 
 Recall the similarity weights:
 
-\[
+$$
 w_{i,j} = s(x_i, x_j).
-\]
+$$
 
 The weights matrix is:
 
-\[
+$$
 W =
 \begin{pmatrix}
 w_{1,1} & w_{1,2} & \cdots & w_{1,N} \\
@@ -680,7 +680,7 @@ w_{2,1} & w_{2,2} & \cdots & w_{2,N} \\
 \vdots & \vdots & \ddots & \vdots \\
 w_{N,1} & w_{N,2} & \cdots & w_{N,N}
 \end{pmatrix}.
-\]
+$$
 
 _Source: slide p. 18._
 
@@ -690,7 +690,7 @@ _Source: slide p. 18._
 
 The similarity matrix is square and symmetric because:
 
-\[
+$$
 w_{i,j}
 =
 s(x_i,x_j)
@@ -698,13 +698,13 @@ s(x_i,x_j)
 s(x_j,x_i)
 =
 w_{j,i}.
-\]
+$$
 
 _Source: slide p. 18._
 
 ### Intuition
 
-The similarity from \(x_i\) to \(x_j\) is the same as the similarity from \(x_j\) to \(x_i\), assuming the similarity function is symmetric.
+The similarity from $x_i$ to $x_j$ is the same as the similarity from $x_j$ to $x_i$, assuming the similarity function is symmetric.
 
 ---
 
@@ -712,17 +712,17 @@ The similarity from \(x_i\) to \(x_j\) is the same as the similarity from \(x_j\
 
 ## 13.1 Degree of a node
 
-The degree of node \(i\), corresponding to data point \(x_i\), is:
+The degree of node $i$, corresponding to data point $x_i$, is:
 
-\[
+$$
 d_i = \sum_j w_{i,j}.
-\]
+$$
 
 _Source: slide p. 19._
 
 ### Intuition
 
-The degree measures the total similarity / connection strength from node \(i\) to all other nodes.
+The degree measures the total similarity / connection strength from node $i$ to all other nodes.
 
 ---
 
@@ -730,7 +730,7 @@ The degree measures the total similarity / connection strength from node \(i\) t
 
 The degree matrix is:
 
-\[
+$$
 D =
 \begin{pmatrix}
 d_1 & 0 & \cdots & 0 \\
@@ -738,9 +738,9 @@ d_1 & 0 & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & \cdots & d_N
 \end{pmatrix}.
-\]
+$$
 
-It is a diagonal matrix with node degrees \(d_i\) along the diagonal.
+It is a diagonal matrix with node degrees $d_i$ along the diagonal.
 
 _Source: slide p. 19._
 
@@ -752,14 +752,14 @@ _Source: slide p. 19._
 
 The unnormalised graph Laplacian matrix is:
 
-\[
+$$
 L = D - W.
-\]
+$$
 
 where:
 
-- \(D\) is the degree matrix;
-- \(W\) is the similarity / weight matrix.
+- $D$ is the degree matrix;
+- $W$ is the similarity / weight matrix.
 
 _Source: slide p. 20._
 
@@ -769,8 +769,8 @@ _Source: slide p. 20._
 
 The graph Laplacian combines information about:
 
-- how strongly each node is connected overall, through \(D\);
-- how strongly each pair of nodes is connected, through \(W\).
+- how strongly each node is connected overall, through $D$;
+- how strongly each pair of nodes is connected, through $W$.
 
 It is central to spectral clustering because its eigenvectors encode graph connectivity structure.
 
@@ -778,7 +778,7 @@ It is central to spectral clustering because its eigenvectors encode graph conne
 
 # 15. Graph Laplacian properties
 
-The lecture states a theorem about the unnormalised graph Laplacian \(L\).
+The lecture states a theorem about the unnormalised graph Laplacian $L$.
 
 _Source: slide p. 21._
 
@@ -786,61 +786,61 @@ _Source: slide p. 21._
 
 For every
 
-\[
+$$
 y \in \mathbb{R}^N,
-\]
+$$
 
 we have:
 
-\[
+$$
 y^\top L y
 =
 \frac{1}{2}
 \sum_{i,j}
 w_{i,j}(y_i-y_j)^2.
-\]
+$$
 
 ### Intuition
 
-This expression is small when connected nodes have similar \(y\)-values. If \(w_{i,j}\) is large, then the term strongly penalises \(y_i\) and \(y_j\) being far apart.
+This expression is small when connected nodes have similar $y$-values. If $w_{i,j}$ is large, then the term strongly penalises $y_i$ and $y_j$ being far apart.
 
 ---
 
 ## 15.2 Symmetry and positive semi-definiteness
 
-The Laplacian \(L\) is symmetric and positive semi-definite.
+The Laplacian $L$ is symmetric and positive semi-definite.
 
 ### Formal consequence
 
-Because \(L\) is positive semi-definite, its eigenvalues are non-negative.
+Because $L$ is positive semi-definite, its eigenvalues are non-negative.
 
 ---
 
 ## 15.3 Smallest eigenvalue
 
-The smallest eigenvalue of \(L\) is:
+The smallest eigenvalue of $L$ is:
 
-\[
+$$
 0.
-\]
+$$
 
 When the graph is connected, the corresponding eigenvector is the constant one vector:
 
-\[
+$$
 \mathbf{1}
 =
 (1,1,\ldots,1)^\top.
-\]
+$$
 
 ---
 
-## 15.4 Eigenvalues of \(L\)
+## 15.4 Eigenvalues of $L$
 
-The Laplacian has \(N\) non-negative, real-valued eigenvalues, ordered as:
+The Laplacian has $N$ non-negative, real-valued eigenvalues, ordered as:
 
-\[
+$$
 0 = \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_N.
-\]
+$$
 
 ---
 
@@ -854,23 +854,23 @@ The slides refer to **Proposition 1 in the tutorial by Ulrike von Luxburg** for 
 
 # 16. Graph Laplacian and connected components
 
-The lecture states a theorem connecting the zero eigenvalue of \(L\) to connected components of the graph.
+The lecture states a theorem connecting the zero eigenvalue of $L$ to connected components of the graph.
 
 _Source: slide p. 22._
 
 ## 16.1 Theorem setup
 
-Let \(G\) be an undirected graph with nonnegative weights.
+Let $G$ be an undirected graph with nonnegative weights.
 
 ---
 
-## 16.2 Multiplicity of eigenvalue \(0\)
+## 16.2 Multiplicity of eigenvalue $0$
 
-The algebraic multiplicity \(k\) of the eigenvalue \(0\) of \(L\) equals the number of connected components:
+The algebraic multiplicity $k$ of the eigenvalue $0$ of $L$ equals the number of connected components:
 
-\[
+$$
 C_1, \ldots, C_k
-\]
+$$
 
 in the graph.
 
@@ -880,20 +880,20 @@ The number of independent disconnected pieces of the graph is visible in the spe
 
 ---
 
-## 16.3 Eigenspace of eigenvalue \(0\)
+## 16.3 Eigenspace of eigenvalue $0$
 
-The eigenspace of eigenvalue \(0\) is spanned by the indicator vectors of the connected components:
+The eigenspace of eigenvalue $0$ is spanned by the indicator vectors of the connected components:
 
-\[
+$$
 \mathbf{1}_{C_1}, \ldots, \mathbf{1}_{C_k}.
-\]
+$$
 
 ### Indicator-vector intuition
 
-An indicator vector \(\mathbf{1}_{C_i}\) marks which nodes belong to component \(C_i\):
+An indicator vector $\mathbf{1}_{C_i}$ marks which nodes belong to component $C_i$:
 
-- entries are \(1\) for nodes in \(C_i\);
-- entries are \(0\) for nodes outside \(C_i\).
+- entries are $1$ for nodes in $C_i$;
+- entries are $0$ for nodes outside $C_i$.
 
 **[UNCLEAR: transcript not provided]** The slides do not explicitly define the indicator vector notation, but the visual on slide p. 24 shows block-style vectors with 1s in the rows belonging to a connected component and 0s elsewhere.
 
@@ -913,15 +913,15 @@ The slides refer to **Proposition 2 in the tutorial by Ulrike von Luxburg** for 
 
 The spectral clustering algorithm takes:
 
-\[
+$$
 W \in \mathbb{R}^{N \times N},
-\]
+$$
 
 the similarity weights matrix, and a positive integer:
 
-\[
+$$
 k,
-\]
+$$
 
 the number of clusters to construct.
 
@@ -933,82 +933,82 @@ _Source: slide p. 23._
 
 ### Step 1 — Compute node degrees
 
-For each node \(i\), compute:
+For each node $i$, compute:
 
-\[
+$$
 d_i \leftarrow \sum_j w_{i,j}.
-\]
+$$
 
-These are the row sums of \(W\).
+These are the row sums of $W$.
 
 ### Step 2 — Build the degree matrix
 
 Construct:
 
-\[
+$$
 D = \operatorname{diag}(d_1,\ldots,d_N).
-\]
+$$
 
 ### Step 3 — Compute the unnormalised Laplacian
 
-\[
+$$
 L \leftarrow D - W.
-\]
+$$
 
 ### Step 4 — Compute eigenvectors
 
 Compute:
 
-\[
+$$
 v_1, \ldots, v_k,
-\]
+$$
 
-the first \(k\) eigenvectors of \(L\).
+the first $k$ eigenvectors of $L$.
 
-### Step 5 — Build the matrix \(V\)
+### Step 5 — Build the matrix $V$
 
 Build:
 
-\[
+$$
 V \in \mathbb{R}^{N \times k}
-\]
+$$
 
-with \(v_1, \ldots, v_k\) as column vectors:
+with $v_1, \ldots, v_k$ as column vectors:
 
-\[
+$$
 V =
 \begin{pmatrix}
 | & | & & | \\
 v_1 & v_2 & \cdots & v_k \\
 | & | & & |
 \end{pmatrix}.
-\]
+$$
 
 ### Step 6 — Interpret rows as projected data points
 
-The rows of \(V\) are treated as projected data points in:
+The rows of $V$ are treated as projected data points in:
 
-\[
+$$
 \mathbb{R}^k.
-\]
+$$
 
 The slides explicitly describe this as **dimension reduction**.
 
 ### Step 7 — Run K-means in the spectral embedding
 
-Cluster the rows of \(V\) using K-means in:
+Cluster the rows of $V$ using K-means in:
 
-\[
+$$
 \mathbb{R}^k.
-\]
+$$
 
 ### Step 8 — Return clusters
 
 Return:
 
-\[
+$$
 C_1, \ldots, C_k.
-\]
+$$
 
 _Source: slide p. 23._
 
@@ -1020,7 +1020,7 @@ Spectral clustering does not run K-means directly on the original data. It first
 
 1. builds a similarity graph;
 2. computes the graph Laplacian;
-3. extracts the first \(k\) eigenvectors;
+3. extracts the first $k$ eigenvectors;
 4. embeds the data into a low-dimensional spectral space;
 5. runs K-means on that new representation.
 
@@ -1032,13 +1032,13 @@ _Source: slide p. 23._
 
 ## 18.1 Connected graph case
 
-If the graph is connected, the first eigenvector of \(L\) is:
+If the graph is connected, the first eigenvector of $L$ is:
 
-\[
+$$
 \mathbf{1}
 =
 (1,1,\ldots,1)^\top.
-\]
+$$
 
 _Source: slide p. 24._
 
@@ -1046,11 +1046,11 @@ _Source: slide p. 24._
 
 ## 18.2 Disconnected graph case
 
-If the graph is disconnected and has \(k\) connected components, then the Laplacian spectrum / eigendecomposition is block diagonal, and the first \(k\) eigenvectors are the indicator vectors:
+If the graph is disconnected and has $k$ connected components, then the Laplacian spectrum / eigendecomposition is block diagonal, and the first $k$ eigenvectors are the indicator vectors:
 
-\[
+$$
 \mathbf{1}_{C_1}, \ldots, \mathbf{1}_{C_k}
-\]
+$$
 
 of those components.
 
@@ -1062,9 +1062,9 @@ _Source: slide p. 24._
 
 The figure shows a block diagonal Laplacian structure with blocks labelled:
 
-\[
+$$
 L_1, L_2, L_3.
-\]
+$$
 
 Next to it are the first three eigenvectors. Each eigenvector behaves like an indicator for one connected component.
 
@@ -1120,9 +1120,9 @@ Similarity among points within the same cluster.
 
 K-means promotes intra-cluster similarity by minimising squared distances to cluster centres:
 
-\[
+$$
 \sum_{k=1}^{K} \sum_{x \in C_k} \|x - \mu_k\|^2.
-\]
+$$
 
 _Source: slide p. 10._
 
@@ -1150,9 +1150,9 @@ A centroid-based clustering algorithm that alternates between assigning points t
 
 ### Formal objective
 
-\[
+$$
 \sum_{k=1}^{K} \sum_{x \in C_k} \|x - \mu_k\|^2.
-\]
+$$
 
 _Source: slides pp. 8, 10._
 
@@ -1166,9 +1166,9 @@ A numerical measure of how similar two data points are.
 
 ### Formal definition
 
-\[
+$$
 w_{i,j} = s(x_i, x_j).
-\]
+$$
 
 _Source: slide p. 16._
 
@@ -1178,17 +1178,17 @@ _Source: slide p. 16._
 
 ### Intuition
 
-A distance-based similarity function where nearby points have similarity close to \(1\), and far-away points have similarity close to \(0\).
+A distance-based similarity function where nearby points have similarity close to $1$, and far-away points have similarity close to $0$.
 
 ### Formal definition
 
-\[
+$$
 w_{i,j}
 =
 \exp\left(
 -\frac{\|x_i - x_j\|^2}{2\sigma^2}
 \right).
-\]
+$$
 
 _Source: slide p. 17._
 
@@ -1202,7 +1202,7 @@ A matrix storing pairwise similarities between all data points.
 
 ### Formal definition
 
-\[
+$$
 W =
 \begin{pmatrix}
 w_{1,1} & w_{1,2} & \cdots & w_{1,N} \\
@@ -1210,13 +1210,13 @@ w_{2,1} & w_{2,2} & \cdots & w_{2,N} \\
 \vdots & \vdots & \ddots & \vdots \\
 w_{N,1} & w_{N,2} & \cdots & w_{N,N}
 \end{pmatrix}.
-\]
+$$
 
 It is symmetric when:
 
-\[
+$$
 w_{i,j}=w_{j,i}.
-\]
+$$
 
 _Source: slide p. 18._
 
@@ -1230,15 +1230,15 @@ A graph representation of the dataset where nodes are data points and edge weigh
 
 ### Formal definition
 
-\[
+$$
 G=(V,E,W),
-\]
+$$
 
 where:
 
-- \(V\) = vertices / data points;
-- \(E\) = edges, with an edge if \(w_{i,j}>0\);
-- \(W\) = weights over edges.
+- $V$ = vertices / data points;
+- $E$ = edges, with an edge if $w_{i,j}>0$;
+- $W$ = weights over edges.
 
 _Source: slide p. 16._
 
@@ -1252,9 +1252,9 @@ The total connection strength of a node to all other nodes.
 
 ### Formal definition
 
-\[
+$$
 d_i = \sum_j w_{i,j}.
-\]
+$$
 
 _Source: slide p. 19._
 
@@ -1268,9 +1268,9 @@ A diagonal matrix storing node degrees.
 
 ### Formal definition
 
-\[
+$$
 D = \operatorname{diag}(d_1,\ldots,d_N).
-\]
+$$
 
 _Source: slides pp. 19, 23._
 
@@ -1284,9 +1284,9 @@ A matrix that encodes graph connectivity and is used to extract cluster informat
 
 ### Formal definition
 
-\[
+$$
 L = D - W.
-\]
+$$
 
 _Source: slide p. 20._
 
@@ -1310,71 +1310,71 @@ _Source: slide p. 25._
 
 ## 21.1 K-means objective
 
-\[
+$$
 \sum_{k=1}^{K} \sum_{x \in C_k} \|x - \mu_k\|^2.
-\]
+$$
 
 ## 21.2 Similarity weights
 
-\[
+$$
 w_{i,j}=s(x_i,x_j).
-\]
+$$
 
 ## 21.3 Gaussian kernel similarity
 
-\[
+$$
 w_{i,j}
 =
 \exp\left(
 -\frac{\|x_i - x_j\|^2}{2\sigma^2}
 \right).
-\]
+$$
 
-## 21.4 Degree of node \(i\)
+## 21.4 Degree of node $i$
 
-\[
+$$
 d_i = \sum_j w_{i,j}.
-\]
+$$
 
 ## 21.5 Degree matrix
 
-\[
+$$
 D = \operatorname{diag}(d_1,\ldots,d_N).
-\]
+$$
 
 ## 21.6 Unnormalised graph Laplacian
 
-\[
+$$
 L = D - W.
-\]
+$$
 
 ## 21.7 Laplacian quadratic form
 
-\[
+$$
 y^\top L y
 =
 \frac{1}{2}
 \sum_{i,j}
 w_{i,j}(y_i-y_j)^2.
-\]
+$$
 
 ## 21.8 Laplacian eigenvalue ordering
 
-\[
+$$
 0 = \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_N.
-\]
+$$
 
 ## 21.9 Constant one vector
 
-\[
+$$
 \mathbf{1}=(1,1,\ldots,1)^\top.
-\]
+$$
 
 ## 21.10 Indicator vectors for connected components
 
-\[
+$$
 \mathbf{1}_{C_1},\ldots,\mathbf{1}_{C_k}.
-\]
+$$
 
 ---
 
@@ -1420,9 +1420,9 @@ _Source: slide p. 8._
 
 ### Know the K-means objective
 
-\[
+$$
 \sum_{k=1}^{K} \sum_{x \in C_k} \|x-\mu_k\|^2.
-\]
+$$
 
 _Source: slide p. 10._
 
@@ -1430,7 +1430,7 @@ _Source: slide p. 10._
 
 Especially:
 
-- need to choose \(K\) in advance;
+- need to choose $K$ in advance;
 - local optima and initialization dependence;
 - not suitable for non-convex shapes;
 - problems with noise/outliers;
@@ -1446,37 +1446,37 @@ _Source: slide p. 16._
 
 ### Know the Gaussian kernel similarity formula
 
-\[
+$$
 w_{i,j}
 =
 \exp\left(
 -\frac{\|x_i-x_j\|^2}{2\sigma^2}
 \right).
-\]
+$$
 
 _Source: slide p. 17._
 
 ### Know the degree matrix and graph Laplacian
 
-\[
+$$
 d_i=\sum_j w_{i,j},
 \qquad
 D=\operatorname{diag}(d_1,\ldots,d_N),
 \qquad
 L=D-W.
-\]
+$$
 
 _Source: slides pp. 19–20._
 
-### Know the connection between connected components and eigenvalue \(0\)
+### Know the connection between connected components and eigenvalue $0$
 
-The number of connected components equals the multiplicity of eigenvalue \(0\), and the eigenspace is spanned by the indicator vectors of those components.
+The number of connected components equals the multiplicity of eigenvalue $0$, and the eigenspace is spanned by the indicator vectors of those components.
 
 _Source: slide p. 22._
 
 ### Know the spectral clustering algorithm
 
-Construct \(W\), compute \(D\), compute \(L\), find the first \(k\) eigenvectors, build \(V\), treat rows of \(V\) as projected points in \(\mathbb{R}^k\), then cluster using K-means.
+Construct $W$, compute $D$, compute $L$, find the first $k$ eigenvectors, build $V$, treat rows of $V$ as projected points in $\mathbb{R}^k$, then cluster using K-means.
 
 _Source: slide p. 23._
 
@@ -1494,9 +1494,9 @@ _Source: slides pp. 11–15, 25._
 
 Clustering is described as a kind of representation learning. Spectral clustering makes this more explicit by constructing a low-dimensional representation using the rows of:
 
-\[
+$$
 V \in \mathbb{R}^{N \times k}.
-\]
+$$
 
 _Source: slides pp. 6, 23._
 
@@ -1553,7 +1553,7 @@ Because the transcript was not provided, these are the sections most worth check
 5. **The failure-case explanations**  
    The slides show the failures visually, but the lecturer may have explained precisely why the assignments go wrong.
 
-6. **Choice of similarity function and Gaussian kernel parameter \(\sigma\)**  
+6. **Choice of similarity function and Gaussian kernel parameter $\sigma$**  
    The formula is given, but no parameter-selection discussion appears in the slides.
 
 7. **Proof of Laplacian properties**  
@@ -1562,7 +1562,7 @@ Because the transcript was not provided, these are the sections most worth check
 8. **Proof of the connected-components theorem**  
    Again, the proof is referenced but not included.
 
-9. **Why the first \(k\) eigenvectors produce a useful embedding for clustering**  
+9. **Why the first $k$ eigenvectors produce a useful embedding for clustering**  
    The algorithm states this step, and the connected-component theorem motivates it, but a fuller explanation may have been given verbally.
 
 10. **Any spoken exam hints**  
@@ -1578,25 +1578,29 @@ Before the exam, make sure you can do the following:
 - State the K-means algorithm step by step.
 - Write the K-means objective:
 
-  \[
-  \sum_{k=1}^{K} \sum_{x \in C_k} \|x - \mu_k\|^2.
-  \]
+  
+
+$$
+\sum_{k=1}^{K} \sum_{x \in C_k} \|x - \mu_k\|^2.
+$$
 
 - Explain why K-means can fail on non-convex clusters.
 - List the main strengths and weaknesses of K-means.
-- Define similarity weights \(w_{i,j}=s(x_i,x_j)\).
+- Define similarity weights $w_{i,j}=s(x_i,x_j)$.
 - Write the Gaussian kernel similarity formula.
-- Define the similarity matrix \(W\), degree matrix \(D\), and Laplacian \(L=D-W\).
+- Define the similarity matrix $W$, degree matrix $D$, and Laplacian $L=D-W$.
 - State the Laplacian quadratic form:
 
-  \[
-  y^\top L y
+  
+
+$$
+y^\top L y
   =
   \frac{1}{2}
   \sum_{i,j} w_{i,j}(y_i-y_j)^2.
-  \]
+$$
 
-- Explain the relationship between connected components and the zero eigenvalue of \(L\).
+- Explain the relationship between connected components and the zero eigenvalue of $L$.
 - State the spectral clustering algorithm step by step.
-- Explain why rows of the eigenvector matrix \(V\) are treated as projected data points in \(\mathbb{R}^k\).
+- Explain why rows of the eigenvector matrix $V$ are treated as projected data points in $\mathbb{R}^k$.
 

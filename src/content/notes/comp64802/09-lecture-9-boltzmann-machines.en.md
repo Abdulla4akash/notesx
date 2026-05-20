@@ -49,11 +49,11 @@ By the end of the lecture, students are expected to:
 
 **[EXAM FLAG]** The final ILO explicitly mentions probability calculations and conditional probabilities for RBMs. The pen-and-paper exercise at the end asks students to derive
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \sigma\left(b_i + \sum_j v_j W_{ji}\right).
-\]
+$$
 
 This is very likely to be revision-important.
 
@@ -73,7 +73,7 @@ The slides also say that Boltzmann Machines have a simple learning algorithm tha
 
 A Boltzmann Machine is a neural network model where:
 
-- units are binary, usually taking values \(0\) or \(1\);
+- units are binary, usually taking values $0$ or $1$;
 - each unit can be interpreted as being “off” or “on”;
 - the network has symmetric connections;
 - each possible configuration of the units is assigned an **energy**;
@@ -83,9 +83,9 @@ A Boltzmann Machine is a neural network model where:
 
 The lecture describes Boltzmann Machines as:
 
-\[
+$$
 \textbf{stochastic, undirected, energy-based, generative neural networks.}
-\]
+$$
 
 ## 2.3 Key properties
 
@@ -95,15 +95,15 @@ The neurons have random states.
 
 Each unit can be:
 
-\[
+$$
 0 \quad \text{or} \quad 1.
-\]
+$$
 
 These are usually interpreted as:
 
-\[
+$$
 \text{off} \quad \text{or} \quad \text{on}.
-\]
+$$
 
 ### Undirected
 
@@ -151,34 +151,34 @@ The slide example has two types of nodes.
 
 ### Visible variables
 
-\[
+$$
 v = (v_1, v_2, v_3, v_4).
-\]
+$$
 
 Visible units represent the observed part of the data.
 
 ### Hidden variables
 
-\[
+$$
 h = (h_1, h_2, h_3).
-\]
+$$
 
 Hidden units are latent variables that help model structure in the data.
 
 The slides state:
 
-\[
+$$
 h_i \text{ and } v_j \text{ are binary, typically taking values } 0/1.
-\]
+$$
 
-**[EXAM FLAG]** The slides explicitly note that the \(h_i\)'s and \(v_j\)'s are binary, usually with possible values \(0/1\). This matters directly in the conditional probability derivation later, where \(h_i\) is normalised over only two possible values.
+**[EXAM FLAG]** The slides explicitly note that the $h_i$'s and $v_j$'s are binary, usually with possible values $0/1$. This matters directly in the conditional probability derivation later, where $h_i$ is normalised over only two possible values.
 
 ## 4.2 Graph structure
 
 The Boltzmann Machine example diagram shows:
 
-- visible nodes \(v_1, v_2, v_3, v_4\);
-- hidden nodes \(h_1, h_2, h_3\);
+- visible nodes $v_1, v_2, v_3, v_4$;
+- hidden nodes $h_1, h_2, h_3$;
 - many undirected connections among the nodes.
 
 Unlike Restricted Boltzmann Machines, ordinary Boltzmann Machines may include more general connectivity.
@@ -191,36 +191,36 @@ Unlike Restricted Boltzmann Machines, ordinary Boltzmann Machines may include mo
 
 The Boltzmann Machine probability model is:
 
-\[
+$$
 p(v,h)
 =
 \frac{1}{Z}
 \exp\left(-\frac{E(v,h)}{T}\right).
-\]
+$$
 
 Where:
 
-- \(v\) is the visible vector;
-- \(h\) is the hidden vector;
-- \(E(v,h)\) is the energy of the state \((v,h)\);
-- \(T\) is a temperature parameter;
-- \(Z\) is the partition function, also called the normalising constant.
+- $v$ is the visible vector;
+- $h$ is the hidden vector;
+- $E(v,h)$ is the energy of the state $(v,h)$;
+- $T$ is a temperature parameter;
+- $Z$ is the partition function, also called the normalising constant.
 
 ## 5.2 Interpretation
 
 Each possible state is a possible setting of:
 
-\[
+$$
 (v,h).
-\]
+$$
 
 The slides emphasise that all possible states have positive probability:
 
-\[
+$$
 p(v,h) > 0.
-\]
+$$
 
-This follows from the exponential form, because exponentials are positive, and \(Z\) normalises the distribution.
+This follows from the exponential form, because exponentials are positive, and $Z$ normalises the distribution.
 
 ## 5.3 Energy-probability relationship
 
@@ -228,31 +228,31 @@ The probability of a state decreases as its energy increases.
 
 High energy:
 
-\[
+$$
 E(v,h) \text{ high}
 \quad \Rightarrow \quad
 p(v,h) \text{ low}.
-\]
+$$
 
 Low energy:
 
-\[
+$$
 E(v,h) \text{ low}
 \quad \Rightarrow \quad
 p(v,h) \text{ high}.
-\]
+$$
 
 The slides state that this probability model is known as the:
 
-\[
+$$
 \textbf{Boltzmann distribution}
-\]
+$$
 
 or
 
-\[
+$$
 \textbf{Gibbs distribution}.
-\]
+$$
 
 ---
 
@@ -264,72 +264,72 @@ The lecture gives a short background from statistical mechanics.
 
 Consider a physical system with many possible states:
 
-\[
+$$
 s_1, s_2, s_3, \dots
-\]
+$$
 
 The system may have many degrees of freedom.
 
-The probability of state \(s_i\) is:
+The probability of state $s_i$ is:
 
-\[
+$$
 p(s_i)
 =
 \frac{1}{Z}
 \exp\left(-\frac{E(s_i)}{\kappa_B T}\right).
-\]
+$$
 
 Where:
 
-- \(E(s_i)\) is the energy of state \(s_i\);
-- \(T\) is a temperature parameter;
-- \(\kappa_B\) is the Boltzmann constant;
-- \(Z\) is a normalising factor, also called the partition function.
+- $E(s_i)$ is the energy of state $s_i$;
+- $T$ is a temperature parameter;
+- $\kappa_B$ is the Boltzmann constant;
+- $Z$ is a normalising factor, also called the partition function.
 
 The slide gives:
 
-\[
+$$
 \kappa_B = 1.38 \times 10^{-23} \text{ J/K}.
-\]
+$$
 
 ## 6.2 Probability constraints
 
 The probabilities must satisfy:
 
-\[
+$$
 p(s_i) \geq 0
-\]
+$$
 
 and
 
-\[
+$$
 \sum_i p(s_i) = 1.
-\]
+$$
 
 ## 6.3 Partition function in statistical mechanics
 
 The partition function is:
 
-\[
+$$
 Z
 =
 \sum_i
 \exp\left(-\frac{E(s_i)}{\kappa_B T}\right).
-\]
+$$
 
-Its role is to normalise the probabilities so that they sum to \(1\).
+Its role is to normalise the probabilities so that they sum to $1$.
 
 ## 6.4 Tractability issue
 
 The slides highlight a major question:
 
-\[
+$$
 \text{tractability / complexity of computing } Z.
-\]
+$$
 
 This becomes important because partition functions can require summing over an extremely large number of possible configurations.
 
-**[CONNECTION]** The Boltzmann Machine probability model borrows its form from statistical mechanics, replacing physical states \(s_i\) with machine configurations such as \((v,h)\).
+**[CONNECTION]** The Boltzmann Machine probability model borrows its form from statistical mechanics, replacing physical states $s_i$ with machine configurations such as $(v,h)$.
 
 ---
 
@@ -339,15 +339,15 @@ This becomes important because partition functions can require summing over an e
 
 During training, the model adjusts its parameters, especially weights, to:
 
-\[
+$$
 \text{maximise the probability of the input data.}
-\]
+$$
 
 Equivalently, it adjusts parameters to:
 
-\[
+$$
 \text{minimise the energy of the input data.}
-\]
+$$
 
 ## 7.2 Energy landscape intuition
 
@@ -374,9 +374,9 @@ During training, the visible neurons are **clamped**.
 
 Clamping means:
 
-\[
+$$
 \text{the visible units' states are fixed to specific input data.}
-\]
+$$
 
 The hidden neurons are not clamped. They operate freely.
 
@@ -390,15 +390,15 @@ The slides state that hidden units explain underlying constraints in the input d
 
 Boltzmann Machine training is described as:
 
-\[
+$$
 \textbf{unsupervised learning.}
-\]
+$$
 
 The goal is modelling a joint distribution between visible and hidden units:
 
-\[
+$$
 p(v,h).
-\]
+$$
 
 ---
 
@@ -532,51 +532,51 @@ The slides say RBMs are heavily used for:
 
 The RBM example has the following visible variables:
 
-\[
+$$
 v = (v_1, v_2, v_3).
-\]
+$$
 
 It has the following hidden variables:
 
-\[
+$$
 h = (h_1, h_2, h_3, h_4).
-\]
+$$
 
 ## 11.2 Weights
 
 The weights are denoted:
 
-\[
+$$
 w_{j,i} = w(v_j,h_i).
-\]
+$$
 
-This is the weight connecting visible unit \(v_j\) to hidden unit \(h_i\).
+This is the weight connecting visible unit $v_j$ to hidden unit $h_i$.
 
 ## 11.3 Restricted connectivity
 
 The defining architectural restriction is:
 
-- every hidden node \(h_i\) is connected to every visible node \(v_j\);
+- every hidden node $h_i$ is connected to every visible node $v_j$;
 - there are no connections between hidden nodes;
 - there are no connections between visible nodes.
 
 Formally, visible-hidden connections exist:
 
-\[
+$$
 h_i \leftrightarrow v_j.
-\]
+$$
 
 But hidden-hidden connections do not exist:
 
-\[
+$$
 h_i \not\leftrightarrow h_k.
-\]
+$$
 
 And visible-visible connections do not exist:
 
-\[
+$$
 v_j \not\leftrightarrow v_\ell.
-\]
+$$
 
 **[EXAM FLAG]** The slide explicitly marks this as **Important**:
 
@@ -594,18 +594,18 @@ This is the key structural difference between a general Boltzmann Machine and a 
 
 The RBM uses the same Boltzmann/Gibbs-style probability form:
 
-\[
+$$
 p(v,h)
 =
 \frac{1}{Z}
 \exp\left(-\frac{E(v,h)}{T}\right).
-\]
+$$
 
 ## 12.2 Energy function
 
 For an RBM, the energy function is:
 
-\[
+$$
 E(v,h)
 =
 -a^\top v
@@ -613,21 +613,21 @@ E(v,h)
 b^\top h
 -
 v^\top W h.
-\]
+$$
 
 Where:
 
-- \(v = (v_1,\dots,v_N)\) is the visible vector;
-- \(h = (h_1,\dots,h_M)\) is the hidden vector;
-- \(W = (w_{j,i}) \in \mathbb{R}^{N \times M}\) is the weight matrix;
-- \(a = (a_1,\dots,a_N) \in \mathbb{R}^N\) are visible-unit coefficients;
-- \(b = (b_1,\dots,b_M) \in \mathbb{R}^M\) are hidden-unit coefficients.
+- $v = (v_1,\dots,v_N)$ is the visible vector;
+- $h = (h_1,\dots,h_M)$ is the hidden vector;
+- $W = (w_{j,i}) \in \mathbb{R}^{N \times M}$ is the weight matrix;
+- $a = (a_1,\dots,a_N) \in \mathbb{R}^N$ are visible-unit coefficients;
+- $b = (b_1,\dots,b_M) \in \mathbb{R}^M$ are hidden-unit coefficients.
 
 ## 12.3 Expanded energy function
 
 The expanded form is:
 
-\[
+$$
 E(v,h)
 =
 -
@@ -638,32 +638,32 @@ E(v,h)
 \sum_{i=1}^{M}
 \sum_{j=1}^{N}
 v_j w_{j,i} h_i.
-\]
+$$
 
 This contains three parts.
 
 ### Visible coefficient contribution
 
-\[
+$$
 -
 \sum_{j=1}^{N} a_j v_j.
-\]
+$$
 
 ### Hidden coefficient contribution
 
-\[
+$$
 -
 \sum_{i=1}^{M} b_i h_i.
-\]
+$$
 
 ### Visible-hidden interaction contribution
 
-\[
+$$
 -
 \sum_{i=1}^{M}
 \sum_{j=1}^{N}
 v_j w_{j,i} h_i.
-\]
+$$
 
 ---
 
@@ -673,56 +673,56 @@ v_j w_{j,i} h_i.
 
 The probability model is:
 
-\[
+$$
 p(v,h)
 =
 \frac{1}{Z}
 \exp\left(-\frac{E(v,h)}{T}\right).
-\]
+$$
 
 The partition function normalises over all possible configurations.
 
 The slide writes:
 
-\[
+$$
 Z =
 \sum_{i,j}
 \exp\left(-\frac{E(v,h)}{T}\right).
-\]
+$$
 
 ## 13.2 More precise interpretation
 
-Because \(v\) and \(h\) are binary-valued vectors, the summation is over all possible configurations of visible and hidden units.
+Because $v$ and $h$ are binary-valued vectors, the summation is over all possible configurations of visible and hidden units.
 
 More explicitly:
 
-\[
+$$
 Z
 =
 \sum_v
 \sum_h
 \exp\left(-\frac{E(v,h)}{T}\right).
-\]
+$$
 
 If there are:
 
-- \(N\) visible units;
-- \(M\) hidden units;
+- $N$ visible units;
+- $M$ hidden units;
 - all units are binary;
 
 then there are:
 
-\[
+$$
 2^{N+M}
-\]
+$$
 
 possible configurations.
 
-Therefore, direct computation of \(Z\) involves summing over:
+Therefore, direct computation of $Z$ involves summing over:
 
-\[
+$$
 2^{N+M}
-\]
+$$
 
 terms.
 
@@ -730,7 +730,7 @@ terms.
 
 The slide gives the interaction-only part as:
 
-\[
+$$
 \sum_{i,j}
 \exp
 \left(
@@ -740,23 +740,23 @@ The slide gives the interaction-only part as:
 \sum_{j=1}^{N}
 v_j w_{j,i} h_i
 \right).
-\]
+$$
 
 It labels this as the right-hand side “ignoring 1st degree terms”.
 
 The omitted first-degree terms are the coefficient terms:
 
-\[
+$$
 -a^\top v
-\]
+$$
 
 and
 
-\[
+$$
 -b^\top h.
-\]
+$$
 
-**[UNCLEAR]** The slide notation \(\sum_{i,j}\) for the partition function is potentially confusing because \(i,j\) are also used as hidden/visible indices. The intended meaning is summation over all possible configurations of \(v\) and \(h\), not merely over one pair of indices.
+**[UNCLEAR]** The slide notation $\sum_{i,j}$ for the partition function is potentially confusing because $i,j$ are also used as hidden/visible indices. The intended meaning is summation over all possible configurations of $v$ and $h$, not merely over one pair of indices.
 
 ---
 
@@ -768,13 +768,13 @@ A major advantage of RBMs is that the restricted graph structure leads to factor
 
 The slide states:
 
-\[
+$$
 p(h \mid v)
 =
 \prod_i p(h_i \mid v).
-\]
+$$
 
-This means that, conditional on the visible vector \(v\), the hidden units are independent.
+This means that, conditional on the visible vector $v$, the hidden units are independent.
 
 The slide says this follows from the graph separation properties.
 
@@ -784,7 +784,7 @@ The slide says this follows from the graph separation properties.
 
 For one hidden variable:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \frac{1}
@@ -797,11 +797,11 @@ p(h_i = 1 \mid v)
 \sum_j v_j W_{ji}
 \right)
 }.
-\]
+$$
 
 Equivalently, using the sigmoid function:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \sigma
@@ -810,19 +810,19 @@ b_i
 +
 \sum_j v_j W_{ji}
 \right).
-\]
+$$
 
 ## 14.3 Visible variables conditioned on hidden variables
 
 Similarly, for the visible variables:
 
-\[
+$$
 p(v \mid h)
 =
 \prod_j p(v_j \mid h).
-\]
+$$
 
-This means that, conditional on the hidden vector \(h\), the visible units are independent.
+This means that, conditional on the hidden vector $h$, the visible units are independent.
 
 Again, the slide says this follows from the graph separation properties.
 
@@ -830,7 +830,7 @@ Again, the slide says this follows from the graph separation properties.
 
 For one visible variable:
 
-\[
+$$
 p(v_j = 1 \mid h)
 =
 \frac{1}
@@ -843,11 +843,11 @@ p(v_j = 1 \mid h)
 \sum_i W_{ji}h_i
 \right)
 }.
-\]
+$$
 
 Equivalently:
 
-\[
+$$
 p(v_j = 1 \mid h)
 =
 \sigma
@@ -856,7 +856,7 @@ a_j
 +
 \sum_i W_{ji} h_i
 \right).
-\]
+$$
 
 **[EXAM FLAG]** These conditional probability formulas are central to the stated ILO about RBM probability calculations.
 
@@ -868,33 +868,33 @@ a_j
 
 The function:
 
-\[
+$$
 x
 \mapsto
 \frac{1}{1+\exp(-x)}
-\]
+$$
 
 is called the **logistic function**.
 
 It is a sigmoid function and is often denoted:
 
-\[
+$$
 \sigma(x).
-\]
+$$
 
 So:
 
-\[
+$$
 \sigma(x)
 =
 \frac{1}{1+\exp(-x)}.
-\]
+$$
 
 ## 15.2 RBM conditionals using sigmoid notation
 
 Using this function:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \sigma
@@ -903,11 +903,11 @@ b_i
 +
 \sum_j v_j W_{ji}
 \right)
-\]
+$$
 
 and
 
-\[
+$$
 p(v_j = 1 \mid h)
 =
 \sigma
@@ -916,7 +916,7 @@ a_j
 +
 \sum_i W_{ji} h_i
 \right).
-\]
+$$
 
 ---
 
@@ -924,9 +924,9 @@ a_j
 
 ## 16.1 Exercise statement
 
-Show that for each \(i\):
+Show that for each $i$:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \sigma
@@ -935,30 +935,30 @@ b_i
 +
 \sum_j v_j W_{ji}
 \right).
-\]
+$$
 
 ## 16.2 Hint from the slide
 
 For computing:
 
-\[
+$$
 p(h_i \mid v),
-\]
+$$
 
-any quantity that does not depend on \(h_i\) can be considered part of the normalisation constant.
+any quantity that does not depend on $h_i$ can be considered part of the normalisation constant.
 
 A general strategy is:
 
-1. Work out \(p(h_i \mid v)\) up to the normalisation constant.
-2. Drop terms that do not depend on \(h_i\).
+1. Work out $p(h_i \mid v)$ up to the normalisation constant.
+2. Drop terms that do not depend on $h_i$.
 3. Normalise afterwards.
-4. Since \(h_i\) is binary, normalise over:
+4. Since $h_i$ is binary, normalise over:
 
-\[
+$$
 h_i = 0
 \quad \text{and} \quad
 h_i = 1.
-\]
+$$
 
 **[EXAM FLAG]** This derivation is explicitly given as a pen-and-paper exercise with a solution. It is high-value for revision.
 
@@ -968,19 +968,19 @@ h_i = 1.
 
 ## 17.1 Absorbing the temperature parameter
 
-The slide says that if the temperature parameter \(T\) is absorbed into \(a,b,W\), then essentially:
+The slide says that if the temperature parameter $T$ is absorbed into $a,b,W$, then essentially:
 
-\[
+$$
 p(h \mid v)
 =
 \frac{p(h,v)}{p(v)}
 \propto
 p(h,v).
-\]
+$$
 
 Since:
 
-\[
+$$
 p(h,v)
 \propto
 \exp
@@ -991,11 +991,11 @@ b^\top h
 +
 v^\top W h
 \right),
-\]
+$$
 
 we have:
 
-\[
+$$
 p(h \mid v)
 \propto
 \exp
@@ -1006,13 +1006,13 @@ b^\top h
 +
 v^\top W h
 \right).
-\]
+$$
 
 ## 17.2 Expanded exponent
 
 Expanding the exponent:
 
-\[
+$$
 p(h \mid v)
 \propto
 \exp
@@ -1025,31 +1025,31 @@ p(h \mid v)
 \sum_j
 v_j W_{ji} h_i
 \right).
-\]
+$$
 
 ## 17.3 Focus on one hidden variable
 
 We are interested in:
 
-\[
+$$
 p(h_i \mid v)
-\]
+$$
 
-for a fixed \(i\).
+for a fixed $i$.
 
-Terms that do not depend on \(h_i\) can be dropped into the proportionality constant.
+Terms that do not depend on $h_i$ can be dropped into the proportionality constant.
 
 The remaining terms are:
 
-\[
+$$
 b_i h_i
 +
 \sum_j v_j W_{ji} h_i.
-\]
+$$
 
 Therefore:
 
-\[
+$$
 p(h_i \mid v)
 \propto
 \exp
@@ -1058,11 +1058,11 @@ b_i h_i
 +
 \sum_j v_j W_{ji} h_i
 \right).
-\]
+$$
 
-Factor out \(h_i\):
+Factor out $h_i$:
 
-\[
+$$
 p(h_i \mid v)
 \propto
 \exp
@@ -1074,39 +1074,39 @@ b_i
 \sum_j v_j W_{ji}
 \right]
 \right).
-\]
+$$
 
 Let:
 
-\[
+$$
 x
 =
 b_i
 +
 \sum_j v_j W_{ji}.
-\]
+$$
 
 Then:
 
-\[
+$$
 p(h_i \mid v)
 \propto
 \exp(h_i x).
-\]
+$$
 
-## 17.4 Use binary values of \(h_i\)
+## 17.4 Use binary values of $h_i$
 
 Because:
 
-\[
+$$
 h_i \in \{0,1\},
-\]
+$$
 
 there are only two cases.
 
-### Case 1: \(h_i = 0\)
+### Case 1: $h_i = 0$
 
-\[
+$$
 \exp(h_i x)
 =
 \exp(0 \cdot x)
@@ -1114,63 +1114,63 @@ there are only two cases.
 \exp(0)
 =
 1.
-\]
+$$
 
-### Case 2: \(h_i = 1\)
+### Case 2: $h_i = 1$
 
-\[
+$$
 \exp(h_i x)
 =
 \exp(1 \cdot x)
 =
 \exp(x).
-\]
+$$
 
 ## 17.5 Normalise
 
 The total unnormalised mass is:
 
-\[
+$$
 1 + \exp(x).
-\]
+$$
 
 Therefore:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \frac{\exp(x)}{1+\exp(x)}.
-\]
+$$
 
 Now rewrite:
 
-\[
+$$
 \frac{\exp(x)}{1+\exp(x)}
 =
 \frac{1}{1+\exp(-x)}.
-\]
+$$
 
 So:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \frac{1}{1+\exp(-x)}.
-\]
+$$
 
 Substitute back:
 
-\[
+$$
 x
 =
 b_i
 +
 \sum_j v_j W_{ji}.
-\]
+$$
 
 Hence:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \frac{1}
@@ -1183,11 +1183,11 @@ p(h_i = 1 \mid v)
 \sum_j v_j W_{ji}
 \right)
 }.
-\]
+$$
 
 Using sigmoid notation:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \sigma
@@ -1196,7 +1196,7 @@ b_i
 +
 \sum_j v_j W_{ji}
 \right).
-\]
+$$
 
 This is the required result.
 
@@ -1216,7 +1216,7 @@ A Boltzmann Machine is a network of symmetrically connected, neuron-like units t
 
 Its probability model is:
 
-\[
+$$
 p(v,h)
 =
 \frac{1}{Z}
@@ -1224,7 +1224,7 @@ p(v,h)
 \left(
 -\frac{E(v,h)}{T}
 \right).
-\]
+$$
 
 ## 18.2 Energy-based model
 
@@ -1236,7 +1236,7 @@ An energy-based model defines probabilities using an energy function. Low-energy
 
 For Boltzmann Machines:
 
-\[
+$$
 p(v,h)
 =
 \frac{1}{Z}
@@ -1244,11 +1244,11 @@ p(v,h)
 \left(
 -\frac{E(v,h)}{T}
 \right).
-\]
+$$
 
 The same general structure appears in statistical mechanics:
 
-\[
+$$
 p(s_i)
 =
 \frac{1}{Z}
@@ -1256,19 +1256,19 @@ p(s_i)
 \left(
 -\frac{E(s_i)}{\kappa_B T}
 \right).
-\]
+$$
 
 ## 18.3 Partition function
 
 ### Intuition
 
-The partition function is the normalising constant that makes all probabilities sum to \(1\).
+The partition function is the normalising constant that makes all probabilities sum to $1$.
 
 ### Formal definition
 
 For a statistical mechanics system:
 
-\[
+$$
 Z
 =
 \sum_i
@@ -1276,11 +1276,11 @@ Z
 \left(
 -\frac{E(s_i)}{\kappa_B T}
 \right).
-\]
+$$
 
 For an RBM:
 
-\[
+$$
 Z
 =
 \sum_v
@@ -1289,13 +1289,13 @@ Z
 \left(
 -\frac{E(v,h)}{T}
 \right).
-\]
+$$
 
-For \(N\) visible and \(M\) hidden binary units, this involves:
+For $N$ visible and $M$ hidden binary units, this involves:
 
-\[
+$$
 2^{N+M}
-\]
+$$
 
 configurations.
 
@@ -1307,15 +1307,15 @@ Visible units represent observed data.
 
 ### Formal notation
 
-\[
+$$
 v = (v_1,\dots,v_N).
-\]
+$$
 
 The units are binary:
 
-\[
+$$
 v_j \in \{0,1\}.
-\]
+$$
 
 ## 18.5 Hidden units
 
@@ -1325,15 +1325,15 @@ Hidden units are latent variables that help the model capture structure, constra
 
 ### Formal notation
 
-\[
+$$
 h = (h_1,\dots,h_M).
-\]
+$$
 
 The units are binary:
 
-\[
+$$
 h_i \in \{0,1\}.
-\]
+$$
 
 ## 18.6 Clamping
 
@@ -1357,7 +1357,7 @@ An RBM is a network of stochastic units with undirected interactions between pai
 
 The probability model is:
 
-\[
+$$
 p(v,h)
 =
 \frac{1}{Z}
@@ -1365,11 +1365,11 @@ p(v,h)
 \left(
 -\frac{E(v,h)}{T}
 \right),
-\]
+$$
 
 with energy:
 
-\[
+$$
 E(v,h)
 =
 -a^\top v
@@ -1377,7 +1377,7 @@ E(v,h)
 b^\top h
 -
 v^\top W h.
-\]
+$$
 
 ## 18.8 Logistic / sigmoid function
 
@@ -1387,15 +1387,15 @@ The sigmoid function is used to express the probability that a binary unit is on
 
 ### Formal definition
 
-\[
+$$
 \sigma(x)
 =
 \frac{1}{1+\exp(-x)}.
-\]
+$$
 
 Used in RBMs as:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \sigma
@@ -1404,11 +1404,11 @@ b_i
 +
 \sum_j v_j W_{ji}
 \right)
-\]
+$$
 
 and
 
-\[
+$$
 p(v_j = 1 \mid h)
 =
 \sigma
@@ -1417,7 +1417,7 @@ a_j
 +
 \sum_i W_{ji}h_i
 \right).
-\]
+$$
 
 ---
 
@@ -1425,7 +1425,7 @@ a_j
 
 ## 19.1 Boltzmann / Gibbs distribution for Boltzmann Machines
 
-\[
+$$
 p(v,h)
 =
 \frac{1}{Z}
@@ -1433,11 +1433,11 @@ p(v,h)
 \left(
 -\frac{E(v,h)}{T}
 \right).
-\]
+$$
 
 ## 19.2 Statistical mechanics distribution
 
-\[
+$$
 p(s_i)
 =
 \frac{1}{Z}
@@ -1445,11 +1445,11 @@ p(s_i)
 \left(
 -\frac{E(s_i)}{\kappa_B T}
 \right).
-\]
+$$
 
 ## 19.3 Statistical mechanics partition function
 
-\[
+$$
 Z
 =
 \sum_i
@@ -1457,11 +1457,11 @@ Z
 \left(
 -\frac{E(s_i)}{\kappa_B T}
 \right).
-\]
+$$
 
 ## 19.4 RBM energy function
 
-\[
+$$
 E(v,h)
 =
 -a^\top v
@@ -1469,11 +1469,11 @@ E(v,h)
 b^\top h
 -
 v^\top W h.
-\]
+$$
 
 ## 19.5 RBM energy function expanded
 
-\[
+$$
 E(v,h)
 =
 -
@@ -1484,19 +1484,19 @@ E(v,h)
 \sum_{i=1}^{M}
 \sum_{j=1}^{N}
 v_j w_{j,i} h_i.
-\]
+$$
 
 ## 19.6 RBM conditional independence: hidden given visible
 
-\[
+$$
 p(h \mid v)
 =
 \prod_i p(h_i \mid v).
-\]
+$$
 
 ## 19.7 RBM conditional: one hidden unit
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \frac{1}
@@ -1509,11 +1509,11 @@ p(h_i = 1 \mid v)
 \sum_j v_j W_{ji}
 \right)
 }.
-\]
+$$
 
 Equivalent sigmoid form:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \sigma
@@ -1522,19 +1522,19 @@ b_i
 +
 \sum_j v_j W_{ji}
 \right).
-\]
+$$
 
 ## 19.8 RBM conditional independence: visible given hidden
 
-\[
+$$
 p(v \mid h)
 =
 \prod_j p(v_j \mid h).
-\]
+$$
 
 ## 19.9 RBM conditional: one visible unit
 
-\[
+$$
 p(v_j = 1 \mid h)
 =
 \frac{1}
@@ -1547,11 +1547,11 @@ p(v_j = 1 \mid h)
 \sum_i W_{ji}h_i
 \right)
 }.
-\]
+$$
 
 Equivalent sigmoid form:
 
-\[
+$$
 p(v_j = 1 \mid h)
 =
 \sigma
@@ -1560,16 +1560,16 @@ a_j
 +
 \sum_i W_{ji}h_i
 \right).
-\]
+$$
 
 ## 19.10 Logistic function
 
-\[
+$$
 \sigma(x)
 =
 \frac{1}
 {1+\exp(-x)}.
-\]
+$$
 
 ---
 
@@ -1579,19 +1579,19 @@ a_j
 
 The Boltzmann Machine slide example has:
 
-\[
+$$
 v = (v_1,v_2,v_3,v_4)
-\]
+$$
 
 and
 
-\[
+$$
 h = (h_1,h_2,h_3).
-\]
+$$
 
 The probability model is:
 
-\[
+$$
 p(v,h)
 =
 \frac{1}{Z}
@@ -1599,57 +1599,57 @@ p(v,h)
 \left(
 -\frac{E(v,h)}{T}
 \right).
-\]
+$$
 
 The units are binary:
 
-\[
+$$
 v_j,h_i \in \{0,1\}.
-\]
+$$
 
 ## 20.2 Example 2: RBM architecture
 
 The RBM slide example has:
 
-\[
+$$
 v = (v_1,v_2,v_3)
-\]
+$$
 
 and
 
-\[
+$$
 h = (h_1,h_2,h_3,h_4).
-\]
+$$
 
 Weights are:
 
-\[
+$$
 w_{j,i} = w(v_j,h_i).
-\]
+$$
 
 The key structural restrictions are:
 
-\[
+$$
 \text{hidden-visible connections exist}
-\]
+$$
 
 but:
 
-\[
+$$
 \text{hidden-hidden connections do not exist}
-\]
+$$
 
 and:
 
-\[
+$$
 \text{visible-visible connections do not exist}.
-\]
+$$
 
-## 20.3 Example 3: Derivation of \(p(h_i=1\mid v)\)
+## 20.3 Example 3: Derivation of $p(h_i=1\mid v)$
 
 Goal:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \sigma
@@ -1658,11 +1658,11 @@ b_i
 +
 \sum_j v_j W_{ji}
 \right).
-\]
+$$
 
 Start with:
 
-\[
+$$
 p(h \mid v)
 \propto
 \exp
@@ -1673,11 +1673,11 @@ b^\top h
 +
 v^\top W h
 \right).
-\]
+$$
 
 Expand:
 
-\[
+$$
 p(h \mid v)
 \propto
 \exp
@@ -1690,11 +1690,11 @@ p(h \mid v)
 \sum_j
 v_jW_{ji}h_i
 \right).
-\]
+$$
 
-For fixed \(i\), drop terms not depending on \(h_i\):
+For fixed $i$, drop terms not depending on $h_i$:
 
-\[
+$$
 p(h_i \mid v)
 \propto
 \exp
@@ -1703,64 +1703,64 @@ b_ih_i
 +
 \sum_j v_jW_{ji}h_i
 \right).
-\]
+$$
 
 Let:
 
-\[
+$$
 x
 =
 b_i
 +
 \sum_j v_jW_{ji}.
-\]
+$$
 
 Then:
 
-\[
+$$
 p(h_i \mid v)
 \propto
 \exp(h_ix).
-\]
+$$
 
-Since \(h_i \in \{0,1\}\):
+Since $h_i \in \{0,1\}$:
 
-\[
+$$
 p(h_i=0\mid v)
 \propto
 1
-\]
+$$
 
 and
 
-\[
+$$
 p(h_i=1\mid v)
 \propto
 \exp(x).
-\]
+$$
 
 Normalise:
 
-\[
+$$
 p(h_i=1\mid v)
 =
 \frac{\exp(x)}
 {1+\exp(x)}.
-\]
+$$
 
 Rewrite:
 
-\[
+$$
 \frac{\exp(x)}
 {1+\exp(x)}
 =
 \frac{1}
 {1+\exp(-x)}.
-\]
+$$
 
 Therefore:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \frac{1}
@@ -1773,11 +1773,11 @@ p(h_i = 1 \mid v)
 \sum_j v_jW_{ji}
 \right)
 }
-\]
+$$
 
 and hence:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \sigma
@@ -1786,7 +1786,7 @@ b_i
 +
 \sum_j v_jW_{ji}
 \right).
-\]
+$$
 
 ---
 
@@ -1796,7 +1796,7 @@ b_i
 
 ### [EXAM FLAG] Binary units
 
-The slides explicitly note that visible and hidden units are typically binary, with values \(0/1\). This is essential for the conditional probability derivation.
+The slides explicitly note that visible and hidden units are typically binary, with values $0/1$. This is essential for the conditional probability derivation.
 
 ### [EXAM FLAG] RBM connectivity
 
@@ -1814,7 +1814,7 @@ The ILOs explicitly mention probability calculations and conditional probabiliti
 
 The final exercise asks students to show:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \sigma
@@ -1823,7 +1823,7 @@ b_i
 +
 \sum_j v_jW_{ji}
 \right).
-\]
+$$
 
 This derivation should be practised.
 
@@ -1834,12 +1834,12 @@ Know how to explain:
 1. what makes a Boltzmann Machine stochastic, undirected, energy-based, and generative;
 2. why lower energy means higher probability;
 3. what the partition function does;
-4. why computing \(Z\) is expensive;
+4. why computing $Z$ is expensive;
 5. what clamping means;
 6. why standard Boltzmann Machines are hard to train;
 7. what restriction defines an RBM;
 8. why RBM conditionals factorise;
-9. how to derive \(p(h_i=1\mid v)\) using proportionality and normalisation;
+9. how to derive $p(h_i=1\mid v)$ using proportionality and normalisation;
 10. how to write the sigmoid forms of RBM conditionals.
 
 ---
@@ -1850,9 +1850,9 @@ Know how to explain:
 
 The slides explicitly connect Boltzmann Machines to:
 
-\[
+$$
 \textbf{Hopfield Networks.}
-\]
+$$
 
 Hopfield Networks are described as a precursor model.
 
@@ -1860,7 +1860,7 @@ Hopfield Networks are described as a precursor model.
 
 The lecture connects the probability model to statistical mechanics via:
 
-\[
+$$
 p(s_i)
 =
 \frac{1}{Z}
@@ -1868,7 +1868,7 @@ p(s_i)
 \left(
 -\frac{E(s_i)}{\kappa_B T}
 \right).
-\]
+$$
 
 The machine learning version uses the same energy-based probability idea.
 
@@ -1899,15 +1899,15 @@ Applications mentioned include:
 
 **[UNCLEAR]** Slide 20 writes the RBM partition function using notation like:
 
-\[
+$$
 \sum_{i,j}.
-\]
+$$
 
-The intended meaning is almost certainly summation over all configurations of \(v\) and \(h\), but the notation is potentially confusing because \(i\) and \(j\) are also used for hidden and visible unit indices.
+The intended meaning is almost certainly summation over all configurations of $v$ and $h$, but the notation is potentially confusing because $i$ and $j$ are also used for hidden and visible unit indices.
 
 ## 23.3 “Ignoring 1st degree terms”
 
-**[UNCLEAR]** Slide 20 shows the partition function expression while ignoring first-degree terms. The first-degree terms are the \(a^\top v\) and \(b^\top h\) parts of the energy function, but the spoken explanation may clarify why they were ignored in that display.
+**[UNCLEAR]** Slide 20 shows the partition function expression while ignoring first-degree terms. The first-degree terms are the $a^\top v$ and $b^\top h$ parts of the energy function, but the spoken explanation may clarify why they were ignored in that display.
 
 ## 23.4 Contrastive divergence
 
@@ -1932,7 +1932,7 @@ Before an exam, make sure you can do the following without notes:
 - Write the Boltzmann/Gibbs probability model.
 - Explain the role of the energy function.
 - Explain the role of the partition function.
-- State why computing \(Z\) can be expensive.
+- State why computing $Z$ can be expensive.
 - Explain clamping.
 - List the main limitations of standard Boltzmann Machines.
 - Define a Restricted Boltzmann Machine.
@@ -1940,24 +1940,25 @@ Before an exam, make sure you can do the following without notes:
 - Write the RBM energy function in vector and expanded form.
 - State the conditional independence factorisations:
 
-\[
+$$
 p(h\mid v)=\prod_i p(h_i\mid v),
 \qquad
 p(v\mid h)=\prod_j p(v_j\mid h).
-\]
+$$
 
 - Derive:
 
-\[
+$$
 p(h_i = 1 \mid v)
 =
 \sigma\left(b_i + \sum_j v_j W_{ji}\right).
-\]
+$$
 
 - Write:
 
-\[
+$$
 p(v_j = 1 \mid h)
 =
 \sigma\left(a_j + \sum_i W_{ji}h_i\right).
-\]
+$$
+

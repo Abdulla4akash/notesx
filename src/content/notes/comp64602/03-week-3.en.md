@@ -72,9 +72,9 @@ A semantic embedding maps symbols into vectors so that related symbols have rela
 
 **Example from the lecture:**
 
-\[
+$$
 V(\text{queen}) - V(\text{king}) \approx V(\text{mother}) - V(\text{father})
-\]
+$$
 
 This expresses an analogy-like relationship: the difference between queen and king is similar to the difference between mother and father. The lecturer described this as preserving a relationship such as “partnership” or gender/role contrast in the vector space.
 
@@ -90,31 +90,31 @@ Each word gets its own dimension. A word vector is all zeros except for a single
 **Formal example from the slides:**  
 Vocabulary:
 
-\[
+$$
 (\text{cat}, \text{mat}, \text{on}, \text{sat}, \text{the})
-\]
+$$
 
 Then:
 
-\[
+$$
 \text{cat} = [1,0,0,0,0]
-\]
+$$
 
-\[
+$$
 \text{mat} = [0,1,0,0,0]
-\]
+$$
 
-\[
+$$
 \text{on} = [0,0,1,0,0]
-\]
+$$
 
-\[
+$$
 \text{sat} = [0,0,0,1,0]
-\]
+$$
 
-\[
+$$
 \text{the} = [0,0,0,0,1]
-\]
+$$
 
 Each word occupies exactly one dimension.
 
@@ -122,13 +122,13 @@ Each word occupies exactly one dimension.
 
 The sentence is represented by stacking the one-hot vectors of the words in order:
 
-\[
+$$
 \text{The cat sat on the mat}
-\]
+$$
 
 becomes a matrix with one row per token:
 
-\[
+$$
 \begin{bmatrix}
 0 & 0 & 0 & 0 & 1 \\
 1 & 0 & 0 & 0 & 0 \\
@@ -137,9 +137,9 @@ becomes a matrix with one row per token:
 0 & 0 & 0 & 0 & 1 \\
 0 & 1 & 0 & 0 & 0
 \end{bmatrix}
-\]
+$$
 
-The transcript says the sentence matrix has size \(6 \times 5\), because the sentence has 6 words and the toy vocabulary has 5 words.
+The transcript says the sentence matrix has size $6 \times 5$, because the sentence has 6 words and the toy vocabulary has 5 words.
 
 ### Limitations
 
@@ -184,9 +184,9 @@ Given a word, predict the surrounding words.
 
 Example idea:
 
-\[
+$$
 \text{input word} \rightarrow \text{predict context words}
-\]
+$$
 
 ### Architecture from the lecture
 
@@ -204,15 +204,15 @@ The model is a feedforward neural network:
 
 The lecture does not give a full objective formula, but the process is:
 
-\[
+$$
 \text{given target word} \quad w_t
-\]
+$$
 
 predict surrounding words:
 
-\[
+$$
 w_{t-k}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+k}
-\]
+$$
 
 by minimizing prediction loss over a corpus.
 
@@ -224,9 +224,9 @@ by minimizing prediction loss over a corpus.
 
 Mask a word in a sentence and predict that word from its surrounding words.
 
-\[
+$$
 \text{surrounding words} \rightarrow \text{predict middle word}
-\]
+$$
 
 ### Architecture from the lecture
 
@@ -253,9 +253,9 @@ The word **bank** appears twice, but with two different meanings.
 
 Example: Word2Vec.
 
-\[
+$$
 V(\text{bank}) = V(\text{bank})
-\]
+$$
 
 A word has one vector regardless of context. The financial/criminal “bank” and the river “bank” receive the same vector.
 
@@ -263,9 +263,9 @@ A word has one vector regardless of context. The financial/criminal “bank” a
 
 Example from slides: BERT based on Transformer.
 
-\[
+$$
 V(\text{bank}) \neq V(\text{bank})
-\]
+$$
 
 A word’s vector changes depending on surrounding words. The lecturer says contextual embeddings model more fine-grained semantics and now lead performance in many text understanding tasks, but this unit focuses on complex knowledge rather than natural language text.
 
@@ -288,35 +288,35 @@ A knowledge graph is composed of relational facts/triples. TransE represents:
 
 For a triple:
 
-\[
+$$
 \langle h, r, t \rangle
-\]
+$$
 
 where:
 
-- \(h\) = head / subject entity
-- \(r\) = relation
-- \(t\) = tail / object entity
+- $h$ = head / subject entity
+- $r$ = relation
+- $t$ = tail / object entity
 
 TransE aims for:
 
-\[
+$$
 \mathbf{h} + \mathbf{r} \approx \mathbf{t}
-\]
+$$
 
 ### Worked example: London, CapitalOf, UK
 
 Triple:
 
-\[
+$$
 \langle \text{London}, \text{CapitalOf}, \text{The UK} \rangle
-\]
+$$
 
 In a perfect TransE embedding:
 
-\[
+$$
 \mathbf{London} + \mathbf{CapitalOf} = \mathbf{TheUK}
-\]
+$$
 
 The slide diagram shows London as the head point, The UK as the tail point, and CapitalOf as the translation vector connecting them. In an actual model, the translation may not land exactly on the tail; the remaining gap is used as the score.
 
@@ -326,29 +326,29 @@ The slide diagram shows London as the head point, The UK as the tail point, and 
 
 ### Intuition
 
-The smaller the distance between \(\mathbf{h} + \mathbf{r}\) and \(\mathbf{t}\), the more likely the triple is true.
+The smaller the distance between $\mathbf{h} + \mathbf{r}$ and $\mathbf{t}$, the more likely the triple is true.
 
 ### Formal definition from slides
 
 For triple:
 
-\[
+$$
 \langle h,r,t\rangle
-\]
+$$
 
 score:
 
-\[
+$$
 f(h,r,t)=\left\|\mathbf{h}+\mathbf{r}-\mathbf{t}\right\|_{L1/L2}
-\]
+$$
 
 The lecturer states that when the score/gap is large, the triple is less likely to hold; when the score/gap is small, the triple is more likely to hold.
 
 ### L1 distance: Manhattan distance
 
-\[
+$$
 d(\mathbf{a},\mathbf{b})=\sum_{i=1}^{d} |a_i-b_i|
-\]
+$$
 
 The lecturer explains this as moving along grid lines, like moving through Manhattan streets: only horizontal/vertical movement counts.
 
@@ -356,9 +356,9 @@ The lecturer explains this as moving along grid lines, like moving through Manha
 
 The slide writes:
 
-\[
+$$
 d(\mathbf{a},\mathbf{b})=\sum_{i=1}^{d}(a_i-b_i)^2
-\]
+$$
 
 The transcript describes L2 as the straight-line distance between two points.
 
@@ -376,14 +376,14 @@ Training needs positive and negative triples. Positive triples are observed fact
 
 Given a positive triple:
 
-\[
+$$
 \langle h,r,t\rangle
-\]
+$$
 
 generate a negative triple by replacing either:
 
-- the head \(h\), or
-- the tail \(t\)
+- the head $h$, or
+- the tail $t$
 
 with another randomly selected entity.
 
@@ -391,19 +391,19 @@ with another randomly selected entity.
 
 Positive triple:
 
-\[
+$$
 \langle \text{London}, \text{CapitalOf}, \text{The UK}\rangle
-\]
+$$
 
 Negative triples:
 
-\[
+$$
 \langle \text{Manchester}, \text{CapitalOf}, \text{The UK}\rangle
-\]
+$$
 
-\[
+$$
 \langle \text{London}, \text{CapitalOf}, \text{France}\rangle
-\]
+$$
 
 The transcript adds that this relies on a closed-world-style assumption: triples not declared in the KG are treated as false for sampling purposes. It also notes a weakness: because KGs are incomplete, a generated “negative” triple might actually be true. Example: replacing “The UK” with “England” might produce a plausible/true triple, depending on the KG and intended relation.
 
@@ -417,19 +417,19 @@ The loss should:
 
 - decrease scores/distances of positive triples;
 - increase scores/distances of negative triples;
-- enforce a margin \(\gamma\) between them.
+- enforce a margin $\gamma$ between them.
 
 ### Formal definition from slides
 
 Let:
 
-- \(S\) = set of positive triples
-- \(S'\) = set of negative triples
-- \(\gamma\) = margin hyperparameter
+- $S$ = set of positive triples
+- $S'$ = set of negative triples
+- $\gamma$ = margin hyperparameter
 
 Then:
 
-\[
+$$
 L
 =
 \sum_{(h,r,t)\in S}
@@ -441,23 +441,23 @@ f(h,r,t)
 -
 f(h',r,t')
 \right]_+
-\]
+$$
 
 where:
 
-\[
+$$
 [x]_+ = \max(0,x)
-\]
+$$
 
-The margin \(\gamma\) is used for robustness to noise and better generalization, making training points “safely away” from the decision boundary.
+The margin $\gamma$ is used for robustness to noise and better generalization, making training points “safely away” from the decision boundary.
 
 ### Interpretation
 
 If a positive triple already has a much lower score than its negative counterpart, then:
 
-\[
+$$
 \gamma + f(h,r,t) - f(h',r,t') \leq 0
-\]
+$$
 
 so the hinge loss contributes 0.
 
@@ -473,38 +473,38 @@ The slide shows Algorithm 1 from the original TransE paper by Bordes et al. The 
 
 - Training set:
 
-\[
+$$
 S = \{(h,\ell,t)\}
-\]
+$$
 
-The original algorithm uses \(\ell\) for relation; the lecture slides otherwise use \(r\).
+The original algorithm uses $\ell$ for relation; the lecture slides otherwise use $r$.
 
-- Entity set \(E\)
-- Relation set \(L\)
-- Margin \(\gamma\)
-- Embedding dimension \(k\)
+- Entity set $E$
+- Relation set $L$
+- Margin $\gamma$
+- Embedding dimension $k$
 
 ### Initialization
 
 Relations are initialized uniformly:
 
-\[
+$$
 \ell \sim \text{uniform}\left(-\frac{6}{\sqrt{k}},\frac{6}{\sqrt{k}}\right)
-\]
+$$
 
-for each relation \(\ell \in L\), then normalized:
+for each relation $\ell \in L$, then normalized:
 
-\[
+$$
 \ell \leftarrow \frac{\ell}{\|\ell\|}
-\]
+$$
 
 Entities are also initialized uniformly:
 
-\[
+$$
 e \sim \text{uniform}\left(-\frac{6}{\sqrt{k}},\frac{6}{\sqrt{k}}\right)
-\]
+$$
 
-for each entity \(e \in E\).
+for each entity $e \in E$.
 
 ### Training loop
 
@@ -512,41 +512,41 @@ Repeatedly:
 
 1. Normalize each entity vector:
 
-\[
+$$
 e \leftarrow \frac{e}{\|e\|}
-\]
+$$
 
 2. Sample a mini-batch:
 
-\[
+$$
 S_{\text{batch}} \leftarrow \text{sample}(S,b)
-\]
+$$
 
 3. Initialize training-pair batch:
 
-\[
+$$
 T_{\text{batch}} \leftarrow \varnothing
-\]
+$$
 
-4. For each positive triple \((h,\ell,t)\in S_{\text{batch}}\), sample one corrupted triple:
+4. For each positive triple $(h,\ell,t)\in S_{\text{batch}}$, sample one corrupted triple:
 
-\[
+$$
 (h',\ell,t') \leftarrow \text{sample}(S'_{(h,\ell,t)})
-\]
+$$
 
 5. Add the positive-negative pair:
 
-\[
+$$
 T_{\text{batch}}
 \leftarrow
 T_{\text{batch}}
 \cup
 \{((h,\ell,t),(h',\ell,t'))\}
-\]
+$$
 
 6. Update embeddings by gradient descent with respect to:
 
-\[
+$$
 \sum_{((h,\ell,t),(h',\ell,t'))\in T_{\text{batch}}}
 \nabla
 \left[
@@ -556,7 +556,7 @@ d(\mathbf{h}+\boldsymbol{\ell},\mathbf{t})
 -
 d(\mathbf{h'}+\boldsymbol{\ell},\mathbf{t'})
 \right]_+
-\]
+$$
 
 The transcript states that stochastic gradient descent is used to search for embeddings that minimize the loss.
 
@@ -574,55 +574,55 @@ Relation composition means one relation is the composition of two or more relati
 
 Example:
 
-\[
+$$
 r_1 \circ r_2 = r_3
-\]
+$$
 
 Lecture example:
 
-\[
+$$
 \langle A,\text{BrotherOf},B\rangle
-\]
+$$
 
-\[
+$$
 \langle B,\text{FatherOf},C\rangle
-\]
+$$
 
-\[
+$$
 \langle A,\text{UncleOf},C\rangle
-\]
+$$
 
 Here:
 
-\[
+$$
 \text{UncleOf} = \text{BrotherOf} \circ \text{FatherOf}
-\]
+$$
 
 ### Why TransE can model this
 
 If:
 
-\[
+$$
 \mathbf{x}+\mathbf{r}_1=\mathbf{y}
-\]
+$$
 
 and:
 
-\[
+$$
 \mathbf{y}+\mathbf{r}_2=\mathbf{z}
-\]
+$$
 
 then:
 
-\[
+$$
 \mathbf{x}+\mathbf{r}_1+\mathbf{r}_2=\mathbf{z}
-\]
+$$
 
 So the composed relation can be represented as:
 
-\[
+$$
 \mathbf{r}_3=\mathbf{r}_1+\mathbf{r}_2
-\]
+$$
 
 The slide explicitly says TransE is able to model relation composition.
 
@@ -632,69 +632,69 @@ The slide explicitly says TransE is able to model relation composition.
 
 ### Definition
 
-A relation \(r\) is symmetric if:
+A relation $r$ is symmetric if:
 
-\[
+$$
 \langle h,r,t\rangle \Rightarrow \langle t,r,h\rangle
-\]
+$$
 
 Example:
 
-\[
+$$
 \langle A,\text{MarriedTo},B\rangle
-\]
+$$
 
-\[
+$$
 \langle B,\text{MarriedTo},A\rangle
-\]
+$$
 
 ### Derivation of the problem
 
 For perfect TransE embedding, both triples should have score 0:
 
-\[
+$$
 \|\mathbf{h}+\mathbf{r}-\mathbf{t}\|_2=0
-\]
+$$
 
-\[
+$$
 \|\mathbf{t}+\mathbf{r}-\mathbf{h}\|_2=0
-\]
+$$
 
 So:
 
-\[
+$$
 \mathbf{h}+\mathbf{r}=\mathbf{t}
-\]
+$$
 
-\[
+$$
 \mathbf{t}+\mathbf{r}=\mathbf{h}
-\]
+$$
 
 Substitute the first into the second:
 
-\[
+$$
 (\mathbf{h}+\mathbf{r})+\mathbf{r}=\mathbf{h}
-\]
+$$
 
-\[
+$$
 \mathbf{h}+2\mathbf{r}=\mathbf{h}
-\]
+$$
 
-\[
+$$
 2\mathbf{r}=0
-\]
+$$
 
-\[
+$$
 \mathbf{r}=0
-\]
+$$
 
 Then:
 
-\[
+$$
 \mathbf{h}=\mathbf{t}
-\]
+$$
 
-But \(h\) and \(t\) are different entities. Therefore, TransE cannot properly represent symmetric relations when distinct entities must remain distinct.
+But $h$ and $t$ are different entities. Therefore, TransE cannot properly represent symmetric relations when distinct entities must remain distinct.
 
 ---
 
@@ -706,43 +706,43 @@ A 1-to-N relation links one head entity to multiple different tail entities.
 
 Example:
 
-\[
+$$
 \langle A,\text{ParentOf},B\rangle
-\]
+$$
 
-\[
+$$
 \langle A,\text{ParentOf},C\rangle
-\]
+$$
 
 ### Derivation of the problem
 
 For perfect TransE embedding:
 
-\[
+$$
 \|\mathbf{h}+\mathbf{r}-\mathbf{t}\|_2=0
-\]
+$$
 
-\[
+$$
 \|\mathbf{h}+\mathbf{r}-\mathbf{t'}\|_2=0
-\]
+$$
 
 So:
 
-\[
+$$
 \mathbf{h}+\mathbf{r}=\mathbf{t}
-\]
+$$
 
-\[
+$$
 \mathbf{h}+\mathbf{r}=\mathbf{t'}
-\]
+$$
 
 Therefore:
 
-\[
+$$
 \mathbf{t}=\mathbf{t'}
-\]
+$$
 
-But \(t\) and \(t'\) are different entities. This contradicts the KG facts. The slides say TransE similarly cannot represent N-to-1 or N-to-N relations well.
+But $t$ and $t'$ are different entities. This contradicts the KG facts. The slides say TransE similarly cannot represent N-to-1 or N-to-N relations well.
 
 ---
 
@@ -760,43 +760,43 @@ TransH models each relation as:
 
 1. a hyperplane with normal vector:
 
-\[
+$$
 \mathbf{w}_r
-\]
+$$
 
 2. a translation vector on that hyperplane:
 
-\[
+$$
 \mathbf{d}_r
-\]
+$$
 
 ### Projection formulas from slides
 
 The head entity is projected onto the hyperplane:
 
-\[
+$$
 \mathbf{h}_{\perp}
 =
 \mathbf{h}
 -
 \mathbf{w}_r^{T}\mathbf{h}\mathbf{w}_r
-\]
+$$
 
 The tail entity is projected similarly:
 
-\[
+$$
 \mathbf{t}_{\perp}
 =
 \mathbf{t}
 -
 \mathbf{w}_r^{T}\mathbf{t}\mathbf{w}_r
-\]
+$$
 
 Then translation happens on the hyperplane:
 
-\[
+$$
 \mathbf{h}_{\perp}+\mathbf{d}_r \approx \mathbf{t}_{\perp}
-\]
+$$
 
 ### Intuition
 
@@ -812,31 +812,31 @@ TransR generalizes the idea further: entities may lie in different spaces, so be
 
 ### Formal definition from slides
 
-For relation \(r\), use projection matrix:
+For relation $r$, use projection matrix:
 
-\[
+$$
 \mathbf{M}_r
-\]
+$$
 
 Map head and tail into relation-specific space:
 
-\[
+$$
 \mathbf{h}_r = \mathbf{h}\mathbf{M}_r
-\]
+$$
 
-\[
+$$
 \mathbf{t}_r = \mathbf{t}\mathbf{M}_r
-\]
+$$
 
 Then score:
 
-\[
+$$
 f(h,r,t)
 =
 \left\|
 \mathbf{h}_r+\mathbf{r}-\mathbf{t}_r
 \right\|_{L1/L2}
-\]
+$$
 
 ### Intuition
 
@@ -844,7 +844,7 @@ TransR is more expressive than TransH because the projection is a matrix rather 
 
 ---
 
-# 6. Ontology Embedding and Description Logic \(\mathcal{EL}^{++}\)
+# 6. Ontology Embedding and Description Logic $\mathcal{EL}^{++}$
 
 ## 6.1 Motivation: ontologies are more complex than KGs
 
@@ -857,19 +857,19 @@ The lecture’s solution direction:
 
 ---
 
-## 6.2 Description Logic \(\mathcal{EL}^{++}\)
+## 6.2 Description Logic $\mathcal{EL}^{++}$
 
 ### Scope
 
-The ontology embedding methods in this lecture target \(\mathcal{EL}^{++}\), a fragment of Description Logic. The lecturer says it balances expressivity and reasoning complexity, and its features cover many real-world ontology modeling scenarios.
+The ontology embedding methods in this lecture target $\mathcal{EL}^{++}$, a fragment of Description Logic. The lecturer says it balances expressivity and reasoning complexity, and its features cover many real-world ontology modeling scenarios.
 
-[UNCLEAR] The transcript says \(\mathcal{EL}^{++}\) “corresponds to our two year profile,” likely an auto-transcription error. The slide itself only clearly states **Description Logic \(\mathcal{EL}^{++}\)**.
+[UNCLEAR] The transcript says $\mathcal{EL}^{++}$ “corresponds to our two year profile,” likely an auto-transcription error. The slide itself only clearly states **Description Logic $\mathcal{EL}^{++}$**.
 
 ### Formal concept constructors
 
 Complex concepts can be recursively defined by:
 
-\[
+$$
 \bot
 \mid
 \top
@@ -881,27 +881,27 @@ C \sqcap D
 \exists r.C
 \mid
 \{a\}
-\]
+$$
 
 where:
 
-- \(\bot\): bottom concept / empty set
-- \(\top\): top concept / full set
-- \(A\): atomic concept
-- \(C,D\): complex concepts
-- \(C \sqcap D\): conjunction / intersection
-- \(\exists r.C\): existential restriction
-- \(\{a\}\): nominal, a concept containing a specific individual \(a\)
+- $\bot$: bottom concept / empty set
+- $\top$: top concept / full set
+- $A$: atomic concept
+- $C,D$: complex concepts
+- $C \sqcap D$: conjunction / intersection
+- $\exists r.C$: existential restriction
+- $\{a\}$: nominal, a concept containing a specific individual $a$
 
-The transcript explains \(\exists r.C\) as meaning there exists some instance of concept \(C\) connected by relation \(r\).
+The transcript explains $\exists r.C$ as meaning there exists some instance of concept $C$ connected by relation $r$.
 
 ### Role composition and role subsumption
 
-\(\mathcal{EL}^{++}\) also allows role/relation composition and subsumption:
+$\mathcal{EL}^{++}$ also allows role/relation composition and subsumption:
 
-\[
+$$
 r_1 \circ \cdots \circ r_k \sqsubseteq r
-\]
+$$
 
 ---
 
@@ -911,33 +911,33 @@ The slide gives a family ontology with a TBox and ABox.
 
 ### TBox
 
-\[
+$$
 \mathcal{T}
 =
 \{
 \text{Father} \sqsubseteq \text{Parent} \sqcap \text{Male},
-\]
+$$
 
-\[
+$$
 \text{Mother} \sqsubseteq \text{Parent} \sqcap \text{Female},
-\]
+$$
 
-\[
+$$
 \text{Child} \sqsubseteq \exists \text{hasParent}.\text{Father},
-\]
+$$
 
-\[
+$$
 \text{Child} \sqsubseteq \exists \text{hasParent}.\text{Mother},
-\]
+$$
 
-\[
+$$
 \text{hasParent} \sqsubseteq \text{relatedTo}
 \}
-\]
+$$
 
 ### ABox
 
-\[
+$$
 \mathcal{A}
 =
 \{
@@ -945,7 +945,7 @@ The slide gives a family ontology with a TBox and ABox.
 \text{Child}(\text{Bob}),
 \text{hasParent}(\text{Bob},\text{Alex})
 \}
-\]
+$$
 
 Interpretation:
 
@@ -957,7 +957,7 @@ Interpretation:
 - A Child has some parent who is a Father and some parent who is a Mother.
 - hasParent is a subrelation of relatedTo.
 
-[UNCLEAR] The transcript says “instance is equivalent to in the video,” which is garbled. The slide clearly gives ABox assertions such as \(\text{Father}(\text{Alex})\).
+[UNCLEAR] The transcript says “instance is equivalent to in the video,” which is garbled. The slide clearly gives ABox assertions such as $\text{Father}(\text{Alex})$.
 
 ---
 
@@ -971,25 +971,25 @@ Represent a concept as a region shaped like a ball. Represent an individual as a
 
 ### Formal representation
 
-Each concept is represented by an \(n\)-ball:
+Each concept is represented by an $n$-ball:
 
 - center:
 
-\[
+$$
 \mathbf{c} \in \mathbb{R}^n
-\]
+$$
 
 - radius:
 
-\[
+$$
 r \in \mathbb{R}
-\]
+$$
 
 Each individual is represented by a point:
 
-\[
+$$
 \mathbf{x} \in \mathbb{R}^n
-\]
+$$
 
 ## 7.2 Membership and subsumption
 
@@ -999,27 +999,27 @@ An individual belongs to a concept if its point is inside the ball.
 
 ### Concept subsumption
 
-\[
+$$
 C \sqsubseteq D
-\]
+$$
 
-is modeled as ball inclusion: the ball for \(C\) lies inside the ball for \(D\).
+is modeled as ball inclusion: the ball for $C$ lies inside the ball for $D$.
 
 ## 7.3 Limitation: concept intersection is not closed
 
 The key limitation:
 
-\[
+$$
 C \sqcap D
-\]
+$$
 
 is the intersection of two concepts. But the intersection of two balls is generally not another ball; it can be a lens-shaped region.
 
 Therefore, ball embeddings struggle to represent conjunction/intersection exactly, especially when the ontology needs:
 
-\[
+$$
 E \equiv C \sqcap D
-\]
+$$
 
 The slide explicitly says the intersection of two balls is “no longer ball.”
 
@@ -1029,31 +1029,31 @@ The slide explicitly says the intersection of two balls is “no longer ball.”
 
 ## 8.1 Why boxes?
 
-Boxes solve the closure problem for conjunction: the intersection of two axis-aligned boxes is still a box. This makes them better suited for modeling concept intersections in \(\mathcal{EL}^{++}\).
+Boxes solve the closure problem for conjunction: the intersection of two axis-aligned boxes is still a box. This makes them better suited for modeling concept intersections in $\mathcal{EL}^{++}$.
 
 ## 8.2 Box2EL
 
-The slides say **Box2EL** was proposed in 2024. It embeds \(\mathcal{EL}^{++}\) by representing concepts and relations with boxes.
+The slides say **Box2EL** was proposed in 2024. It embeds $\mathcal{EL}^{++}$ by representing concepts and relations with boxes.
 
 ### Formal concept representation
 
-Each concept \(C\) is represented by an \(n\)-box using two vectors:
+Each concept $C$ is represented by an $n$-box using two vectors:
 
 - lower-left corner:
 
-\[
+$$
 \mathbf{l}_C \in \mathbb{R}^n
-\]
+$$
 
 - upper-right corner:
 
-\[
+$$
 \mathbf{u}_C \in \mathbb{R}^n
-\]
+$$
 
 The box is:
 
-\[
+$$
 \text{Box}(C)
 =
 \{
@@ -1061,7 +1061,7 @@ The box is:
 \mid
 \mathbf{l}_C \leq \mathbf{x} \leq \mathbf{u}_C
 \}
-\]
+$$
 
 where the inequalities are element-wise.
 
@@ -1069,19 +1069,19 @@ where the inequalities are element-wise.
 
 Center:
 
-\[
+$$
 \mathbf{c}(C)
 =
 \frac{\mathbf{l}_C+\mathbf{u}_C}{2}
-\]
+$$
 
 Offset:
 
-\[
+$$
 \mathbf{o}(C)
 =
 \frac{\mathbf{u}_C-\mathbf{l}_C}{2}
-\]
+$$
 
 ### What boxes can model
 
@@ -1090,17 +1090,17 @@ Offset:
 - Concept conjunction: box intersection.
 - Equivalence to an intersection, e.g.:
 
-\[
+$$
 E \equiv C \sqcap D
-\]
+$$
 
 because:
 
-\[
+$$
 \text{Box}(E)
 =
 \text{Box}(C)\cap\text{Box}(D)
-\]
+$$
 
 is still a box.
 
@@ -1114,19 +1114,19 @@ TransE uses relation translation vectors, but it has limitations for 1-to-N, N-t
 
 ## 9.2 Relation representation in Box2EL
 
-Each relation \(r\) is represented by two boxes:
+Each relation $r$ is represented by two boxes:
 
 - head box:
 
-\[
+$$
 \text{Head}(r)
-\]
+$$
 
 - tail box:
 
-\[
+$$
 \text{Tail}(r)
-\]
+$$
 
 The transcript says this idea is close to the domain and range of a relation.
 
@@ -1134,37 +1134,37 @@ The transcript says this idea is close to the domain and range of a relation.
 
 For an axiom:
 
-\[
+$$
 C \sqsubseteq \exists r.D
-\]
+$$
 
-concepts \(C\) and \(D\) “interact” or “bump” each other.
+concepts $C$ and $D$ “interact” or “bump” each other.
 
 Each concept has a bump vector, written:
 
-\[
+$$
 \text{Bump}(C),\quad \text{Bump}(D)
-\]
+$$
 
 The axiom holds if:
 
-\[
+$$
 \text{Box}(C)\oplus \text{Bump}(D)
 \subseteq
 \text{Head}(r)
-\]
+$$
 
 and:
 
-\[
+$$
 \text{Box}(D)\oplus \text{Bump}(C)
 \subseteq
 \text{Tail}(r)
-\]
+$$
 
 The intended operation is translation of a box by a bump vector:
 
-\[
+$$
 \text{Box}(C)\oplus \text{Bump}(D)
 =
 \{
@@ -1172,9 +1172,9 @@ The intended operation is translation of a box by a bump vector:
 \mid
 \mathbf{x}\in \text{Box}(C)
 \}
-\]
+$$
 
-[UNCLEAR / slide typo] The lecture slide text contains an inconsistent version of this definition, using \(\mathbf{x}\in \text{Bump}(C)\), but the slide annotation says “Should be Box C.” The corrected version above follows that annotation.
+[UNCLEAR / slide typo] The lecture slide text contains an inconsistent version of this definition, using $\mathbf{x}\in \text{Bump}(C)$, but the slide annotation says “Should be Box C.” The corrected version above follows that annotation.
 
 ---
 
@@ -1190,37 +1190,37 @@ The family ontology figure shows:
 
 For:
 
-\[
+$$
 \text{Child} \sqsubseteq \exists \text{hasParent}.\text{Father}
-\]
+$$
 
 Box2EL checks:
 
 1. Child bumped by Father lies inside the head box of hasParent:
 
-\[
+$$
 \text{Box}(\text{Child})
 \oplus
 \text{Bump}(\text{Father})
 \subseteq
 \text{Head}(\text{hasParent})
-\]
+$$
 
 2. Father bumped by Child lies inside the tail box of hasParent:
 
-\[
+$$
 \text{Box}(\text{Father})
 \oplus
 \text{Bump}(\text{Child})
 \subseteq
 \text{Tail}(\text{hasParent})
-\]
+$$
 
 Similarly for:
 
-\[
+$$
 \text{Child} \sqsubseteq \exists \text{hasParent}.\text{Mother}
-\]
+$$
 
 The transcript explains that Mother bumped by Child and Father bumped by Child should be inside the tail box of hasParent, and Child bumped by Father/Mother should be inside the head box of hasParent.
 
@@ -1228,9 +1228,9 @@ The transcript explains that Mother bumped by Child and Father bumped by Child s
 
 For:
 
-\[
+$$
 \text{hasParent} \sqsubseteq \text{relatedTo}
-\]
+$$
 
 the head box of hasParent is inside the head box of relatedTo, and the tail box of hasParent is inside the tail box of relatedTo. This models relation subsumption geometrically.
 
@@ -1242,9 +1242,9 @@ the head box of hasParent is inside the head box of relatedTo, and the tail box 
 
 ### Definition
 
-For boxes \(A\) and \(B\):
+For boxes $A$ and $B$:
 
-\[
+$$
 \mathbf{d}(A,B)
 =
 |\mathbf{c}(A)-\mathbf{c}(B)|
@@ -1252,7 +1252,7 @@ For boxes \(A\) and \(B\):
 \mathbf{o}(A)
 -
 \mathbf{o}(B)
-\]
+$$
 
 This is an element-wise vector distance: each dimension gives the distance/overlap status in that dimension.
 
@@ -1272,15 +1272,15 @@ The transcript explains the slide’s 2D diagram:
 
 For concept subsumption / box inclusion:
 
-\[
+$$
 A \sqsubseteq B
-\]
+$$
 
-Box2EL uses a score/loss \(\mathcal{L}_{\sqsubseteq}(A,B)\).
+Box2EL uses a score/loss $\mathcal{L}_{\sqsubseteq}(A,B)$.
 
 The slides give:
 
-\[
+$$
 \mathcal{L}_{\sqsubseteq}(A,B)
 =
 \begin{cases}
@@ -1294,13 +1294,13 @@ The slides give:
 &
 \text{otherwise}
 \end{cases}
-\]
+$$
 
-where \(\gamma\) is a margin hyperparameter.
+where $\gamma$ is a margin hyperparameter.
 
 The slide also gives:
 
-\[
+$$
 \mathbf{d}(A,B)+2\mathbf{o}(A)
 =
 |\mathbf{c}(A)-\mathbf{c}(B)|
@@ -1308,13 +1308,13 @@ The slide also gives:
 \mathbf{o}(A)
 -
 \mathbf{o}(B)
-\]
+$$
 
 ### Interpretation
 
-The score is higher when subsumption is less likely. If \(A\) is inside \(B\), the score becomes 0 after the max operation. If \(A\) goes outside \(B\), the score becomes positive and contributes to the loss. The transcript describes moving box \(A\): if \(A\) moves partially outside \(B\), loss increases; if \(A\) moves further inside \(B\), the max operation makes the loss 0.
+The score is higher when subsumption is less likely. If $A$ is inside $B$, the score becomes 0 after the max operation. If $A$ goes outside $B$, the score becomes positive and contributes to the loss. The transcript describes moving box $A$: if $A$ moves partially outside $B$, loss increases; if $A$ moves further inside $B$, the max operation makes the loss 0.
 
-[UNCLEAR] The “otherwise” branch for \(B=\emptyset\), especially the use of \(\mathbf{o}(A)_1+1\), is shown on the slide but the transcript is garbled. Re-listen if the empty-box case is examinable.
+[UNCLEAR] The “otherwise” branch for $B=\emptyset$, especially the use of $\mathbf{o}(A)_1+1$, is shown on the slide but the transcript is garbled. Re-listen if the empty-box case is examinable.
 
 ---
 
@@ -1330,35 +1330,35 @@ Before training Box2EL, the ontology is normalized into sample forms. The transc
 
 ABox assertion:
 
-\[
+$$
 C(a)
-\]
+$$
 
 becomes TBox axiom:
 
-\[
+$$
 \{a\} \sqsubseteq C
-\]
+$$
 
 ### Role assertion
 
 ABox assertion:
 
-\[
+$$
 r(a,b)
-\]
+$$
 
 becomes:
 
-\[
+$$
 \{a\} \sqsubseteq \exists r.\{b\}
-\]
+$$
 
 The slides note that the offset is 0 for nominals.
 
 ## 11.3 Normalize TBox axioms into seven normal forms
 
-All TBox axioms are transformed into axioms of seven normal forms. The slides say this is implemented by reasoners such as **ELK**, which has high efficiency for ontologies of DL \(\mathcal{EL}^{++}\).
+All TBox axioms are transformed into axioms of seven normal forms. The slides say this is implemented by reasoners such as **ELK**, which has high efficiency for ontologies of DL $\mathcal{EL}^{++}$.
 
 [UNCLEAR] The transcript says “UK,” but the slide clearly says **ELK**.
 
@@ -1372,22 +1372,22 @@ The lecture gives losses/scores for seven normal forms. The first five are conce
 
 Normal form:
 
-\[
+$$
 C \sqsubseteq D
-\]
+$$
 
 Loss:
 
-\[
+$$
 \mathcal{L}_1(C,D)
 =
 \mathcal{L}_{\sqsubseteq}
 (
 \text{Box}(C),\text{Box}(D)
 )
-\]
+$$
 
-Meaning: box of \(C\) should be included in box of \(D\).
+Meaning: box of $C$ should be included in box of $D$.
 
 ---
 
@@ -1395,13 +1395,13 @@ Meaning: box of \(C\) should be included in box of \(D\).
 
 Normal form:
 
-\[
+$$
 C \sqcap D \sqsubseteq E
-\]
+$$
 
 Loss:
 
-\[
+$$
 \mathcal{L}_2(C,D,E)
 =
 \mathcal{L}_{\sqsubseteq}
@@ -1409,9 +1409,9 @@ Loss:
 \text{Box}(C)\cap\text{Box}(D),
 \text{Box}(E)
 )
-\]
+$$
 
-Meaning: the intersection box of \(C\) and \(D\) should be included in box \(E\).
+Meaning: the intersection box of $C$ and $D$ should be included in box $E$.
 
 ---
 
@@ -1419,13 +1419,13 @@ Meaning: the intersection box of \(C\) and \(D\) should be included in box \(E\)
 
 Normal form:
 
-\[
+$$
 C \sqsubseteq \exists r.D
-\]
+$$
 
 Loss:
 
-\[
+$$
 \mathcal{L}_3(C,r,D)
 =
 \frac{1}{2}
@@ -1442,12 +1442,12 @@ Loss:
 \text{Tail}(r)
 )
 \Big)
-\]
+$$
 
 Meaning:
 
-- \(C\), bumped by \(D\), should be inside the head box of \(r\).
-- \(D\), bumped by \(C\), should be inside the tail box of \(r\).
+- $C$, bumped by $D$, should be inside the head box of $r$.
+- $D$, bumped by $C$, should be inside the tail box of $r$.
 
 ---
 
@@ -1455,13 +1455,13 @@ Meaning:
 
 Normal form:
 
-\[
+$$
 \exists r.C \sqsubseteq D
-\]
+$$
 
 Loss:
 
-\[
+$$
 \mathcal{L}_4(r,C,D)
 =
 \mathcal{L}_{\sqsubseteq}
@@ -1469,9 +1469,9 @@ Loss:
 \text{Head}(r)-\text{Bump}(C),
 \text{Box}(D)
 )
-\]
+$$
 
-Meaning: the relevant points connected by \(r\) to \(C\) should be contained in \(D\). The transcript explanation here is garbled, but the slide formula is clear.
+Meaning: the relevant points connected by $r$ to $C$ should be contained in $D$. The transcript explanation here is garbled, but the slide formula is clear.
 
 ---
 
@@ -1479,13 +1479,13 @@ Meaning: the relevant points connected by \(r\) to \(C\) should be contained in 
 
 Normal form:
 
-\[
+$$
 C \sqcap D \sqsubseteq \bot
-\]
+$$
 
 Loss:
 
-\[
+$$
 \mathcal{L}_5(C,D)
 =
 \left\|
@@ -1500,9 +1500,9 @@ Loss:
 )
 \}
 \right\|
-\]
+$$
 
-Meaning: \(C\) and \(D\) should not overlap. The transcript says this is equivalent to the intersection of \(C\) and \(D\) being empty. If the distance in a dimension is negative, that reflects overlap and contributes to the loss.
+Meaning: $C$ and $D$ should not overlap. The transcript says this is equivalent to the intersection of $C$ and $D$ being empty. If the distance in a dimension is negative, that reflects overlap and contributes to the loss.
 
 ---
 
@@ -1510,13 +1510,13 @@ Meaning: \(C\) and \(D\) should not overlap. The transcript says this is equival
 
 Normal form:
 
-\[
+$$
 r \sqsubseteq s
-\]
+$$
 
 Loss:
 
-\[
+$$
 \mathcal{L}_6(r,s)
 =
 \frac{1}{2}
@@ -1533,9 +1533,9 @@ Loss:
 \text{Tail}(s)
 )
 \Big)
-\]
+$$
 
-Meaning: both the head and tail boxes of \(r\) should be included in the corresponding boxes of \(s\).
+Meaning: both the head and tail boxes of $r$ should be included in the corresponding boxes of $s$.
 
 ---
 
@@ -1543,13 +1543,13 @@ Meaning: both the head and tail boxes of \(r\) should be included in the corresp
 
 Normal form:
 
-\[
+$$
 r_1 \circ r_2 \sqsubseteq s
-\]
+$$
 
 Loss:
 
-\[
+$$
 \mathcal{L}_7(r_1,r_2,s)
 =
 \frac{1}{2}
@@ -1566,9 +1566,9 @@ Loss:
 \text{Tail}(s)
 )
 \Big)
-\]
+$$
 
-Meaning: the head box of \(r_1\) should be inside the head box of \(s\), and the tail box of \(r_2\) should be inside the tail box of \(s\).
+Meaning: the head box of $r_1$ should be inside the head box of $s$, and the tail box of $r_2$ should be inside the tail box of $s$.
 
 ---
 
@@ -1586,23 +1586,23 @@ The transcript says negative samples can improve training efficiency/convergence
 
 Negative samples are generated for NF3 axioms:
 
-\[
+$$
 C \sqsubseteq \exists r.D
-\]
+$$
 
-by replacing either \(C\) or \(D\) with a randomly selected different concept.
+by replacing either $C$ or $D$ with a randomly selected different concept.
 
 Negative sample:
 
-\[
+$$
 C \not\sqsubseteq \exists r.D
-\]
+$$
 
 ## 13.4 Negative-sample loss
 
 The slide gives:
 
-\[
+$$
 \mathcal{L}_{\not\sqsubseteq}(C,r,D)
 =
 \left(
@@ -1614,9 +1614,9 @@ The slide gives:
 \text{Head}(r)
 )
 \right)^2
-\]
+$$
 
-\[
+$$
 +
 \left(
 \delta
@@ -1627,11 +1627,11 @@ The slide gives:
 \text{Tail}(r)
 )
 \right)^2
-\]
+$$
 
 where:
 
-\[
+$$
 \mu(A,B)
 =
 \left\|
@@ -1641,11 +1641,11 @@ where:
 \mathbf{d}(A,B)+\gamma
 \}
 \right\|
-\]
+$$
 
 and:
 
-\[
+$$
 \mathbf{d}(A,B)
 =
 |\mathbf{c}(A)-\mathbf{c}(B)|
@@ -1653,16 +1653,16 @@ and:
 \mathbf{o}(A)
 -
 \mathbf{o}(B)
-\]
+$$
 
-\(\delta\) is a hyperparameter controlling how unlikely the negative samples are made by the model.
+$\delta$ is a hyperparameter controlling how unlikely the negative samples are made by the model.
 
 ### Interpretation from transcript
 
-- If two boxes overlap, \(\mu=0\), so there is loss.
-- If they move apart and a gap appears, \(\mu>0\), and loss decreases.
-- The loss is minimized around \(\mu=\delta\).
-- If boxes move too far apart so that \(\mu>\delta\), the loss increases again.
+- If two boxes overlap, $\mu=0$, so there is loss.
+- If they move apart and a gap appears, $\mu>0$, and loss decreases.
+- The loss is minimized around $\mu=\delta$.
+- If boxes move too far apart so that $\mu>\delta$, the loss increases again.
 
 ---
 
@@ -1733,17 +1733,17 @@ The page 45 diagram shows:
 
 1. Ontology axioms such as:
 
-\[
+$$
 \text{Father} \sqsubseteq \text{Male}
-\]
+$$
 
-\[
+$$
 \text{Father} \sqsubseteq \text{Male}\sqcap\text{Parent}
-\]
+$$
 
-\[
+$$
 \text{Father}(\text{Alex})
-\]
+$$
 
 2. Conversion into an ontology graph with nodes such as:
    - Male
@@ -1782,19 +1782,19 @@ The slide gives a FoodOn example involving edamame.
 
 Concept:
 
-\[
+$$
 \text{obo:FOODON\_00002809}
-\]
+$$
 
 with label:
 
-\[
+$$
 \text{“edamame”}
-\]
+$$
 
 Formal axiom:
 
-\[
+$$
 \text{obo:FOODON\_00002809}
 \quad
 \text{rdfs:subClassOf}
@@ -1804,19 +1804,19 @@ Formal axiom:
 \text{obo:RO\_0001000},
 \text{obo:FOODON\_03411347}
 )
-\]
+$$
 
 The relation has label:
 
-\[
+$$
 \text{“derives from”}
-\]
+$$
 
 The filler concept has label:
 
-\[
+$$
 \text{“plant”}
-\]
+$$
 
 ### Textual annotation part
 
@@ -1826,15 +1826,15 @@ There is also a natural language definition:
 
 This is attached through annotation property:
 
-\[
+$$
 \text{obo:IAO\_0000115}
-\]
+$$
 
 with label:
 
-\[
+$$
 \text{“definition”}
-\]
+$$
 
 The lecturer distinguishes **formally defined knowledge** from **literal/textual annotations** such as labels and definitions.
 
@@ -1881,59 +1881,59 @@ OWL2Vec* first transforms an OWL ontology into an RDF graph. Reasoning, for exam
 
 For the FoodOn axiom:
 
-\[
+$$
 \text{obo:FOODON\_00002809}
 \sqsubseteq
 \exists \text{obo:RO\_0001000}.\text{obo:FOODON\_03411347}
-\]
+$$
 
 the slide gives RDF triples:
 
-\[
+$$
 \langle
 \text{obo:FOODON\_00002809},
 \text{rdfs:subClassOf},
 \_:x
 \rangle
-\]
+$$
 
-\[
+$$
 \langle
 \_:x,
 \text{rdf:type},
 \text{owl:Restriction}
 \rangle
-\]
+$$
 
-\[
+$$
 \langle
 \_:x,
 \text{owl:OnProperty},
 \text{obo:RO\_0001000}
 \rangle
-\]
+$$
 
-\[
+$$
 \langle
 \_:x,
 \text{owl:SomeValueFrom},
 \text{obo:FOODON\_03411347}
 \rangle
-\]
+$$
 
-The blank node \(\_:x\) represents the existential restriction. The following triples define its semantics: it is an OWL restriction, has property \(RO\_0001000\), and has filler \(FOODON\_03411347\).
+The blank node $\_:x$ represents the existential restriction. The following triples define its semantics: it is an OWL restriction, has property $RO\_0001000$, and has filler $FOODON\_03411347$.
 
 ### Option 2: Projection rules
 
 The slide also gives a simpler projected triple:
 
-\[
+$$
 \langle
 \text{obo:FOODON\_00002809},
 \text{rdfs:subClassOf},
 \text{obo:FOODON\_03411347}
 \rangle
-\]
+$$
 
 The transcript says projection rules are simple and straightforward but lose or shift some semantics.
 
@@ -1953,18 +1953,18 @@ Sources for these sequences:
 
 ### Example random-walk sequence
 
-\[
+$$
 (
 \text{vc:FOOD-4001},
 \text{vc:hasNutrient},
 \text{vc:VitaminC\_100},
 \text{vc:amountNutrient}
 )
-\]
+$$
 
 ### Example WL subtree-kernel sequence
 
-\[
+$$
 (
 \text{vc:FOOD-4001},
 \text{rdf:type},
@@ -1972,13 +1972,13 @@ Sources for these sequences:
 \text{rdfs:subClassOf},
 \text{kernel\_id2\_md5}
 )
-\]
+$$
 
 ### Example axiom sequence
 
 From the FoodOn existential restriction:
 
-\[
+$$
 (
 \text{obo:FOODON\_00002809},
 \text{subClassOf},
@@ -1986,7 +1986,7 @@ From the FoodOn existential restriction:
 \text{some},
 \text{obo:FOODON\_03411347}
 )
-\]
+$$
 
 The transcript says random walk generates paths in the graph, and those paths become entity sequences. It also says axioms can be directly serialized into sequences through syntax transformation.
 
@@ -2000,18 +2000,18 @@ OWL2Vec* builds a lexical document by converting entity sequences into word sequ
 
 Example structure sequence:
 
-\[
+$$
 (
 \text{vc:FOOD-4001},
 \text{vc:hasNutrient},
 \text{vc:VitaminC\_100},
 \text{vc:amountNutrient}
 )
-\]
+$$
 
 becomes lexical sequence:
 
-\[
+$$
 (
 \text{“blonde”},
 \text{“beer”},
@@ -2022,13 +2022,13 @@ becomes lexical sequence:
 \text{“amount”},
 \text{“nutrient”}
 )
-\]
+$$
 
 ### Method B: extract from annotation properties
 
 From the edamame definition:
 
-\[
+$$
 (
 \text{“edamame”},
 \text{“edamame”},
@@ -2043,7 +2043,7 @@ From the edamame definition:
 \text{“pods”},
 \ldots
 )
-\]
+$$
 
 The transcript says OWL2Vec* extracts labels, definitions, and comments to form word sequences.
 
@@ -2064,18 +2064,18 @@ Replace one entity in every entity sequence by its words. The slide mentions:
 
 Original entity sequence:
 
-\[
+$$
 (
 \text{vc:FOOD-4001},
 \text{vc:hasNutrient},
 \text{vc:VitaminC\_100},
 \text{vc:amountNutrient}
 )
-\]
+$$
 
 Combined sequence:
 
-\[
+$$
 (
 \text{vc:FOOD-4001},
 \text{“has”},
@@ -2085,7 +2085,7 @@ Combined sequence:
 \text{“amount”},
 \text{“nutrient”}
 )
-\]
+$$
 
 The transcript says this creates correlations between entities and words, enriching entity embeddings with textual semantics.
 
@@ -2121,43 +2121,43 @@ The transcript emphasizes that the learned vocabulary contains not only words bu
 
 Vocabulary:
 
-\[
+$$
 (\text{cat}, \text{mat}, \text{on}, \text{sat}, \text{the})
-\]
+$$
 
 Vectors:
 
-\[
+$$
 \text{cat}=[1,0,0,0,0]
-\]
+$$
 
-\[
+$$
 \text{mat}=[0,1,0,0,0]
-\]
+$$
 
-\[
+$$
 \text{on}=[0,0,1,0,0]
-\]
+$$
 
-\[
+$$
 \text{sat}=[0,0,0,1,0]
-\]
+$$
 
-\[
+$$
 \text{the}=[0,0,0,0,1]
-\]
+$$
 
-Sentence matrix for “The cat sat on the mat”: \(6\times 5\).
+Sentence matrix for “The cat sat on the mat”: $6\times 5$.
 
 ---
 
 ## 17.2 Word analogy example
 
-\[
+$$
 V(\text{queen})-V(\text{king})
 \approx
 V(\text{mother})-V(\text{father})
-\]
+$$
 
 Meaning: vector differences can encode semantic relationships.
 
@@ -2167,29 +2167,29 @@ Meaning: vector differences can encode semantic relationships.
 
 Positive triple:
 
-\[
+$$
 \langle \text{London},\text{CapitalOf},\text{The UK}\rangle
-\]
+$$
 
 Perfect embedding:
 
-\[
+$$
 \mathbf{London}+\mathbf{CapitalOf}
 =
 \mathbf{TheUK}
-\]
+$$
 
 Actual embedding:
 
-\[
+$$
 \mathbf{London}+\mathbf{CapitalOf}
-\]
+$$
 
 may not exactly equal:
 
-\[
+$$
 \mathbf{TheUK}
-\]
+$$
 
 The distance is the score.
 
@@ -2199,21 +2199,21 @@ The distance is the score.
 
 Positive:
 
-\[
+$$
 \langle \text{London},\text{CapitalOf},\text{The UK}\rangle
-\]
+$$
 
 Corrupt head:
 
-\[
+$$
 \langle \text{Manchester},\text{CapitalOf},\text{The UK}\rangle
-\]
+$$
 
 Corrupt tail:
 
-\[
+$$
 \langle \text{London},\text{CapitalOf},\text{France}\rangle
-\]
+$$
 
 Potential false-negative problem: the generated corrupted triple might actually be true because the KG is incomplete.
 
@@ -2223,27 +2223,27 @@ Potential false-negative problem: the generated corrupted triple might actually 
 
 Facts:
 
-\[
+$$
 \langle A,\text{BrotherOf},B\rangle
-\]
+$$
 
-\[
+$$
 \langle B,\text{FatherOf},C\rangle
-\]
+$$
 
-\[
+$$
 \langle A,\text{UncleOf},C\rangle
-\]
+$$
 
 Embedding relation:
 
-\[
+$$
 \mathbf{r}_{\text{UncleOf}}
 =
 \mathbf{r}_{\text{BrotherOf}}
 +
 \mathbf{r}_{\text{FatherOf}}
-\]
+$$
 
 ---
 
@@ -2251,31 +2251,31 @@ Embedding relation:
 
 For both:
 
-\[
+$$
 \langle h,r,t\rangle
-\]
+$$
 
 and:
 
-\[
+$$
 \langle t,r,h\rangle
-\]
+$$
 
 perfect TransE requires:
 
-\[
+$$
 \mathbf{h}+\mathbf{r}=\mathbf{t}
-\]
+$$
 
-\[
+$$
 \mathbf{t}+\mathbf{r}=\mathbf{h}
-\]
+$$
 
 which implies:
 
-\[
+$$
 \mathbf{r}=0,\quad \mathbf{h}=\mathbf{t}
-\]
+$$
 
 contradicting different entities.
 
@@ -2285,31 +2285,31 @@ contradicting different entities.
 
 For:
 
-\[
+$$
 \langle h,r,t\rangle
-\]
+$$
 
-\[
+$$
 \langle h,r,t'\rangle
-\]
+$$
 
 perfect TransE requires:
 
-\[
+$$
 \mathbf{h}+\mathbf{r}=\mathbf{t}
-\]
+$$
 
-\[
+$$
 \mathbf{h}+\mathbf{r}=\mathbf{t'}
-\]
+$$
 
 therefore:
 
-\[
+$$
 \mathbf{t}=\mathbf{t'}
-\]
+$$
 
-contradiction if \(t\) and \(t'\) are different entities.
+contradiction if $t$ and $t'$ are different entities.
 
 ---
 
@@ -2317,39 +2317,39 @@ contradiction if \(t\) and \(t'\) are different entities.
 
 TBox:
 
-\[
+$$
 \text{Father} \sqsubseteq \text{Parent}\sqcap\text{Male}
-\]
+$$
 
-\[
+$$
 \text{Mother} \sqsubseteq \text{Parent}\sqcap\text{Female}
-\]
+$$
 
-\[
+$$
 \text{Child} \sqsubseteq \exists\text{hasParent}.\text{Father}
-\]
+$$
 
-\[
+$$
 \text{Child} \sqsubseteq \exists\text{hasParent}.\text{Mother}
-\]
+$$
 
-\[
+$$
 \text{hasParent} \sqsubseteq \text{relatedTo}
-\]
+$$
 
 ABox:
 
-\[
+$$
 \text{Father}(\text{Alex})
-\]
+$$
 
-\[
+$$
 \text{Child}(\text{Bob})
-\]
+$$
 
-\[
+$$
 \text{hasParent}(\text{Bob},\text{Alex})
-\]
+$$
 
 Geometric Box2EL representation:
 
@@ -2364,35 +2364,35 @@ Geometric Box2EL representation:
 
 Formal axiom:
 
-\[
+$$
 \text{edamame}
 \sqsubseteq
 \exists \text{derivesFrom}.\text{plant}
-\]
+$$
 
 RDF mapping with blank node:
 
-\[
+$$
 \langle \text{edamame},\text{rdfs:subClassOf},\_:x\rangle
-\]
+$$
 
-\[
+$$
 \langle \_:x,\text{rdf:type},\text{owl:Restriction}\rangle
-\]
+$$
 
-\[
+$$
 \langle \_:x,\text{owl:OnProperty},\text{derivesFrom}\rangle
-\]
+$$
 
-\[
+$$
 \langle \_:x,\text{owl:SomeValueFrom},\text{plant}\rangle
-\]
+$$
 
 Textual annotation:
 
-\[
+$$
 \text{“Edamame is a preparation of immature soybean …”}
-\]
+$$
 
 OWL2Vec* uses both.
 
@@ -2406,11 +2406,11 @@ No explicit “this will be on the exam,” “common mistake,” or equivalent 
 
 ## “You should know / expected prior knowledge” flag
 
-The lecturer says they expect students to have learned the features of \(\mathcal{EL}^{++}\) in previous videos and/or another ontology reasoning unit. Treat the following as high-value revision content:
+The lecturer says they expect students to have learned the features of $\mathcal{EL}^{++}$ in previous videos and/or another ontology reasoning unit. Treat the following as high-value revision content:
 
-- \(\mathcal{EL}^{++}\) constructors:
+- $\mathcal{EL}^{++}$ constructors:
 
-\[
+$$
 \bot
 \mid
 \top
@@ -2422,13 +2422,13 @@ C\sqcap D
 \exists r.C
 \mid
 \{a\}
-\]
+$$
 
 - role composition/subsumption:
 
-\[
+$$
 r_1\circ\cdots\circ r_k\sqsubseteq r
-\]
+$$
 
 - TBox/ABox distinction
 - ABox-to-TBox normalization
@@ -2494,51 +2494,61 @@ Embedding supports approximate or uncertain forms of reasoning:
 5. **L2 distance formula**  
    Slide writes:
 
-   \[
-   \sum_i(a_i-b_i)^2
-   \]
+   
+
+$$
+\sum_i(a_i-b_i)^2
+$$
 
    while the transcript describes straight-line Euclidean distance. Re-listen to confirm whether the lecturer intended squared L2 or ordinary Euclidean norm.
 
-6. **\(\mathcal{EL}^{++}\) profile statement**  
+6. **$\mathcal{EL}^{++}$ profile statement**  
    Transcript says something like “corresponds to our two year profile.” Slides do not clarify. Re-listen if the course expects the exact OWL profile terminology.
 
 7. **Box2EL relation translation definition**  
    Slide formula for:
 
-   \[
-   \text{Box}(C)\oplus\text{Bump}(D)
-   \]
+   
 
-   appears to use \(\mathbf{x}\in \text{Bump}(C)\), but the slide annotation says “Should be Box C.” Use:
+$$
+\text{Box}(C)\oplus\text{Bump}(D)
+$$
 
-   \[
-   \{\mathbf{x}+\text{Bump}(D)\mid \mathbf{x}\in\text{Box}(C)\}
-   \]
+   appears to use $\mathbf{x}\in \text{Bump}(C)$, but the slide annotation says “Should be Box C.” Use:
+
+   
+
+$$
+\{\mathbf{x}+\text{Bump}(D)\mid \mathbf{x}\in\text{Box}(C)\}
+$$
 
    and re-check the recording/slide if needed.
 
-8. **Subsumption loss when \(B=\emptyset\)**  
+8. **Subsumption loss when $B=\emptyset$**  
    The formula branch involving:
 
-   \[
-   \max\{0,\mathbf{o}(A)_1+1\}
-   \]
+   
+
+$$
+\max\{0,\mathbf{o}(A)_1+1\}
+$$
 
    is shown on the slide, but the transcript explanation is garbled.
 
 9. **NF4 explanation**  
    The slide formula is clear:
 
-   \[
-   \mathcal{L}_4(r,C,D)
+   
+
+$$
+\mathcal{L}_4(r,C,D)
    =
    \mathcal{L}_{\sqsubseteq}
    (
    \text{Head}(r)-\text{Bump}(C),
    \text{Box}(D)
    )
-   \]
+$$
 
    but the spoken explanation is difficult to parse.
 

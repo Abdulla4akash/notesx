@@ -40,7 +40,7 @@ language: bn
 
 ---
 
-# Part I — Independent Component Analysis \(\mathrm{ICA}\)
+# Part I — Independent Component Analysis $\mathrm{ICA}$
 
 ---
 
@@ -73,15 +73,15 @@ ICA হলো একটি **blind source separation technique**, যার ল�
 
 Underlying source signals সম্পর্কে assumption:
 
-\[
+$$
 \text{statistically independent}
-\]
+$$
 
 এবং তাদের থাকতে হবে:
 
-\[
+$$
 \text{non-Gaussian distributions}.
-\]
+$$
 
 এই assumption কেন্দ্রীয়। স্লাইডে ICA-কে Gaussian source signals-এর জন্য method হিসেবে উপস্থাপন করা হয়নি।
 
@@ -113,15 +113,15 @@ ICA শুধু **mixed signals** থেকেই কাজ করে। Origin
 
 ### Source signals
 
-ধরা যাক \(n\)টি source signal আছে:
+ধরা যাক $n$টি source signal আছে:
 
-\[
+$$
 s_1, \ldots, s_n.
-\]
+$$
 
 এগুলো vector form-এ লেখা হয়:
 
-\[
+$$
 s =
 \begin{pmatrix}
 s_1 \\
@@ -129,26 +129,26 @@ s_1 \\
 s_n
 \end{pmatrix}
 \in \mathbb{R}^n.
-\]
+$$
 
 Source signals ICA assumptions satisfy করে:
 
-\[
+$$
 s_1,\ldots,s_n
 \quad\text{are statistically independent and have non-Gaussian distributions.}
-\]
+$$
 
 ### Mixed signals
 
-ধরা যাক \(m\)টি mixed signal আছে:
+ধরা যাক $m$টি mixed signal আছে:
 
-\[
+$$
 x_1, \ldots, x_m.
-\]
+$$
 
 এগুলো vector form-এ লেখা হয়:
 
-\[
+$$
 x =
 \begin{pmatrix}
 x_1 \\
@@ -156,23 +156,23 @@ x_1 \\
 x_m
 \end{pmatrix}
 \in \mathbb{R}^m.
-\]
+$$
 
 ### Observables
 
 শুধু mixed signals observe করা যায়:
 
-\[
+$$
 x_1, \ldots, x_m.
-\]
+$$
 
 ### Goal
 
 লক্ষ্য হলো source signals estimate করা:
 
-\[
+$$
 s_1,\ldots,s_n.
-\]
+$$
 
 এই estimated source signals-গুলোকে **independent components**-ও বলা হয়।
 
@@ -186,13 +186,13 @@ Mixed signals-কে source signals-এর linear combinations হিসেব�
 
 Model:
 
-\[
+$$
 x = As.
-\]
+$$
 
 Matrix form:
 
-\[
+$$
 \begin{pmatrix}
 x_1 \\
 x_2 \\
@@ -212,13 +212,13 @@ s_2 \\
 \vdots \\
 s_n
 \end{pmatrix}.
-\]
+$$
 
 এখানে:
 
-\[
+$$
 A \in \mathbb{R}^{m \times n}
-\]
+$$
 
 হলো **mixing matrix**।
 
@@ -226,17 +226,17 @@ A \in \mathbb{R}^{m \times n}
 
 শুধু left-hand side observed:
 
-\[
+$$
 x.
-\]
+$$
 
 ### কী estimate করতে হবে?
 
 Mixing matrix এবং source signals দুটোই unknown:
 
-\[
+$$
 A \quad\text{and}\quad s.
-\]
+$$
 
 তাই ICA-কে শুধু observed mixtures থেকে original source signals estimate করতে হয়।
 
@@ -246,9 +246,9 @@ A \quad\text{and}\quad s.
 
 লেকচারে whitened-source condition দেওয়া হয়েছে:
 
-\[
+$$
 \mathbb{E}[ss^\top] = I.
-\]
+$$
 
 এর মানে random signal-এর covariance matrix হলো identity matrix।
 
@@ -256,9 +256,9 @@ A \quad\text{and}\quad s.
 
 যদি:
 
-\[
+$$
 \mathbb{E}[ss^\top] = I,
-\]
+$$
 
 তাহলে:
 
@@ -276,9 +276,9 @@ Whitening-কে একটি **linear change of basis** হিসেবে ব�
 
 স্লাইডে লেখা আছে:
 
-\[
+$$
 \mathbb{E}[ss^\top] = I
-\]
+$$
 
 এবং এটিকে covariance matrix identity হওয়া হিসেবে বর্ণনা করা হয়েছে। Signal-এর zero mean থাকলে এটি ঠিক covariance matrix। এই জায়গায় lecturer centering / zero mean explicitly assume বা state করেছিলেন কি না, তা confirm করতে transcript দরকার।
 
@@ -288,21 +288,21 @@ Whitening-কে একটি **linear change of basis** হিসেবে ব�
 
 ### Unmixing matrix
 
-ICA এমন একটি **unmixing matrix** \(W\) খোঁজে যাতে estimated source vector হয়:
+ICA এমন একটি **unmixing matrix** $W$ খোঁজে যাতে estimated source vector হয়:
 
-\[
+$$
 \hat{s} = Wx.
-\]
+$$
 
-Matrix \(W\)-এর উদ্দেশ্য হলো \(A\)-এর কারণে হওয়া mixing undo করা।
+Matrix $W$-এর উদ্দেশ্য হলো $A$-এর কারণে হওয়া mixing undo করা।
 
 ### Optimisation objective
 
 Optimisation objective:
 
-\[
+$$
 \text{Find } W \text{ that maximises the statistical independence of the components of } \hat{s}.
-\]
+$$
 
 এটাই PCA থেকে মূল পার্থক্য:
 
@@ -313,9 +313,9 @@ Optimisation objective:
 
 পরবর্তী derivation-এর জন্য lecture assume করে:
 
-\[
+$$
 m = n.
-\]
+$$
 
 অর্থাৎ observed mixed signals-এর সংখ্যা source signals-এর সংখ্যার সমান।
 
@@ -327,13 +327,13 @@ m = n.
 
 Given data points:
 
-\[
+$$
 x_1, \ldots, x_N \in \mathbb{R}^m,
-\]
+$$
 
 data matrix হলো:
 
-\[
+$$
 X =
 \begin{pmatrix}
 x_1^\top \\
@@ -342,7 +342,7 @@ x_2^\top \\
 x_N^\top
 \end{pmatrix}
 \in \mathbb{R}^{N \times m}.
-\]
+$$
 
 ---
 
@@ -350,101 +350,101 @@ x_N^\top
 
 স্লাইডে unmixing matrix-এর singular value decomposition লেখা হয়েছে:
 
-\[
+$$
 W = USV^\top.
-\]
+$$
 
 তাহলে:
 
-\[
+$$
 WW^\top = USV^\top(USV^\top)^\top.
-\]
+$$
 
 Transpose expand করলে:
 
-\[
+$$
 (USV^\top)^\top = VS^\top U^\top.
-\]
+$$
 
 সুতরাং:
 
-\[
+$$
 WW^\top = USV^\top VS^\top U^\top.
-\]
+$$
 
 Orthogonality ব্যবহার করে:
 
-\[
+$$
 V^\top V = I,
-\]
+$$
 
 expression হয়:
 
-\[
+$$
 WW^\top = USS^\top U^\top.
-\]
+$$
 
 স্লাইডে এটি লেখা হয়েছে:
 
-\[
+$$
 WW^\top = US^2U^\top.
-\]
+$$
 
 ### Eigenvalue decomposition-এর সঙ্গে comparison
 
-\(X^\top X\)-এর eigenvalue decomposition দেওয়া হয়েছে:
+$X^\top X$-এর eigenvalue decomposition দেওয়া হয়েছে:
 
-\[
+$$
 X^\top X = QDQ^\top.
-\]
+$$
 
 এরপর স্লাইডে বলা হয়েছে:
 
-\[
+$$
 X^\top X = WW^\top.
-\]
+$$
 
 Compare করা হয়:
 
-\[
+$$
 WW^\top = US^2U^\top
-\]
+$$
 
 এর সঙ্গে:
 
-\[
+$$
 X^\top X = QDQ^\top,
-\]
+$$
 
 ফলে conclusion:
 
-\[
+$$
 U = Q
-\]
+$$
 
 and:
 
-\[
+$$
 S^2 = D.
-\]
+$$
 
 Therefore:
 
-\[
+$$
 S = D^{1/2}.
-\]
+$$
 
 তাই unmixing matrix-এর form:
 
-\[
+$$
 W = QD^{1/2}V^\top.
-\]
+$$
 
 Remaining task হলো orthogonal matrix estimate করা:
 
-\[
+$$
 V.
-\]
+$$
 
 স্লাইডে এই remaining task-কে **projection pursuit** বলা হয়েছে।
 
@@ -452,9 +452,9 @@ V.
 
 Equality:
 
-\[
+$$
 X^\top X = WW^\top
-\]
+$$
 
 স্লাইডে stated, কিন্তু visible slide content-এ এটি কেন true তার justification নেই। Missing assumption বা intermediate step recover করতে transcript দরকার।
 
@@ -468,9 +468,9 @@ ICA source signals-কে non-Gaussian হতে বলে। লেকচার
 
 ### 9.1 Kurtosis
 
-Random variable \(X\)-এর kurtosis:
+Random variable $X$-এর kurtosis:
 
-\[
+$$
 \kappa
 =
 \mathbb{E}
@@ -479,33 +479,33 @@ Random variable \(X\)-এর kurtosis:
 \frac{X-\mu}{\sigma}
 \right)^4
 \right],
-\]
+$$
 
 where:
 
-\[
+$$
 \mu = \text{mean of } X,
-\]
+$$
 
 and:
 
-\[
+$$
 \sigma = \text{standard deviation of } X.
-\]
+$$
 
 Gaussian variables-এর জন্য:
 
-\[
+$$
 \kappa = 3.
-\]
+$$
 
 ---
 
 ### 9.2 Excess kurtosis
 
-\(X\)-এর **excess kurtosis**:
+$X$-এর **excess kurtosis**:
 
-\[
+$$
 \kappa - 3
 =
 \mathbb{E}
@@ -515,7 +515,7 @@ Gaussian variables-এর জন্য:
 \right)^4
 \right]
 -3.
-\]
+$$
 
 এটি non-Gaussianity-এর measure হিসেবে ব্যবহার করা যায়।
 
@@ -525,9 +525,9 @@ Gaussian variables-এর জন্য:
 
 #### Mesokurtic
 
-\[
+$$
 \kappa - 3 = 0.
-\]
+$$
 
 Interpretation:
 
@@ -535,9 +535,9 @@ Interpretation:
 
 #### Leptokurtic
 
-\[
+$$
 \kappa - 3 > 0.
-\]
+$$
 
 Interpretation:
 
@@ -547,9 +547,9 @@ Interpretation:
 
 #### Platykurtic
 
-\[
+$$
 \kappa - 3 < 0.
-\]
+$$
 
 Interpretation:
 
@@ -585,9 +585,9 @@ ICA-তে Gaussian sources থাকতে পারে না।
 
 আলোচিত model একটি linear mixture assume করে:
 
-\[
+$$
 x = As.
-\]
+$$
 
 স্লাইডে বলা হয়েছে, ICA-এর এই form nonlinear mixtures handle করতে পারে না।
 
@@ -597,7 +597,7 @@ x = As.
 
 > Can only recover as many sources as you have observations.
 
-Notation-এ, যদি \(m\)টি observed mixed signal থাকে, এই setup \(m\)-এর বেশি source signal recover করতে পারে না।
+Notation-এ, যদি $m$টি observed mixed signal থাকে, এই setup $m$-এর বেশি source signal recover করতে পারে না।
 
 ### 11.4 Noise-free assumption
 
@@ -605,9 +605,9 @@ Notation-এ, যদি \(m\)টি observed mixed signal থাকে, এই s
 
 Noisy additive model:
 
-\[
+$$
 x = As + \epsilon.
-\]
+$$
 
 স্লাইডে বলা হয়েছে, এই additive-noise version আছে, কিন্তু এর solution-এর জন্য আরও কাজ দরকার।
 
@@ -649,9 +649,9 @@ PCA maximum variance-এর directions খোঁজে। ICA statistically inde
 
 Kernel PCA section শুরু হয় এই limitation দিয়ে:
 
-\[
+$$
 \text{Linear PCA assumes a linear manifold.}
-\]
+$$
 
 স্লাইডের illustration-এ flat linear plane-এর আশেপাশে data points দেখানো হয়েছে, যার মাধ্যমে বলা হচ্ছে ordinary PCA linear directions বা subspaces fit করে। Data structure nonlinear হলে এটি restrictive হতে পারে।
 
@@ -667,13 +667,13 @@ Kernel PCA data-কে অন্য একটি space-এ embed করে, য�
 
 Given data points:
 
-\[
+$$
 x_1, \ldots, x_N \in \mathbb{R}^d,
-\]
+$$
 
 data matrix:
 
-\[
+$$
 X =
 \begin{pmatrix}
 x_1^\top \\
@@ -682,9 +682,9 @@ x_2^\top \\
 x_N^\top
 \end{pmatrix}
 \in \mathbb{R}^{N \times d}.
-\]
+$$
 
-প্রতিটি data point \(X\)-এর একটি row হিসেবে stored থাকে।
+প্রতিটি data point $X$-এর একটি row হিসেবে stored থাকে।
 
 ---
 
@@ -692,63 +692,63 @@ x_N^\top
 
 Sample covariance matrix:
 
-\[
+$$
 \Sigma
 =
 \frac{1}{N}
 \sum_{i=1}^{N}
 (x_i-\hat{\mu})(x_i-\hat{\mu})^\top,
-\]
+$$
 
 where:
 
-\[
+$$
 \hat{\mu}
 =
 \frac{1}{N}
 \sum_{i=1}^{N}x_i.
-\]
+$$
 
 Centred data হলে:
 
-\[
+$$
 \Sigma
 =
 \frac{1}{N}
 \sum_{i=1}^{N}x_i x_i^\top.
-\]
+$$
 
 Equivalently:
 
-\[
+$$
 \Sigma
 =
 \frac{1}{N}X^\top X.
-\]
+$$
 
 ---
 
-## 16. Pen-and-paper exercise: \(X^\top X = \sum_i x_i x_i^\top\) দেখানো
+## 16. Pen-and-paper exercise: $X^\top X = \sum_i x_i x_i^\top$ দেখানো
 
 ### Exercise statement
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d
-\]
+$$
 
-with data matrix \(X\), show that:
+with data matrix $X$, show that:
 
-\[
+$$
 X^\top X = \sum_{i=1}^{N}x_i x_i^\top.
-\]
+$$
 
 ### Derivation
 
 যেহেতু:
 
-\[
+$$
 X =
 \begin{pmatrix}
 x_1^\top \\
@@ -756,20 +756,20 @@ x_2^\top \\
 \vdots \\
 x_N^\top
 \end{pmatrix},
-\]
+$$
 
 আমরা পাই:
 
-\[
+$$
 X^\top =
 \begin{pmatrix}
 x_1 & x_2 & \cdots & x_N
 \end{pmatrix}.
-\]
+$$
 
 Therefore:
 
-\[
+$$
 X^\top X
 =
 \begin{pmatrix}
@@ -781,23 +781,23 @@ x_2^\top \\
 \vdots \\
 x_N^\top
 \end{pmatrix}.
-\]
+$$
 
 Blockwise multiplication দিলে:
 
-\[
+$$
 X^\top X
 =
 x_1x_1^\top + x_2x_2^\top + \cdots + x_Nx_N^\top.
-\]
+$$
 
 Hence:
 
-\[
+$$
 X^\top X
 =
 \sum_{i=1}^{N}x_i x_i^\top.
-\]
+$$
 
 ---
 
@@ -805,138 +805,138 @@ X^\top X
 
 ### Core idea
 
-PCA basis vectors, অর্থাৎ **principal component vectors**, হলো covariance matrix \(\Sigma\)-এর eigenvectors। এগুলো corresponding eigenvalues অনুযায়ী সাজানো হয়।
+PCA basis vectors, অর্থাৎ **principal component vectors**, হলো covariance matrix $\Sigma$-এর eigenvectors। এগুলো corresponding eigenvalues অনুযায়ী সাজানো হয়।
 
-\(k\)-th principal component হলো:
+$k$-th principal component হলো:
 
-\[
+$$
 \text{eigenvector corresponding to the } k\text{-th largest eigenvalue}.
-\]
+$$
 
 ### স্লাইডের algorithm
 
 Inputs:
 
-\[
+$$
 x_1,\ldots,x_N,
-\]
+$$
 
 and a positive integer:
 
-\[
+$$
 k.
-\]
+$$
 
 Step 1. Data recentre করা:
 
-\[
+$$
 x_i \leftarrow x_i - \hat{\mu}.
-\]
+$$
 
 Step 2. Centred data matrix construct করা:
 
-\[
+$$
 X =
 \begin{pmatrix}
 x_1^\top \\
 \vdots \\
 x_N^\top
 \end{pmatrix}.
-\]
+$$
 
 Step 3. Compute:
 
-\[
+$$
 \Sigma' = X^\top X.
-\]
+$$
 
 Step 4. Eigenvalues এবং eigenvectors compute করা:
 
-\[
+$$
 (\lambda_i,v_i)
-\]
+$$
 
 of:
 
-\[
+$$
 \Sigma'.
-\]
+$$
 
 Step 5. Reorder করে:
 
-\[
+$$
 \lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d \geq 0.
-\]
+$$
 
-Step 6. Top \(k\) principal components return করা:
+Step 6. Top $k$ principal components return করা:
 
-\[
+$$
 v_1,\ldots,v_k.
-\]
+$$
 
 ### Scaling note
 
 আগে covariance matrix লেখা হয়েছিল:
 
-\[
+$$
 \Sigma = \frac{1}{N}X^\top X.
-\]
+$$
 
 Algorithm slide ব্যবহার করে:
 
-\[
+$$
 \Sigma' = X^\top X.
-\]
+$$
 
-এটি eigenvalues-কে \(N\) factor দিয়ে rescale করে, কিন্তু eigenvectors পরিবর্তন করে না।
+এটি eigenvalues-কে $N$ factor দিয়ে rescale করে, কিন্তু eigenvectors পরিবর্তন করে না।
 
 ---
 
-## 18. Pen-and-paper exercise: \(XX^\top\) যে Gram matrix, তা দেখানো
+## 18. Pen-and-paper exercise: $XX^\top$ যে Gram matrix, তা দেখানো
 
 ### Exercise statement
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d
-\]
+$$
 
-with data matrix \(X\), show that:
+with data matrix $X$, show that:
 
-\[
+$$
 XX^\top
-\]
+$$
 
-is the Gram matrix with \((j,k)\)-entry:
+is the Gram matrix with $(j,k)$-entry:
 
-\[
+$$
 x_j^\top x_k.
-\]
+$$
 
 ### Derivation
 
-\(X\)-এর \(j\)-th row হলো:
+$X$-এর $j$-th row হলো:
 
-\[
+$$
 x_j^\top.
-\]
+$$
 
-\(X^\top\)-এর \(k\)-th column হলো:
+$X^\top$-এর $k$-th column হলো:
 
-\[
+$$
 x_k.
-\]
+$$
 
-Therefore, \(XX^\top\)-এর \((j,k)\)-entry হলো:
+Therefore, $XX^\top$-এর $(j,k)$-entry হলো:
 
-\[
+$$
 (XX^\top)_{jk} = x_j^\top x_k.
-\]
+$$
 
 So:
 
-\[
+$$
 XX^\top
 =
 \begin{pmatrix}
@@ -945,7 +945,7 @@ x_2^\top x_1 & x_2^\top x_2 & \cdots & x_2^\top x_N \\
 \vdots & \vdots & \ddots & \vdots \\
 x_N^\top x_1 & x_N^\top x_2 & \cdots & x_N^\top x_N
 \end{pmatrix}.
-\]
+$$
 
 এটাই exactly Gram matrix।
 
@@ -955,58 +955,58 @@ x_N^\top x_1 & x_N^\top x_2 & \cdots & x_N^\top x_N
 
 ### Core idea
 
-PCA basis vectors বা principal components হলো centred data matrix \(X\)-এর SVD থেকে পাওয়া matrix \(V\)-এর column vectors।
+PCA basis vectors বা principal components হলো centred data matrix $X$-এর SVD থেকে পাওয়া matrix $V$-এর column vectors।
 
 ### স্লাইডের algorithm
 
 Inputs:
 
-\[
+$$
 x_1,\ldots,x_N,
-\]
+$$
 
 and a positive integer:
 
-\[
+$$
 k.
-\]
+$$
 
 Step 1. Data recentre করা:
 
-\[
+$$
 x_i \leftarrow x_i - \hat{\mu}.
-\]
+$$
 
 Step 2. Centred data matrix construct করা:
 
-\[
+$$
 X =
 \begin{pmatrix}
 x_1^\top \\
 \vdots \\
 x_N^\top
 \end{pmatrix}.
-\]
+$$
 
 Step 3. SVD compute করা:
 
-\[
+$$
 X = USV^\top.
-\]
+$$
 
 Step 4. Let:
 
-\[
+$$
 v_1,\ldots,v_d
-\]
+$$
 
-be the column vectors of \(V\).
+be the column vectors of $V$.
 
 Step 5. Return:
 
-\[
+$$
 v_1,\ldots,v_k.
-\]
+$$
 
 ---
 
@@ -1016,53 +1016,53 @@ v_1,\ldots,v_k.
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d
-\]
+$$
 
 with data matrix:
 
-\[
+$$
 X \in \mathbb{R}^{N \times d},
-\]
+$$
 
 এক জোড়া singular vectors:
 
-\[
+$$
 u \in \mathbb{R}^N,
 \qquad
 v \in \mathbb{R}^d,
-\]
+$$
 
 and singular value:
 
-\[
+$$
 \sigma > 0
-\]
+$$
 
 satisfy:
 
-\[
+$$
 \sigma u = Xv
-\]
+$$
 
 and:
 
-\[
+$$
 \sigma v = X^\top u.
-\]
+$$
 
 Equivalently:
 
-\[
+$$
 Xv = \sigma u,
-\]
+$$
 
 and:
 
-\[
+$$
 X^\top u = \sigma v.
-\]
+$$
 
 ---
 
@@ -1070,95 +1070,95 @@ X^\top u = \sigma v.
 
 স্লাইডে বলা হয়েছে:
 
-\[
+$$
 v \text{ is an eigenvector of } X^\top X \text{ with eigenvalue } \sigma^2,
-\]
+$$
 
 and:
 
-\[
+$$
 u \text{ is an eigenvector of } XX^\top \text{ with eigenvalue } \sigma^2.
-\]
+$$
 
-#### \(v\)-এর জন্য derivation
+#### $v$-এর জন্য derivation
 
 শুরু করি:
 
-\[
+$$
 Xv = \sigma u.
-\]
+$$
 
-Left-multiply by \(X^\top\):
+Left-multiply by $X^\top$:
 
-\[
+$$
 X^\top Xv = X^\top(\sigma u).
-\]
+$$
 
-\(\sigma\) বের করলে:
+$\sigma$ বের করলে:
 
-\[
+$$
 X^\top Xv = \sigma X^\top u.
-\]
+$$
 
 Using:
 
-\[
+$$
 X^\top u = \sigma v,
-\]
+$$
 
 we get:
 
-\[
+$$
 X^\top Xv = \sigma(\sigma v).
-\]
+$$
 
 Therefore:
 
-\[
+$$
 X^\top Xv = \sigma^2 v.
-\]
+$$
 
-So \(v\) হলো \(X^\top X\)-এর eigenvector with eigenvalue \(\sigma^2\)।
+So $v$ হলো $X^\top X$-এর eigenvector with eigenvalue $\sigma^2$।
 
-#### \(u\)-এর জন্য derivation
+#### $u$-এর জন্য derivation
 
 শুরু করি:
 
-\[
+$$
 X^\top u = \sigma v.
-\]
+$$
 
-Left-multiply by \(X\):
+Left-multiply by $X$:
 
-\[
+$$
 XX^\top u = X(\sigma v).
-\]
+$$
 
-\(\sigma\) বের করলে:
+$\sigma$ বের করলে:
 
-\[
+$$
 XX^\top u = \sigma Xv.
-\]
+$$
 
 Using:
 
-\[
+$$
 Xv = \sigma u,
-\]
+$$
 
 we get:
 
-\[
+$$
 XX^\top u = \sigma(\sigma u).
-\]
+$$
 
 Therefore:
 
-\[
+$$
 XX^\top u = \sigma^2 u.
-\]
+$$
 
-So \(u\) হলো \(XX^\top\)-এর eigenvector with eigenvalue \(\sigma^2\)।
+So $u$ হলো $XX^\top$-এর eigenvector with eigenvalue $\sigma^2$।
 
 ---
 
@@ -1166,63 +1166,63 @@ So \(u\) হলো \(XX^\top\)-এর eigenvector with eigenvalue \(\sigma^2\)�
 
 SVD:
 
-\[
+$$
 X = USV^\top.
-\]
+$$
 
 স্লাইডে shapes দেওয়া হয়েছে:
 
-\[
+$$
 U \in \mathbb{R}^{N \times d},
-\]
+$$
 
 with columns:
 
-\[
+$$
 u_1,\ldots,u_d
-\]
+$$
 
 forming an orthonormal system in:
 
-\[
+$$
 \mathbb{R}^N.
-\]
+$$
 
 Also:
 
-\[
+$$
 V \in \mathbb{R}^{d \times d},
-\]
+$$
 
 with columns:
 
-\[
+$$
 v_1,\ldots,v_d
-\]
+$$
 
 forming an orthonormal basis of:
 
-\[
+$$
 \mathbb{R}^d.
-\]
+$$
 
 Diagonal matrix:
 
-\[
+$$
 S = \operatorname{diag}(\sigma_1,\ldots,\sigma_d),
-\]
+$$
 
 with shape:
 
-\[
+$$
 d \times d.
-\]
+$$
 
 Singular values ordered:
 
-\[
+$$
 \sigma_1 \geq \sigma_2 \geq \cdots \geq \sigma_d.
-\]
+$$
 
 স্লাইডে বলা হয়েছে singular values সব positive।
 
@@ -1238,13 +1238,13 @@ Singular values ordered:
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d,
-\]
+$$
 
 Gram matrix:
 
-\[
+$$
 G =
 \begin{pmatrix}
 x_1^\top x_1 & x_1^\top x_2 & \cdots & x_1^\top x_N \\
@@ -1252,29 +1252,29 @@ x_2^\top x_1 & x_2^\top x_2 & \cdots & x_2^\top x_N \\
 \vdots & \vdots & \ddots & \vdots \\
 x_N^\top x_1 & x_N^\top x_2 & \cdots & x_N^\top x_N
 \end{pmatrix}.
-\]
+$$
 
 এর shape:
 
-\[
+$$
 N \times N,
-\]
+$$
 
-where \(N\) is the number of data points.
+where $N$ is the number of data points.
 
 ### Matrix form
 
 Gram matrix:
 
-\[
+$$
 G = XX^\top,
-\]
+$$
 
 where:
 
-\[
+$$
 X \in \mathbb{R}^{N \times d}
-\]
+$$
 
 is the data matrix.
 
@@ -1284,15 +1284,15 @@ is the data matrix.
 
 Data centred না হলে recentre করতে হয়:
 
-\[
+$$
 \tilde{x}_i \leftarrow x_i - \hat{\mu}.
-\]
+$$
 
 এটি Gram matrix পরিবর্তন করে।
 
 Centred Gram matrix:
 
-\[
+$$
 \tilde{G}
 =
 G
@@ -1302,23 +1302,23 @@ G
 \frac{1}{N}G\mathbf{1}
 +
 \frac{1}{N^2}\mathbf{1}G\mathbf{1}.
-\]
+$$
 
 Here:
 
-\[
+$$
 \mathbf{1}
-\]
+$$
 
-is the \(N \times N\) matrix whose entries are all \(1\)'s.
+is the $N \times N$ matrix whose entries are all $1$'s.
 
 Important notation point:
 
-\[
+$$
 \mathbf{1} \neq I.
-\]
+$$
 
-অর্থাৎ \(\mathbf{1}\) হলো all-ones matrix, identity matrix নয়।
+অর্থাৎ $\mathbf{1}$ হলো all-ones matrix, identity matrix নয়।
 
 ---
 
@@ -1326,45 +1326,51 @@ Important notation point:
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d,
-\]
+$$
 
 স্লাইডের procedure:
 
 1. Gram matrix construct করা:
 
-   \[
-   G.
-   \]
+   
+
+$$
+G.
+$$
 
 2. Centred Gram matrix construct করা:
 
-   \[
-   \tilde{G}.
-   \]
+   
+
+$$
+\tilde{G}.
+$$
 
 3. Centred Gram matrix-এ EVD apply করা।
 
 4. Eigenvalues পাওয়া যায়:
 
-   \[
-   \lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_N \geq 0.
-   \]
+   
 
-5. Positive integer \(k\)-এর জন্য top \(k\) eigenvalues choose করা।
+$$
+\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_N \geq 0.
+$$
+
+5. Positive integer $k$-এর জন্য top $k$ eigenvalues choose করা।
 
 ### স্লাইডের key warning
 
 এই Gram-matrix formulation-এ eigenvectors থাকে:
 
-\[
+$$
 \mathbb{R}^N,
-\]
+$$
 
 original data space-এ নয়।
 
-এটি গুরুত্বপূর্ণ, কারণ Kernel PCA-ও সরাসরি \(d \times d\) covariance matrix দিয়ে নয়, বরং একটি \(N \times N\) matrix দিয়ে কাজ করে।
+এটি গুরুত্বপূর্ণ, কারণ Kernel PCA-ও সরাসরি $d \times d$ covariance matrix দিয়ে নয়, বরং একটি $N \times N$ matrix দিয়ে কাজ করে।
 
 ---
 
@@ -1404,23 +1410,23 @@ Example-এর point: Kernel PCA nonlinear embedding ব্যবহার ক�
 
 ধরা যাক original data space:
 
-\[
+$$
 \mathbb{R}^2.
-\]
+$$
 
 Let:
 
-\[
+$$
 x =
 \begin{pmatrix}
 x_1 \\
 x_2
 \end{pmatrix}.
-\]
+$$
 
 স্লাইডে degree-2 polynomial expansion দেওয়া হয়েছে:
 
-\[
+$$
 \phi(x)
 =
 \begin{pmatrix}
@@ -1431,13 +1437,13 @@ x_1^2 \\
 x_2^2 \\
 \sqrt{2}x_1x_2
 \end{pmatrix}.
-\]
+$$
 
 এটি একটি nonlinear embedding define করে:
 
-\[
+$$
 \phi : \mathbb{R}^2 \to \mathbb{R}^6.
-\]
+$$
 
 ---
 
@@ -1445,7 +1451,7 @@ x_2^2 \\
 
 দুটি point:
 
-\[
+$$
 x =
 \begin{pmatrix}
 x_1 \\
@@ -1457,11 +1463,11 @@ x_2
 y_1 \\
 y_2
 \end{pmatrix},
-\]
+$$
 
 feature space-এ scalar product:
 
-\[
+$$
 \phi(x)^\top \phi(y)
 =
 1
@@ -1470,29 +1476,29 @@ feature space-এ scalar product:
 +x_1^2y_1^2
 +x_2^2y_2^2
 +2x_1x_2y_1y_2.
-\]
+$$
 
 এটি rewrite করা যায়:
 
-\[
+$$
 \phi(x)^\top \phi(y)
 =
 (1+x_1y_1+x_2y_2)^2.
-\]
+$$
 
 Since:
 
-\[
+$$
 x^\top y = x_1y_1+x_2y_2,
-\]
+$$
 
 we get:
 
-\[
+$$
 \phi(x)^\top \phi(y)
 =
 (1+x^\top y)^2.
-\]
+$$
 
 ---
 
@@ -1500,21 +1506,21 @@ we get:
 
 Define:
 
-\[
+$$
 \kappa(x,y)
 =
 (1+x^\top y)^2.
-\]
+$$
 
 Then:
 
-\[
+$$
 \phi(x)^\top \phi(y)
 =
 \kappa(x,y).
-\]
+$$
 
-Key computational idea: expanded feature space-এর inner product original vectors \(x\) এবং \(y\) ব্যবহার করেই compute করা যায়।
+Key computational idea: expanded feature space-এর inner product original vectors $x$ এবং $y$ ব্যবহার করেই compute করা যায়।
 
 ---
 
@@ -1522,13 +1528,13 @@ Key computational idea: expanded feature space-এর inner product original vec
 
 ### Formal-ish definition
 
-Let \(\mathcal{X}\) be a set.
+Let $\mathcal{X}$ be a set.
 
-\(\mathcal{X}\)-এর উপর kernel হলো function:
+$\mathcal{X}$-এর উপর kernel হলো function:
 
-\[
+$$
 \kappa : \mathcal{X} \times \mathcal{X} \to \mathbb{R}
-\]
+$$
 
 যা দুটি property satisfy করে:
 
@@ -1541,15 +1547,15 @@ Let \(\mathcal{X}\) be a set.
 
 Kernel satisfy করতে হবে:
 
-\[
+$$
 \kappa(x,x') = \kappa(x',x)
-\]
+$$
 
 for any:
 
-\[
+$$
 x,x' \in \mathcal{X}.
-\]
+$$
 
 ---
 
@@ -1557,42 +1563,42 @@ x,x' \in \mathcal{X}.
 
 Kernel satisfy করতে হবে:
 
-\[
+$$
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \kappa(x_i,x_j)
 \geq 0.
-\]
+$$
 
 এটি hold করতে হবে:
 
-\[
+$$
 n \in \mathbb{N},
-\]
+$$
 
 any:
 
-\[
+$$
 x_1,\ldots,x_n \in \mathcal{X},
-\]
+$$
 
 and any:
 
-\[
+$$
 c_1,\ldots,c_n \in \mathbb{R}.
-\]
+$$
 
 ---
 
-## 27. Pen-and-paper exercise: \(\kappa(x,y)=(1+x^\top y)^2\) kernel দেখানো
+## 27. Pen-and-paper exercise: $\kappa(x,y)=(1+x^\top y)^2$ kernel দেখানো
 
 ### Exercise statement
 
 Show that:
 
-\[
+$$
 \kappa(x,y)=(1+x^\top y)^2
-\]
+$$
 
 meets the properties to be a kernel.
 
@@ -1600,27 +1606,27 @@ meets the properties to be a kernel.
 
 Because:
 
-\[
+$$
 x^\top y = y^\top x,
-\]
+$$
 
 we have:
 
-\[
+$$
 1+x^\top y = 1+y^\top x.
-\]
+$$
 
 Therefore:
 
-\[
+$$
 (1+x^\top y)^2 = (1+y^\top x)^2.
-\]
+$$
 
 So:
 
-\[
+$$
 \kappa(x,y)=\kappa(y,x).
-\]
+$$
 
 Therefore kernel symmetric।
 
@@ -1628,13 +1634,13 @@ Therefore kernel symmetric।
 
 Feature-map example থেকে:
 
-\[
+$$
 \kappa(x,y)=\phi(x)^\top \phi(y).
-\]
+$$
 
-Then for any \(x_1,\ldots,x_n\) and \(c_1,\ldots,c_n\):
+Then for any $x_1,\ldots,x_n$ and $c_1,\ldots,c_n$:
 
-\[
+$$
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \kappa(x_i,x_j)
@@ -1642,11 +1648,11 @@ c_i c_j \kappa(x_i,x_j)
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \phi(x_i)^\top \phi(x_j).
-\]
+$$
 
 Regroup:
 
-\[
+$$
 =
 \left(
 \sum_{i=1}^{n}c_i\phi(x_i)
@@ -1654,25 +1660,25 @@ Regroup:
 \left(
 \sum_{j=1}^{n}c_j\phi(x_j)
 \right).
-\]
+$$
 
 এটি squared norm:
 
-\[
+$$
 =
 \left\|
 \sum_{i=1}^{n}c_i\phi(x_i)
 \right\|^2
 \geq 0.
-\]
+$$
 
-Therefore \(\kappa\) positive semi-definite।
+Therefore $\kappa$ positive semi-definite।
 
 So:
 
-\[
+$$
 \kappa(x,y)=(1+x^\top y)^2
-\]
+$$
 
 is a kernel.
 
@@ -1680,31 +1686,31 @@ is a kernel.
 
 ## 28. Feature map থেকে kernel
 
-Let \(\mathcal{X}\) be a set, and let:
+Let $\mathcal{X}$ be a set, and let:
 
-\[
+$$
 \phi : \mathcal{X} \to H
-\]
+$$
 
-be a mapping into a Hilbert space \(H\).
+be a mapping into a Hilbert space $H$.
 
 Define:
 
-\[
+$$
 \kappa : \mathcal{X} \times \mathcal{X} \to \mathbb{R}
-\]
+$$
 
 by:
 
-\[
+$$
 \kappa(x,y)=\phi(x)^\top \phi(y).
-\]
+$$
 
 স্লাইডে claim:
 
-\[
+$$
 \kappa(\cdot,\cdot) \text{ is a kernel.}
-\]
+$$
 
 Proof-কে “routine calculations” হিসেবে বর্ণনা করা হয়েছে।
 
@@ -1714,7 +1720,7 @@ Symmetry আসে inner product-এর symmetry থেকে।
 
 Positive semi-definiteness আসে:
 
-\[
+$$
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \kappa(x_i,x_j)
@@ -1723,21 +1729,21 @@ c_i c_j \kappa(x_i,x_j)
 \sum_{i=1}^{n}c_i\phi(x_i)
 \right\|^2
 \geq 0.
-\]
+$$
 
 ### [UNCLEAR / অস্পষ্ট]
 
 স্লাইডে transpose notation ব্যবহার করা হয়েছে:
 
-\[
+$$
 \phi(x)^\top \phi(y),
-\]
+$$
 
-যদিও \(H\)-কে Hilbert space বলা হয়েছে। পরের স্লাইডে Hilbert-space inner product notation ব্যবহার করা হয়েছে:
+যদিও $H$-কে Hilbert space বলা হয়েছে। পরের স্লাইডে Hilbert-space inner product notation ব্যবহার করা হয়েছে:
 
-\[
+$$
 \langle \phi(x),\phi(y)\rangle_H.
-\]
+$$
 
 Lecturer finite-dimensional Euclidean notation শুধু intuition-এর জন্য ব্যবহার করছিলেন, নাকি সরাসরি general Hilbert-space setting-এ যাচ্ছিলেন, তা confirm করতে transcript দরকার।
 
@@ -1749,42 +1755,42 @@ Lecturer finite-dimensional Euclidean notation শুধু intuition-এর জ
 
 Let:
 
-\[
+$$
 \kappa : \mathcal{X} \times \mathcal{X} \to \mathbb{R}
-\]
+$$
 
-be a kernel on \(\mathcal{X}\).
+be a kernel on $\mathcal{X}$.
 
 Then there exists:
 
-- a Hilbert space \(H\),
+- a Hilbert space $H$,
 - a feature map:
 
-\[
+$$
 \phi : \mathcal{X} \to H,
-\]
+$$
 
 such that:
 
-\[
+$$
 \kappa(x,y)
 =
 \langle \phi(x),\phi(y)\rangle_H
-\]
+$$
 
 for every:
 
-\[
+$$
 x,y \in \mathcal{X}.
-\]
+$$
 
 স্লাইডে বলা হয়েছে, এই claim prove করা highly nontrivial এবং অনেক কাজ লাগে।
 
-Hilbert space \(H\)-কে বলা হয়:
+Hilbert space $H$-কে বলা হয়:
 
-\[
+$$
 \text{Reproducing Kernel Hilbert Space, or RKHS}.
-\]
+$$
 
 স্লাইডে আরও বলা হয়েছে, RKHS theory cover করতে পুরো একটি course unit লেগে যেতে পারে।
 
@@ -1796,25 +1802,25 @@ Hilbert space \(H\)-কে বলা হয়:
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d,
-\]
+$$
 
 and a kernel:
 
-\[
+$$
 \kappa(\cdot,\cdot)
-\]
+$$
 
 on:
 
-\[
+$$
 \mathbb{R}^d,
-\]
+$$
 
 kernel matrix:
 
-\[
+$$
 K =
 \begin{pmatrix}
 \kappa(x_1,x_1) & \kappa(x_1,x_2) & \cdots & \kappa(x_1,x_N) \\
@@ -1822,45 +1828,45 @@ K =
 \vdots & \vdots & \ddots & \vdots \\
 \kappa(x_N,x_1) & \kappa(x_N,x_2) & \cdots & \kappa(x_N,x_N)
 \end{pmatrix}.
-\]
+$$
 
 Thus:
 
-\[
+$$
 K_{ij} = \kappa(x_i,x_j).
-\]
+$$
 
 ### Feature maps-এর সঙ্গে relationship
 
-যদি feature map \(\phi\) known থাকে, স্লাইডে লেখা হয়েছে:
+যদি feature map $\phi$ known থাকে, স্লাইডে লেখা হয়েছে:
 
-\[
+$$
 K = \phi(X)\phi(X)^\top.
-\]
+$$
 
 এটি Gram matrix identity mirror করে:
 
-\[
+$$
 G = XX^\top.
-\]
+$$
 
 Difference হলো ordinary dot product:
 
-\[
+$$
 x_i^\top x_j
-\]
+$$
 
 replace করা হয় kernel value দিয়ে:
 
-\[
+$$
 \kappa(x_i,x_j),
-\]
+$$
 
 যা embedding-এর পরে inner product-এর সঙ্গে correspond করে।
 
 ### [UNCLEAR / অস্পষ্ট]
 
-Notation \(\phi(X)\) compact। Lecturer এটিকে প্রতিটি data point-এ row-wise \(\phi\) apply করার পরে পাওয়া data matrix হিসেবে explicitly define করেছিলেন কি না, তা confirm করতে transcript দরকার।
+Notation $\phi(X)$ compact। Lecturer এটিকে প্রতিটি data point-এ row-wise $\phi$ apply করার পরে পাওয়া data matrix হিসেবে explicitly define করেছিলেন কি না, তা confirm করতে transcript দরকার।
 
 ---
 
@@ -1868,19 +1874,19 @@ Notation \(\phi(X)\) compact। Lecturer এটিকে প্রতিটি d
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d,
-\]
+$$
 
 and kernel:
 
-\[
+$$
 \kappa(\cdot,\cdot),
-\]
+$$
 
 centred kernel matrix:
 
-\[
+$$
 \tilde{K}
 =
 K
@@ -1890,19 +1896,19 @@ K
 \frac{1}{N}K\mathbf{1}
 +
 \frac{1}{N^2}\mathbf{1}K\mathbf{1}.
-\]
+$$
 
 Here:
 
-\[
+$$
 \mathbf{1}
-\]
+$$
 
-is the \(N \times N\) matrix whose entries are all \(1\)'s.
+is the $N \times N$ matrix whose entries are all $1$'s.
 
 এটি centred Gram matrix formula-এর সরাসরি analogue:
 
-\[
+$$
 \tilde{G}
 =
 G
@@ -1912,7 +1918,7 @@ G
 \frac{1}{N}G\mathbf{1}
 +
 \frac{1}{N^2}\mathbf{1}G\mathbf{1}.
-\]
+$$
 
 ---
 
@@ -1922,49 +1928,55 @@ G
 
 Given data points:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^d
-\]
+$$
 
 and a kernel:
 
-\[
+$$
 \kappa(\cdot,\cdot)
-\]
+$$
 
-on \(\mathbb{R}^d\):
+on $\mathbb{R}^d$:
 
 1. Kernel matrix construct করা:
 
-   \[
-   K.
-   \]
+   
+
+$$
+K.
+$$
 
 2. Centred kernel matrix construct করা:
 
-   \[
-   \tilde{K}.
-   \]
+   
+
+$$
+\tilde{K}.
+$$
 
 3. Centred kernel matrix-এ EVD apply করা।
 
 4. Eigenvalues পাওয়া যায়:
 
-   \[
-   \lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_N \geq 0.
-   \]
+   
 
-5. Positive integer \(k\)-এর জন্য top \(k\) eigenvalues choose করা।
+$$
+\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_N \geq 0.
+$$
+
+5. Positive integer $k$-এর জন্য top $k$ eigenvalues choose করা।
 
 ### Slide warning
 
 স্লাইডে বলা হয়েছে:
 
-> The eigenvectors in this case are in \(H\), not in data space.
+> The eigenvectors in this case are in $H$, not in data space.
 
 ### [UNCLEAR / অস্পষ্ট]
 
-Centred kernel matrix \(\tilde{K}\) একটি \(N \times N\) matrix, তাই এর literal eigenvectors হলো \(N\)-dimensional coefficient vectors। Corresponding principal directions feature / Hilbert space \(H\)-এ থাকে। Lecturer এই point কীভাবে explain করেছিলেন, তা confirm করতে transcript দরকার।
+Centred kernel matrix $\tilde{K}$ একটি $N \times N$ matrix, তাই এর literal eigenvectors হলো $N$-dimensional coefficient vectors। Corresponding principal directions feature / Hilbert space $H$-এ থাকে। Lecturer এই point কীভাবে explain করেছিলেন, তা confirm করতে transcript দরকার।
 
 ---
 
@@ -1996,7 +2008,7 @@ Kernel PCA:
 
 ---
 
-## Independent Component Analysis \(\mathrm{ICA}\)
+## Independent Component Analysis $\mathrm{ICA}$
 
 ### Intuition
 
@@ -2016,11 +2028,11 @@ Original sources hidden থাকে। শুধু তাদের mixtures ob
 
 ### এই লেকচারের formal setting
 
-\[
+$$
 x = As.
-\]
+$$
 
-এখানে \(x\) observed, আর \(A\) এবং \(s\) estimate করতে হয়।
+এখানে $x$ observed, আর $A$ এবং $s$ estimate করতে হয়।
 
 ---
 
@@ -2028,15 +2040,15 @@ x = As.
 
 Matrix:
 
-\[
+$$
 A
-\]
+$$
 
 in:
 
-\[
+$$
 x=As.
-\]
+$$
 
 এটি source signals-কে observed mixed signals-এ map করে।
 
@@ -2046,17 +2058,17 @@ x=As.
 
 Matrix:
 
-\[
+$$
 W
-\]
+$$
 
 used to estimate sources by:
 
-\[
+$$
 \hat{s}=Wx.
-\]
+$$
 
-ICA এমন \(W\) খোঁজে যাতে \(\hat{s}\)-এর components statistically independent হয়।
+ICA এমন $W$ খোঁজে যাতে $\hat{s}$-এর components statistically independent হয়।
 
 ---
 
@@ -2064,9 +2076,9 @@ ICA এমন \(W\) খোঁজে যাতে \(\hat{s}\)-এর components s
 
 একটি linear change of basis যাতে:
 
-\[
+$$
 \mathbb{E}[ss^\top]=I.
-\]
+$$
 
 Lecture slides অনুযায়ী, এটি identity covariance, uncorrelated components, এবং unit variance components-এর সঙ্গে correspond করে।
 
@@ -2074,9 +2086,9 @@ Lecture slides অনুযায়ী, এটি identity covariance, uncorrelate
 
 ## Kurtosis
 
-Random variable \(X\)-এর জন্য:
+Random variable $X$-এর জন্য:
 
-\[
+$$
 \kappa
 =
 \mathbb{E}
@@ -2085,21 +2097,21 @@ Random variable \(X\)-এর জন্য:
 \frac{X-\mu}{\sigma}
 \right)^4
 \right].
-\]
+$$
 
 Gaussian variables-এর জন্য:
 
-\[
+$$
 \kappa=3.
-\]
+$$
 
 ---
 
 ## Excess kurtosis
 
-\[
+$$
 \kappa-3.
-\]
+$$
 
 লেকচারে এটি non-Gaussianity-এর measure হিসেবে ব্যবহার করা হয়েছে।
 
@@ -2107,17 +2119,17 @@ Gaussian variables-এর জন্য:
 
 ## Gram matrix
 
-Data points \(x_1,\ldots,x_N\)-এর জন্য:
+Data points $x_1,\ldots,x_N$-এর জন্য:
 
-\[
+$$
 G_{jk}=x_j^\top x_k.
-\]
+$$
 
 Matrix form:
 
-\[
+$$
 G=XX^\top.
-\]
+$$
 
 ---
 
@@ -2125,18 +2137,18 @@ G=XX^\top.
 
 Function:
 
-\[
+$$
 \kappa : \mathcal{X}\times \mathcal{X}\to \mathbb{R}
-\]
+$$
 
 যা symmetric এবং positive semi-definite:
 
-\[
+$$
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \kappa(x_i,x_j)
 \geq 0.
-\]
+$$
 
 ---
 
@@ -2144,15 +2156,15 @@ c_i c_j \kappa(x_i,x_j)
 
 Mapping:
 
-\[
+$$
 \phi:\mathcal{X}\to H
-\]
+$$
 
 into a Hilbert space. যদি:
 
-\[
+$$
 \kappa(x,y)=\langle \phi(x),\phi(y)\rangle_H,
-\]
+$$
 
 তাহলে kernel feature space-এর inner products compute করে।
 
@@ -2160,11 +2172,11 @@ into a Hilbert space. যদি:
 
 ## Kernel matrix
 
-Data points \(x_1,\ldots,x_N\)-এর জন্য:
+Data points $x_1,\ldots,x_N$-এর জন্য:
 
-\[
+$$
 K_{ij}=\kappa(x_i,x_j).
-\]
+$$
 
 এটি Gram matrix-এর kernel analogue।
 
@@ -2172,11 +2184,11 @@ K_{ij}=\kappa(x_i,x_j).
 
 ## RKHS
 
-একটি **Reproducing Kernel Hilbert Space** হলো kernel \(\kappa\)-এর associated Hilbert space \(H\), যেখানে feature map \(\phi\) exists such that:
+একটি **Reproducing Kernel Hilbert Space** হলো kernel $\kappa$-এর associated Hilbert space $H$, যেখানে feature map $\phi$ exists such that:
 
-\[
+$$
 \kappa(x,y)=\langle \phi(x),\phi(y)\rangle_H.
-\]
+$$
 
 স্লাইডে বলা হয়েছে, এই existence result prove করা highly nontrivial।
 
@@ -2190,37 +2202,45 @@ K_{ij}=\kappa(x_i,x_j).
 
 Given observed mixtures:
 
-\[
+$$
 x_1,\ldots,x_N \in \mathbb{R}^m,
-\]
+$$
 
 1. Data matrix form করা:
 
-   \[
-   X \in \mathbb{R}^{N\times m}.
-   \]
+   
+
+$$
+X \in \mathbb{R}^{N\times m}.
+$$
 
 2. Unmixing matrix খোঁজা:
 
-   \[
-   W.
-   \]
+   
+
+$$
+W.
+$$
 
 3. Sources estimate করা:
 
-   \[
-   \hat{s}=Wx.
-   \]
+   
 
-4. \(\hat{s}\)-এর components-এর statistical independence maximise করার জন্য \(W\) choose করা।
+$$
+\hat{s}=Wx.
+$$
+
+4. $\hat{s}$-এর components-এর statistical independence maximise করার জন্য $W$ choose করা।
 
 5. Slides-এর SVD/eigendecomposition argument অনুযায়ী:
 
-   \[
-   W=QD^{1/2}V^\top.
-   \]
+   
 
-6. Remaining task হলো orthogonal matrix \(V\) estimate করা, যাকে projection pursuit বলা হয়েছে।
+$$
+W=QD^{1/2}V^\top.
+$$
+
+6. Remaining task হলো orthogonal matrix $V$ estimate করা, যাকে projection pursuit বলা হয়েছে।
 
 ---
 
@@ -2228,53 +2248,67 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
 
 1. Recentre:
 
-   \[
-   x_i\leftarrow x_i-\hat{\mu}.
-   \]
+   
 
-2. Centred data matrix \(X\) form করা।
+$$
+x_i\leftarrow x_i-\hat{\mu}.
+$$
+
+2. Centred data matrix $X$ form করা।
 
 3. Compute:
 
-   \[
-   \Sigma'=X^\top X.
-   \]
+   
+
+$$
+\Sigma'=X^\top X.
+$$
 
 4. Eigenpairs compute করা:
 
-   \[
-   (\lambda_i,v_i).
-   \]
+   
+
+$$
+(\lambda_i,v_i).
+$$
 
 5. Sort:
 
-   \[
-   \lambda_1\geq \cdots \geq \lambda_d\geq 0.
-   \]
+   
+
+$$
+\lambda_1\geq \cdots \geq \lambda_d\geq 0.
+$$
 
 6. Return:
 
-   \[
-   v_1,\ldots,v_k.
-   \]
+   
+
+$$
+v_1,\ldots,v_k.
+$$
 
 ---
 
 ## SVD দিয়ে Linear PCA
 
 1. Data recentre করা।
-2. Centred data matrix \(X\) form করা।
+2. Centred data matrix $X$ form করা।
 3. Compute:
 
-   \[
-   X=USV^\top.
-   \]
+   
 
-4. \(V\)-এর first \(k\) columns return করা:
+$$
+X=USV^\top.
+$$
 
-   \[
-   v_1,\ldots,v_k.
-   \]
+4. $V$-এর first $k$ columns return করা:
+
+   
+
+$$
+v_1,\ldots,v_k.
+$$
 
 ---
 
@@ -2282,14 +2316,18 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
 
 1. Construct:
 
-   \[
-   G=XX^\top.
-   \]
+   
+
+$$
+G=XX^\top.
+$$
 
 2. Centre it:
 
-   \[
-   \tilde{G}
+   
+
+$$
+\tilde{G}
    =
    G
    -
@@ -2298,11 +2336,11 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
    \frac{1}{N}G\mathbf{1}
    +
    \frac{1}{N^2}\mathbf{1}G\mathbf{1}.
-   \]
+$$
 
 3. EVD apply করা।
-4. Top \(k\) eigenvalues choose করা।
-5. মনে রাখুন: এখানে eigenvectors \(\mathbb{R}^N\)-এ থাকে, data space-এ নয়।
+4. Top $k$ eigenvalues choose করা।
+5. মনে রাখুন: এখানে eigenvectors $\mathbb{R}^N$-এ থাকে, data space-এ নয়।
 
 ---
 
@@ -2310,20 +2348,26 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
 
 1. Kernel choose করা:
 
-   \[
-   \kappa(\cdot,\cdot).
-   \]
+   
+
+$$
+\kappa(\cdot,\cdot).
+$$
 
 2. Construct:
 
-   \[
-   K_{ij}=\kappa(x_i,x_j).
-   \]
+   
+
+$$
+K_{ij}=\kappa(x_i,x_j).
+$$
 
 3. Centre it:
 
-   \[
-   \tilde{K}
+   
+
+$$
+\tilde{K}
    =
    K
    -
@@ -2332,16 +2376,18 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
    \frac{1}{N}K\mathbf{1}
    +
    \frac{1}{N^2}\mathbf{1}K\mathbf{1}.
-   \]
+$$
 
-4. \(\tilde{K}\)-এ EVD apply করা।
+4. $\tilde{K}$-এ EVD apply করা।
 5. Eigenvalues sort করা:
 
-   \[
-   \lambda_1\geq \cdots \geq \lambda_N\geq 0.
-   \]
+   
 
-6. Top \(k\) choose করা।
+$$
+\lambda_1\geq \cdots \geq \lambda_N\geq 0.
+$$
+
+6. Top $k$ choose করা।
 
 ---
 
@@ -2349,39 +2395,39 @@ x_1,\ldots,x_N \in \mathbb{R}^m,
 
 ---
 
-## Exercise 1: \(X^\top X = \sum_i x_i x_i^\top\)
+## Exercise 1: $X^\top X = \sum_i x_i x_i^\top$
 
 Section 16 দেখুন।
 
 Key result:
 
-\[
+$$
 X^\top X
 =
 \sum_{i=1}^{N}x_i x_i^\top.
-\]
+$$
 
 ---
 
-## Exercise 2: \(XX^\top\) is the Gram matrix
+## Exercise 2: $XX^\top$ is the Gram matrix
 
 Section 18 দেখুন।
 
 Key result:
 
-\[
+$$
 (XX^\top)_{jk}=x_j^\top x_k.
-\]
+$$
 
 Therefore:
 
-\[
+$$
 XX^\top = G.
-\]
+$$
 
 ---
 
-## Exercise 3: \(\kappa(x,y)=(1+x^\top y)^2\) is a kernel
+## Exercise 3: $\kappa(x,y)=(1+x^\top y)^2$ is a kernel
 
 Section 27 দেখুন।
 
@@ -2389,24 +2435,30 @@ Key steps:
 
 1. Symmetry follows from:
 
-   \[
-   x^\top y = y^\top x.
-   \]
+   
+
+$$
+x^\top y = y^\top x.
+$$
 
 2. Positive semi-definiteness follows from the feature map representation:
 
-   \[
-   \kappa(x,y)=\phi(x)^\top\phi(y).
-   \]
+   
+
+$$
+\kappa(x,y)=\phi(x)^\top\phi(y).
+$$
 
 3. Therefore:
 
-   \[
-   \sum_{i,j}c_ic_j\kappa(x_i,x_j)
+   
+
+$$
+\sum_{i,j}c_ic_j\kappa(x_i,x_j)
    =
    \left\|\sum_i c_i\phi(x_i)\right\|^2
    \geq 0.
-   \]
+$$
 
 ---
 
@@ -2428,28 +2480,36 @@ Received slides-এ explicit “this is on the exam” wording দেখা য�
 
 1. Show:
 
-   \[
-   X^\top X=
+   
+
+$$
+X^\top X=
    \sum_{i=1}^{N}x_ix_i^\top.
-   \]
+$$
 
 2. Show:
 
-   \[
-   XX^\top
-   \]
+   
 
-   is the Gram matrix with \((j,k)\)-entry:
+$$
+XX^\top
+$$
 
-   \[
-   x_j^\top x_k.
-   \]
+   is the Gram matrix with $(j,k)$-entry:
+
+   
+
+$$
+x_j^\top x_k.
+$$
 
 3. Show:
 
-   \[
-   \kappa(x,y)=(1+x^\top y)^2
-   \]
+   
+
+$$
+\kappa(x,y)=(1+x^\top y)^2
+$$
 
    is a kernel.
 
@@ -2464,15 +2524,19 @@ Slide emphasis অনুযায়ী নিচের বিষয়গুলো co
 - Blind source separation হিসেবে ICA।
 - ICA linear mixing model:
 
-  \[
-  x=As.
-  \]
+  
+
+$$
+x=As.
+$$
 
 - ICA unmixing model:
 
-  \[
-  \hat{s}=Wx.
-  \]
+  
+
+$$
+\hat{s}=Wx.
+$$
 
 - ICA assumptions:
   - independent sources,
@@ -2514,33 +2578,33 @@ Distributional assumptions-ও আলাদা:
 
 Linear PCA Gram matrix দিয়ে express করা যায়:
 
-\[
+$$
 G=XX^\top.
-\]
+$$
 
 Kernel PCA ordinary dot product entries:
 
-\[
+$$
 x_i^\top x_j
-\]
+$$
 
 কে kernel entries দিয়ে replace করে:
 
-\[
+$$
 \kappa(x_i,x_j).
-\]
+$$
 
 Thus:
 
-\[
+$$
 G_{ij}=x_i^\top x_j
-\]
+$$
 
 becomes:
 
-\[
+$$
 K_{ij}=\kappa(x_i,x_j).
-\]
+$$
 
 এটাই Gram matrix দিয়ে linear PCA এবং kernel matrix দিয়ে Kernel PCA-এর মূল analogy।
 
@@ -2550,9 +2614,9 @@ K_{ij}=\kappa(x_i,x_j).
 
 Kernel কোনো Hilbert space-এর inner product-এর সঙ্গে correspond করে:
 
-\[
+$$
 \kappa(x,y)=\langle \phi(x),\phi(y)\rangle_H.
-\]
+$$
 
 Kernel PCA explicit feature-space coordinates ব্যবহার না করে kernel evaluations দিয়ে embedded space-এ PCA-like operations perform করে।
 
@@ -2566,31 +2630,37 @@ Kernel PCA explicit feature-space coordinates ব্যবহার না ক�
 
 2. **ICA SVD step.** Slides state:
 
-   \[
-   X^\top X = WW^\top,
-   \]
+   
+
+$$
+X^\top X = WW^\top,
+$$
 
    কিন্তু visible slide content এই equality justify করে না।
 
 3. **Whitening and centering.** Slide writes:
 
-   \[
-   \mathbb{E}[ss^\top]=I
-   \]
+   
+
+$$
+\mathbb{E}[ss^\top]=I
+$$
 
    and describes it as covariance identity. Zero-mean centering explicitly assumed হয়েছিল কি না, তা confirm করতে transcript দরকার।
 
 4. **SVD rank assumptions.** Slide সব singular values positive বলে। Full rank assumed ছিল কি না, বা rank-deficient cases simplicity-এর জন্য ignored ছিল কি না, তা check করতে transcript দরকার।
 
-5. **Kernel PCA eigenvectors.** Slide বলে eigenvectors \(H\)-এ থাকে, কিন্তু \(N\times N\) kernel matrix-এর EVD \(N\)-dimensional coefficient vectors দেয়। Associated principal directions \(H\)-এ থাকে। Lecturer-এর exact explanation জানতে transcript দরকার।
+5. **Kernel PCA eigenvectors.** Slide বলে eigenvectors $H$-এ থাকে, কিন্তু $N\times N$ kernel matrix-এর EVD $N$-dimensional coefficient vectors দেয়। Associated principal directions $H$-এ থাকে। Lecturer-এর exact explanation জানতে transcript দরকার।
 
-6. **\(\phi(X)\) notation.** Slide writes:
+6. **$\phi(X)$ notation.** Slide writes:
 
-   \[
-   K=\phi(X)\phi(X)^\top.
-   \]
+   
 
-   \(\phi(X)\) row-wise feature-mapped data matrix হিসেবে explicitly define করা হয়েছিল কি না, transcript clarify করতে পারে।
+$$
+K=\phi(X)\phi(X)^\top.
+$$
+
+   $\phi(X)$ row-wise feature-mapped data matrix হিসেবে explicitly define করা হয়েছিল কি না, transcript clarify করতে পারে।
 
 7. **Slide typos.** Slide deck-এ minor typos আছে, যেমন “Prerform ICA” এবং “Optimisation opbjective.” এগুলোকে “Perform ICA” এবং “Optimisation objective” হিসেবে treat করা হয়েছে।
 
@@ -2602,49 +2672,49 @@ Kernel PCA explicit feature-space coordinates ব্যবহার না ক�
 
 Source vector:
 
-\[
+$$
 s=(s_1,\ldots,s_n)^\top \in \mathbb{R}^n.
-\]
+$$
 
 Mixed vector:
 
-\[
+$$
 x=(x_1,\ldots,x_m)^\top \in \mathbb{R}^m.
-\]
+$$
 
 Linear mixing model:
 
-\[
+$$
 x=As.
-\]
+$$
 
 Whitened source condition:
 
-\[
+$$
 \mathbb{E}[ss^\top]=I.
-\]
+$$
 
 Unmixing model:
 
-\[
+$$
 \hat{s}=Wx.
-\]
+$$
 
-SVD of \(W\):
+SVD of $W$:
 
-\[
+$$
 W=USV^\top.
-\]
+$$
 
 Slides থেকে derived form:
 
-\[
+$$
 W=QD^{1/2}V^\top.
-\]
+$$
 
 Kurtosis:
 
-\[
+$$
 \kappa
 =
 \mathbb{E}
@@ -2653,19 +2723,19 @@ Kurtosis:
 \frac{X-\mu}{\sigma}
 \right)^4
 \right].
-\]
+$$
 
 Excess kurtosis:
 
-\[
+$$
 \kappa-3.
-\]
+$$
 
 Additive noise model:
 
-\[
+$$
 x=As+\epsilon.
-\]
+$$
 
 ---
 
@@ -2673,7 +2743,7 @@ x=As+\epsilon.
 
 Data matrix:
 
-\[
+$$
 X=
 \begin{pmatrix}
 x_1^\top \\
@@ -2681,61 +2751,61 @@ x_1^\top \\
 x_N^\top
 \end{pmatrix}
 \in \mathbb{R}^{N\times d}.
-\]
+$$
 
 Sample mean:
 
-\[
+$$
 \hat{\mu}=\frac{1}{N}\sum_{i=1}^N x_i.
-\]
+$$
 
 Sample covariance:
 
-\[
+$$
 \Sigma=
 \frac{1}{N}
 \sum_{i=1}^{N}(x_i-\hat{\mu})(x_i-\hat{\mu})^\top.
-\]
+$$
 
 Centred data-এর জন্য:
 
-\[
+$$
 \Sigma = \frac{1}{N}X^\top X.
-\]
+$$
 
 SVD:
 
-\[
+$$
 X=USV^\top.
-\]
+$$
 
 Singular vector equations:
 
-\[
+$$
 \sigma u = Xv,
 \qquad
 \sigma v = X^\top u.
-\]
+$$
 
 Eigenvector relationships:
 
-\[
+$$
 X^\top Xv=\sigma^2v,
-\]
+$$
 
-\[
+$$
 XX^\top u=\sigma^2u.
-\]
+$$
 
 Gram matrix:
 
-\[
+$$
 G=XX^\top.
-\]
+$$
 
 Centred Gram matrix:
 
-\[
+$$
 \tilde{G}
 =
 G
@@ -2745,7 +2815,7 @@ G
 \frac{1}{N}G\mathbf{1}
 +
 \frac{1}{N^2}\mathbf{1}G\mathbf{1}.
-\]
+$$
 
 ---
 
@@ -2753,7 +2823,7 @@ G
 
 Feature map example:
 
-\[
+$$
 \phi(x)
 =
 \begin{pmatrix}
@@ -2764,44 +2834,44 @@ x_1^2 \\
 x_2^2 \\
 \sqrt{2}x_1x_2
 \end{pmatrix}.
-\]
+$$
 
 Feature map থেকে polynomial kernel:
 
-\[
+$$
 \kappa(x,y)=(1+x^\top y)^2.
-\]
+$$
 
 Kernel symmetry:
 
-\[
+$$
 \kappa(x,x')=\kappa(x',x).
-\]
+$$
 
 Kernel PSD condition:
 
-\[
+$$
 \sum_{i=1}^{n}
 \sum_{j=1}^{n}
 c_i c_j \kappa(x_i,x_j)
 \geq 0.
-\]
+$$
 
 Kernel as inner product:
 
-\[
+$$
 \kappa(x,y)=\langle \phi(x),\phi(y)\rangle_H.
-\]
+$$
 
 Kernel matrix:
 
-\[
+$$
 K_{ij}=\kappa(x_i,x_j).
-\]
+$$
 
 Centred kernel matrix:
 
-\[
+$$
 \tilde{K}
 =
 K
@@ -2811,4 +2881,5 @@ K
 \frac{1}{N}K\mathbf{1}
 +
 \frac{1}{N^2}\mathbf{1}K\mathbf{1}.
-\]
+$$
+

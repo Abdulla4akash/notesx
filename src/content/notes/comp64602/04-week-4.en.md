@@ -49,31 +49,69 @@ A term is an expression that refers to, or computes, an object in the domain bei
 A term in first order logic can be:
 
 - A **constant**, such as  
-  $$a, b, c, dog, cat, peter, jane, robot$$
+  
+
+$$
+a, b, c, dog, cat, peter, jane, robot
+$$
 
   Constants usually refer to particular objects, such as a dog, a cat, Peter, Jane, or a robot.
 
 - A **variable**, such as  
-  $$v_1, v_2, \ldots, v_n$$
+  
+
+$$
+v_1, v_2, \ldots, v_n
+$$
 
   Variables stand for objects that may vary.
 
 - A **function symbol applied to the appropriate number of constants and variables**, for example:
 
-  $$owner(dog)$$
+  
 
-  $$height(peter)$$
+$$
+owner(dog)
+$$
 
-  $$child(peter,jane)$$
+  
+
+$$
+height(peter)
+$$
+
+  
+
+$$
+child(peter,jane)
+$$
 
 **Function symbols:**  
 A function maps an object, or a set of objects, onto some other object.
 
 Examples from the lecture:
 
-- $$owner(dog)$$ denotes some person.
-- $$height(peter)$$ denotes some number.
-- $$child(peter,jane)$$ denotes some person.
+- 
+
+$$
+owner(dog)
+$$
+
+ denotes some person.
+- 
+
+$$
+height(peter)
+$$
+
+ denotes some number.
+- 
+
+$$
+child(peter,jane)
+$$
+
+ denotes some person.
 
 **Connection to earlier material:**  
 The lecturer says this should be familiar from last semester, especially the distinction between constants and variables and the idea of an arity / n-ary function symbol.
@@ -94,23 +132,35 @@ A formula can be a **predicate symbol** applied to an appropriate number of term
 
 Predicate examples:
 
-$$well\_behaved$$
+$$
+well\_behaved
+$$
 
-$$taller\_than$$
+$$
+taller\_than
+$$
 
-$$postman$$
+$$
+postman
+$$
 
 Formula examples:
 
-$$well\_behaved(dog)$$
+$$
+well\_behaved(dog)
+$$
 
 Meaning: the dog is well behaved.
 
-$$taller\_than(owner(dog), peter)$$
+$$
+taller\_than(owner(dog), peter)
+$$
 
 Meaning: the owner of the dog is taller than Peter.
 
-$$postman(v_1)$$
+$$
+postman(v_1)
+$$
 
 Meaning: $v_1$ is a postman.
 
@@ -124,19 +174,25 @@ Complex formulae are built from simpler formulae using logical connectives.
 
 #### Negation
 
-$$\neg well\_behaved(dog)$$
+$$
+\neg well\_behaved(dog)
+$$
 
 Meaning: the dog is not well behaved.
 
 #### Conjunction
 
-$$well\_behaved(dog) \land taller\_than(owner(dog), peter)$$
+$$
+well\_behaved(dog) \land taller\_than(owner(dog), peter)
+$$
 
 Meaning: the dog is well behaved **and** the dog’s owner is taller than Peter.
 
 #### Disjunction
 
-$$well\_behaved(dog) \lor taller\_than(owner(dog), peter)$$
+$$
+well\_behaved(dog) \lor taller\_than(owner(dog), peter)
+$$
 
 Meaning: the dog is well behaved **or** the dog’s owner is taller than Peter.
 
@@ -144,21 +200,29 @@ Meaning: the dog is well behaved **or** the dog’s owner is taller than Peter.
 
 #### Implication
 
-$$well\_behaved(dog) \Rightarrow taller\_than(owner(dog), peter)$$
+$$
+well\_behaved(dog) \Rightarrow taller\_than(owner(dog), peter)
+$$
 
 Meaning: if the dog is well behaved, then its owner is taller than Peter.
 
 #### If and only if
 
-$$well\_behaved(dog) \Leftrightarrow taller\_than(owner(dog), peter)$$
+$$
+well\_behaved(dog) \Leftrightarrow taller\_than(owner(dog), peter)
+$$
 
 Meaning both directions hold:
 
-$$well\_behaved(dog) \Rightarrow taller\_than(owner(dog), peter)$$
+$$
+well\_behaved(dog) \Rightarrow taller\_than(owner(dog), peter)
+$$
 
 and
 
-$$taller\_than(owner(dog), peter) \Rightarrow well\_behaved(dog)$$
+$$
+taller\_than(owner(dog), peter) \Rightarrow well\_behaved(dog)
+$$
 
 The lecturer notes that sometimes the iff symbol may be shown with a single bar rather than a double bar in different parts of the unit.
 
@@ -169,7 +233,10 @@ The lecturer notes that sometimes the iff symbol may be shown with a single bar 
 ### Universal quantifier
 
 **Symbol:**  
-$$\forall$$
+
+$$
+\forall
+$$
 
 **Name:** universal quantifier.
 
@@ -178,7 +245,9 @@ The statement applies to every object in the domain.
 
 **Lecture example:**
 
-$$\forall v_1.\ well\_behaved(v_1) \Rightarrow owner(v_1)=peter$$
+$$
+\forall v_1.\ well\_behaved(v_1) \Rightarrow owner(v_1)=peter
+$$
 
 Meaning: for all objects, if that object is well behaved, then its owner is Peter.
 
@@ -189,7 +258,10 @@ The variable $v_1$ is **universally quantified**.
 ### Existential quantifier
 
 **Symbol:**  
-$$\exists$$
+
+$$
+\exists
+$$
 
 **Name:** existential quantifier.
 
@@ -198,7 +270,9 @@ There is at least one object in the domain for which the statement holds.
 
 **Lecture example:**
 
-$$\exists v_1.\ well\_behaved(v_1) \land owner(v_1)=peter$$
+$$
+\exists v_1.\ well\_behaved(v_1) \land owner(v_1)=peter
+$$
 
 Meaning: there exists an object that is well behaved and is owned by Peter.
 
@@ -215,7 +289,9 @@ If a variable is quantified, it is **bound**.
 
 Example:
 
-$$\forall v_1.\ well\_behaved(v_1) \Rightarrow owner(v_1)=peter$$
+$$
+\forall v_1.\ well\_behaved(v_1) \Rightarrow owner(v_1)=peter
+$$
 
 Here $v_1$ is bound.
 
@@ -226,7 +302,9 @@ If a variable occurs in a formula and is not quantified, it is **free**.
 
 Example:
 
-$$well\_behaved(v_1) \Rightarrow owner(v_1)=peter$$
+$$
+well\_behaved(v_1) \Rightarrow owner(v_1)=peter
+$$
 
 Here $v_1$ is free.
 
@@ -234,7 +312,9 @@ Here $v_1$ is free.
 
 The lecturer says there is a tendency to assume that free variables are actually universally quantified. Free variables are often written with capital letters:
 
-$$well\_behaved(V) \Rightarrow owner(V)=peter$$
+$$
+well\_behaved(V) \Rightarrow owner(V)=peter
+$$
 
 **Connection to Datalog:**  
 This is the same style as Datalog. Datalog does not explicitly handle universal and existential quantifiers in the same way; instead, it uses free variables represented with capital letters.
@@ -251,7 +331,9 @@ A model gives a domain of objects and tells us what the symbols in the language 
 **Lecture definition:**  
 A model of a first order logic formula consists of:
 
-$$M = (\Delta, I)$$
+$$
+M = (\Delta, I)
+$$
 
 where:
 
@@ -268,15 +350,21 @@ Strictly, the lecturer says there are interpretation functions for constants, va
 
 A formula $\phi$ is true in a model if:
 
-$$I(\phi)=\top$$
+$$
+I(\phi)=\top
+$$
 
 The lecture uses:
 
-$$\top$$
+$$
+\top
+$$
 
 for true, and
 
-$$\bot$$
+$$
+\bot
+$$
 
 for false.
 
@@ -286,67 +374,107 @@ for false.
 
 ### Domain
 
-$$\Delta = \{dog, cat\}$$
+$$
+\Delta = \{dog, cat\}
+$$
 
 The formulae do not directly use the names $dog$ and $cat$. Instead, they use constants $a$ and $b$.
 
 ### Interpretation of constants
 
-$$I(a)=dog$$
+$$
+I(a)=dog
+$$
 
-$$I(b)=cat$$
+$$
+I(b)=cat
+$$
 
 ### Predicate
 
 Predicate:
 
-$$is\_dog$$
+$$
+is\_dog
+$$
 
 Interpretation:
 
-$$I(is\_dog)(dog)=\top$$
+$$
+I(is\_dog)(dog)=\top
+$$
 
-$$I(is\_dog)(cat)=\bot$$
+$$
+I(is\_dog)(cat)=\bot
+$$
 
 ### Evaluating formulae
 
 #### Formula 1
 
-$$is\_dog(a)$$
+$$
+is\_dog(a)
+$$
 
 Step-by-step:
 
 1. $a$ maps to $dog$:
 
-   $$I(a)=dog$$
+   
+
+$$
+I(a)=dog
+$$
 
 2. $is\_dog$ applied to $dog$ is true:
 
-   $$I(is\_dog)(dog)=\top$$
+   
+
+$$
+I(is\_dog)(dog)=\top
+$$
 
 3. Therefore:
 
-   $$I(is\_dog(a))=\top$$
+   
+
+$$
+I(is\_dog(a))=\top
+$$
 
 So $is\_dog(a)$ is true in this model.
 
 #### Formula 2
 
-$$is\_dog(b)$$
+$$
+is\_dog(b)
+$$
 
 Step-by-step:
 
 1. $b$ maps to $cat$:
 
-   $$I(b)=cat$$
+   
+
+$$
+I(b)=cat
+$$
 
 2. $is\_dog$ applied to $cat$ is false:
 
-   $$I(is\_dog)(cat)=\bot$$
+   
+
+$$
+I(is\_dog)(cat)=\bot
+$$
 
 3. Therefore:
 
-   $$I(is\_dog(b))=\bot$$
+   
+
+$$
+I(is\_dog(b))=\bot
+$$
 
 So $is\_dog(b)$ is false in this model.
 
@@ -358,33 +486,47 @@ So $is\_dog(b)$ is false in this model.
 
 For a universally quantified formula:
 
-$$I(\forall v.\ \phi(v))=\top$$
+$$
+I(\forall v.\ \phi(v))=\top
+$$
 
 if and only if, for every object $o$ in the domain:
 
-$$I(\phi(o))=\top$$
+$$
+I(\phi(o))=\top
+$$
 
 ### Worked example
 
 Formula:
 
-$$\forall v_1.\ is\_dog(v_1)$$
+$$
+\forall v_1.\ is\_dog(v_1)
+$$
 
 Domain:
 
-$$\{dog,cat\}$$
+$$
+\{dog,cat\}
+$$
 
 Check every object:
 
-$$I(is\_dog(dog))=\top$$
+$$
+I(is\_dog(dog))=\top
+$$
 
 but
 
-$$I(is\_dog(cat))=\bot$$
+$$
+I(is\_dog(cat))=\bot
+$$
 
 Because at least one object in the domain is not a dog:
 
-$$I(\forall v_1.\ is\_dog(v_1))=\bot$$
+$$
+I(\forall v_1.\ is\_dog(v_1))=\bot
+$$
 
 ---
 
@@ -392,29 +534,41 @@ $$I(\forall v_1.\ is\_dog(v_1))=\bot$$
 
 For an existentially quantified formula:
 
-$$I(\exists v.\ \phi(v))=\top$$
+$$
+I(\exists v.\ \phi(v))=\top
+$$
 
 if there is some object $o$ in the domain such that:
 
-$$I(\phi(o))=\top$$
+$$
+I(\phi(o))=\top
+$$
 
 ### Worked example
 
 Formula:
 
-$$\exists v_1.\ is\_dog(v_1)$$
+$$
+\exists v_1.\ is\_dog(v_1)
+$$
 
 Domain:
 
-$$\{dog,cat\}$$
+$$
+\{dog,cat\}
+$$
 
 Check whether there is at least one object that satisfies the predicate:
 
-$$I(is\_dog(dog))=\top$$
+$$
+I(is\_dog(dog))=\top
+$$
 
 So:
 
-$$I(\exists v_1.\ is\_dog(v_1))=\top$$
+$$
+I(\exists v_1.\ is\_dog(v_1))=\top
+$$
 
 ---
 
@@ -422,7 +576,9 @@ $$I(\exists v_1.\ is\_dog(v_1))=\top$$
 
 The lecture says:
 
-$$\phi$$
+$$
+\phi
+$$
 
 is true iff it is true in all models.
 
@@ -438,15 +594,21 @@ The lecturer explicitly warns that she may use terminology imprecisely later to 
 
 When the lecturer says:
 
-$$\phi \text{ is true in } M$$
+$$
+\phi \text{ is true in } M
+$$
 
 she means:
 
-$$M=(\Delta,I)$$
+$$
+M=(\Delta,I)
+$$
 
 and
 
-$$I(\phi)=\top$$
+$$
+I(\phi)=\top
+$$
 
 This is shown on slide page 7.
 
@@ -456,35 +618,51 @@ This is shown on slide page 7.
 
 The lecturer may write:
 
-$$M=\{\phi_1,\phi_2,\phi_3\}$$
+$$
+M=\{\phi_1,\phi_2,\phi_3\}
+$$
 
 where the $\phi_i$ are simple formulae or negations of simple formulae.
 
 This means:
 
-$$M=(\Delta,I)$$
+$$
+M=(\Delta,I)
+$$
 
 and
 
-$$I(\phi_1)=\top$$
+$$
+I(\phi_1)=\top
+$$
 
-$$I(\phi_2)=\top$$
+$$
+I(\phi_2)=\top
+$$
 
-$$I(\phi_3)=\top$$
+$$
+I(\phi_3)=\top
+$$
 
 and for all other simple formulae $\phi$:
 
-$$I(\phi)=\bot$$
+$$
+I(\phi)=\bot
+$$
 
 ### Example
 
 In the dog/cat example:
 
-$$is\_dog(dog)$$
+$$
+is\_dog(dog)
+$$
 
 is true in $M$, and the lecturer may write:
 
-$$M=\{is\_dog(dog)\}$$
+$$
+M=\{is\_dog(dog)\}
+$$
 
 This means that $is\_dog(dog)$ is true and all other simple formulae are false.
 
@@ -498,7 +676,9 @@ The lecturer says there are infinitely many models for any set of formulae, if o
 
 ## Example knowledge base
 
-$$KB = \{is\_dog(rover),\ is\_cat(kitty),\ldots\}$$
+$$
+KB = \{is\_dog(rover),\ is\_cat(kitty),\ldots\}
+$$
 
 plus some complex formulae about dogs and cats.
 
@@ -506,11 +686,15 @@ In this case, the lecturer says we are interested in domains that give interpret
 
 Formally, the relevant domain is:
 
-$$\Delta = \{I(rover), I(kitty)\}$$
+$$
+\Delta = \{I(rover), I(kitty)\}
+$$
 
 Sloppily, the lecturer may write:
 
-$$\Delta = \{rover, kitty\}$$
+$$
+\Delta = \{rover, kitty\}
+$$
 
 ## Definition: minimal model
 
@@ -617,7 +801,9 @@ It only says the agent can act without direct intervention.
 
 The slide on page 3 shows the basic structure:
 
-$$Environment \rightarrow Sensors \rightarrow Agent \rightarrow Actuators \rightarrow Environment$$
+$$
+Environment \rightarrow Sensors \rightarrow Agent \rightarrow Actuators \rightarrow Environment
+$$
 
 ## Sensors
 
@@ -813,11 +999,19 @@ The action choice algorithm assumes:
 
 - a set of possible actions:
 
-  $$A$$
+  
+
+$$
+A
+$$
 
 - a set of facts and rules:
 
-  $$\Delta$$
+  
+
+$$
+\Delta
+$$
 
 ## Algorithm
 
@@ -839,11 +1033,15 @@ return noop
 
 ## Meaning of the symbols
 
-$$\Delta \vdash do(a)$$
+$$
+\Delta \vdash do(a)
+$$
 
 means: from the facts and rules in $\Delta$, the system can derive that action $a$ should be done.
 
-$$\Delta \nvdash \neg do(a)$$
+$$
+\Delta \nvdash \neg do(a)
+$$
 
 means: from $\Delta$, the system cannot derive that action $a$ should not be done.
 
@@ -853,7 +1051,9 @@ means: from $\Delta$, the system cannot derive that action $a$ should not be don
 
 The agent searches through actions and chooses an action if it can prove:
 
-$$do(a)$$
+$$
+do(a)
+$$
 
 This means the action is positively recommended by the knowledge base.
 
@@ -861,7 +1061,9 @@ This means the action is positively recommended by the knowledge base.
 
 If no action is provably recommended, the agent searches again for an action that is not ruled out. It returns an action $a$ if it cannot prove:
 
-$$\neg do(a)$$
+$$
+\neg do(a)
+$$
 
 So the second loop chooses an action that does not contradict the knowledge base.
 
@@ -869,7 +1071,9 @@ So the second loop chooses an action that does not contradict the knowledge base
 
 If no such action is found, the agent returns:
 
-$$noop$$
+$$
+noop
+$$
 
 meaning no operation / no action.
 
@@ -908,7 +1112,9 @@ The grid uses coordinates from 0 to 2.
 
 The robot starts in the middle square:
 
-$$at(1,1)$$
+$$
+at(1,1)
+$$
 
 There are two squares containing gold.
 
@@ -916,23 +1122,43 @@ The robot can perceive/update:
 
 - whether it is at a square:
 
-  $$at(X,Y)$$
+  
+
+$$
+at(X,Y)
+$$
 
 - whether a square has been explored:
 
-  $$explored(X,Y)$$
+  
+
+$$
+explored(X,Y)
+$$
 
 - whether a square is unexplored:
 
-  $$unexplored(X,Y)$$
+  
+
+$$
+unexplored(X,Y)
+$$
 
 - whether there is gold in the current square:
 
-  $$gold$$
+  
+
+$$
+gold
+$$
 
 - whether there is no gold in the current square:
 
-  $$not\_gold$$
+  
+
+$$
+not\_gold
+$$
 
 These perceptions are updated whenever the robot teleports or collects gold.
 
@@ -942,21 +1168,35 @@ These perceptions are updated whenever the robot teleports or collects gold.
 
 The program begins with:
 
-$$at(1,1).$$
+$$
+at(1,1).
+$$
 
-$$not\_gold.$$
+$$
+not\_gold.
+$$
 
-$$unexplored(0,0).$$
+$$
+unexplored(0,0).
+$$
 
-$$unexplored(0,1).$$
+$$
+unexplored(0,1).
+$$
 
-$$\ldots$$
+$$
+\ldots
+$$
 
-$$unexplored(2,2).$$
+$$
+unexplored(2,2).
+$$
 
 The lecturer notes that the program probably should also believe:
 
-$$explored(1,1)$$
+$$
+explored(1,1)
+$$
 
 but this was not written on the slide.
 
@@ -966,19 +1206,25 @@ but this was not written on the slide.
 
 ### Rule 1: go to an unexplored square when there is no gold
 
-$$at(X,Y) \land not\_gold \land unexplored(A,B) \rightarrow do(go(A,B))$$
+$$
+at(X,Y) \land not\_gold \land unexplored(A,B) \rightarrow do(go(A,B))
+$$
 
 Meaning: if the robot is at some location $(X,Y)$, sees no gold, and believes another square $(A,B)$ is unexplored, then it should go to $(A,B)$.
 
 ### Rule 2: collect gold when gold is present
 
-$$at(X,Y) \land gold \rightarrow do(collect(gold))$$
+$$
+at(X,Y) \land gold \rightarrow do(collect(gold))
+$$
 
 Meaning: if the robot is at some square and sees gold, it should collect the gold.
 
 ### Rule 3: stop once square $(2,2)$ has been explored
 
-$$explored(2,2) \rightarrow do(stop)$$
+$$
+explored(2,2) \rightarrow do(stop)
+$$
 
 Meaning: once the bottom-corner square $(2,2)$ is explored, the robot should stop.
 
@@ -992,7 +1238,9 @@ The lecturer says capital letters are used as in Datalog to represent variables.
 
 So:
 
-$$X,Y,A,B$$
+$$
+X,Y,A,B
+$$
 
 are variables, and they are instantiated by unification.
 
@@ -1004,23 +1252,35 @@ are variables, and they are instantiated by unification.
 
 Current beliefs include:
 
-$$at(1,1)$$
+$$
+at(1,1)
+$$
 
-$$not\_gold$$
+$$
+not\_gold
+$$
 
-$$unexplored(0,0)$$
+$$
+unexplored(0,0)
+$$
 
 Rule 1 applies:
 
-$$at(X,Y) \land not\_gold \land unexplored(A,B) \rightarrow do(go(A,B))$$
+$$
+at(X,Y) \land not\_gold \land unexplored(A,B) \rightarrow do(go(A,B))
+$$
 
 using:
 
-$$X=1,\ Y=1,\ A=0,\ B=0$$
+$$
+X=1,\ Y=1,\ A=0,\ B=0
+$$
 
 Therefore:
 
-$$do(go(0,0))$$
+$$
+do(go(0,0))
+$$
 
 The robot teleports to square $(0,0)$.
 
@@ -1032,13 +1292,17 @@ After teleporting, perception updates the facts.
 
 The robot now perceives:
 
-$$at(0,0)$$
+$$
+at(0,0)
+$$
 
 The lecturer says it will perceive gold at this square.
 
 It may also update:
 
-$$explored(1,1)$$
+$$
+explored(1,1)
+$$
 
 and delete or replace the previous unexplored status.
 
@@ -1048,21 +1312,31 @@ and delete or replace the previous unexplored status.
 
 Now the current facts include:
 
-$$at(0,0)$$
+$$
+at(0,0)
+$$
 
-$$gold$$
+$$
+gold
+$$
 
 Rule 2 applies:
 
-$$at(X,Y) \land gold \rightarrow do(collect(gold))$$
+$$
+at(X,Y) \land gold \rightarrow do(collect(gold))
+$$
 
 using:
 
-$$X=0,\ Y=0$$
+$$
+X=0,\ Y=0
+$$
 
 Therefore:
 
-$$do(collect(gold))$$
+$$
+do(collect(gold))
+$$
 
 The robot collects the gold.
 
@@ -1070,11 +1344,15 @@ The lecturer imagines the robot putting the gold into a backpack.
 
 After collecting, perception changes:
 
-$$gold$$
+$$
+gold
+$$
 
 to:
 
-$$not\_gold$$
+$$
+not\_gold
+$$
 
 ---
 
@@ -1082,15 +1360,21 @@ $$not\_gold$$
 
 Now Rule 1 applies again:
 
-$$at(X,Y) \land not\_gold \land unexplored(A,B) \rightarrow do(go(A,B))$$
+$$
+at(X,Y) \land not\_gold \land unexplored(A,B) \rightarrow do(go(A,B))
+$$
 
 The next unexplored square is likely:
 
-$$(0,1)$$
+$$
+(0,1)
+$$
 
 so the agent derives something like:
 
-$$do(go(0,1))$$
+$$
+do(go(0,1))
+$$
 
 The lecturer says the order of choosing facts is not specified, but usually facts are picked up in the order they were written.
 
@@ -1102,17 +1386,23 @@ At $(0,1)$, the robot perceives gold.
 
 Rule 2 applies again:
 
-$$at(0,1) \land gold \rightarrow do(collect(gold))$$
+$$
+at(0,1) \land gold \rightarrow do(collect(gold))
+$$
 
 The robot collects the second gold.
 
 Perception then updates:
 
-$$gold$$
+$$
+gold
+$$
 
 to:
 
-$$not\_gold$$
+$$
+not\_gold
+$$
 
 ---
 
@@ -1124,19 +1414,27 @@ The lecturer says it skips the square that was explored at the start.
 
 Eventually, the robot reaches square:
 
-$$(2,2)$$
+$$
+(2,2)
+$$
 
 Perception updates:
 
-$$explored(2,2)$$
+$$
+explored(2,2)
+$$
 
 Now Rule 3 applies:
 
-$$explored(2,2) \rightarrow do(stop)$$
+$$
+explored(2,2) \rightarrow do(stop)
+$$
 
 Therefore:
 
-$$do(stop)$$
+$$
+do(stop)
+$$
 
 The robot stops.
 
@@ -1177,7 +1475,9 @@ Problem: the world may change while the agent is reasoning.
 
 The lecturer emphasizes that the loop is:
 
-$$perception \rightarrow reasoning \rightarrow action$$
+$$
+perception \rightarrow reasoning \rightarrow action
+$$
 
 While reasoning, the agent is not checking the world again.
 
@@ -1271,7 +1571,9 @@ In some programming languages, an intention is not just a goal. It may be a goal
 
 So an intention can be:
 
-$$goal + instantiated\ plan$$
+$$
+goal + instantiated\ plan
+$$
 
 This gives the meaning of being committed to doing something about that goal.
 
@@ -1307,19 +1609,27 @@ The slide on page 3 shows the textbook workflow.
 
 ## Overall flow
 
-$$Sensor\ Input \rightarrow Belief\ Revision \rightarrow Beliefs$$
+$$
+Sensor\ Input \rightarrow Belief\ Revision \rightarrow Beliefs
+$$
 
 Then:
 
-$$Beliefs + Current\ Intentions \rightarrow Generate\ Options$$
+$$
+Beliefs + Current\ Intentions \rightarrow Generate\ Options
+$$
 
 Then:
 
-$$Goals/Desires \rightarrow Deliberate/Filter \rightarrow Intentions$$
+$$
+Goals/Desires \rightarrow Deliberate/Filter \rightarrow Intentions
+$$
 
 Then:
 
-$$Intentions \rightarrow Select \rightarrow Act$$
+$$
+Intentions \rightarrow Select \rightarrow Act
+$$
 
 Then the process returns to sensor input.
 
@@ -1392,7 +1702,9 @@ They often keep some rules.
 
 The lecturer calls the practical version:
 
-$$Simple\ Belief\ Revision$$
+$$
+Simple\ Belief\ Revision
+$$
 
 Sensor information may add or remove beliefs.
 
@@ -1414,7 +1726,9 @@ Different languages do this differently.
 
 So the lecturer represents this as one combined stage:
 
-$$Generate\ Options / Deliberate / Filter$$
+$$
+Generate\ Options / Deliberate / Filter
+$$
 
 ### 4. Plans feed into option generation
 
@@ -1433,11 +1747,15 @@ In practice, intentions often become currently instantiated plans for achieving 
 
 So an intention may not simply be:
 
-$$goal$$
+$$
+goal
+$$
 
 It may be:
 
-$$sequence\ of\ actions\ for\ achieving\ a\ goal$$
+$$
+sequence\ of\ actions\ for\ achieving\ a\ goal
+$$
 
 When selecting an intention, the agent may:
 
@@ -1458,11 +1776,15 @@ The lecturer mentions her own system, Gwendolen.
 
 In the lecturer’s system, the arrow between:
 
-$$Generate\ Options / Deliberate / Filter$$
+$$
+Generate\ Options / Deliberate / Filter
+$$
 
 and:
 
-$$Goals/Desires$$
+$$
+Goals/Desires
+$$
 
 is one-way.
 
@@ -1485,11 +1807,15 @@ Those sequences can include actions that change:
 
 So there are arrows from Act back to:
 
-$$Beliefs$$
+$$
+Beliefs
+$$
 
 and:
 
-$$Goals/Desires$$
+$$
+Goals/Desires
+$$
 
 ## Why goal change is deliberate
 
@@ -1643,7 +1969,9 @@ The goals assigned to roles are usually subgoals of the organisation’s goals.
 
 The idea is:
 
-$$Agents\ achieve\ role\ goals \Rightarrow Organisation\ achieves\ overall\ goal$$
+$$
+Agents\ achieve\ role\ goals \Rightarrow Organisation\ achieves\ overall\ goal
+$$
 
 ## Capabilities
 
@@ -1679,7 +2007,9 @@ The lecturer uses COMP64602 itself as an example.
 
 ## Organisation
 
-$$COMP64602$$
+$$
+COMP64602
+$$
 
 can be considered an organisation.
 
@@ -1897,11 +2227,17 @@ When an agent violates a norm, the institution or organisation may choose to imp
 
 So the structure is:
 
-$$Norm \rightarrow Expected\ behaviour$$
+$$
+Norm \rightarrow Expected\ behaviour
+$$
 
-$$Violation \rightarrow Behaviour\ does\ not\ satisfy\ norm$$
+$$
+Violation \rightarrow Behaviour\ does\ not\ satisfy\ norm
+$$
 
-$$Sanction \rightarrow Consequence\ imposed\ by\ institution$$
+$$
+Sanction \rightarrow Consequence\ imposed\ by\ institution
+$$
 
 ---
 
@@ -1913,11 +2249,15 @@ The slide on page 4 introduces deontic logic as a logic for obligations and perm
 
 ## Symbols
 
-$$O$$
+$$
+O
+$$
 
 means obligation.
 
-$$P$$
+$$
+P
+$$
 
 means permission.
 
@@ -1925,7 +2265,9 @@ means permission.
 
 The lecture gives:
 
-$$PA \equiv \neg O \neg A$$
+$$
+PA \equiv \neg O \neg A
+$$
 
 Meaning: being permitted to do $A$ is equivalent to not being obliged not to do $A$.
 
@@ -1937,7 +2279,9 @@ The slide gives three axioms.
 
 ### Axiom 1
 
-$$(\vDash A) \rightarrow (\vDash OA)$$
+$$
+(\vDash A) \rightarrow (\vDash OA)
+$$
 
 Meaning: if $A$ is always true, then it is obligatory that $A$ is true.
 
@@ -1945,13 +2289,17 @@ Meaning: if $A$ is always true, then it is obligatory that $A$ is true.
 
 ### Axiom 2
 
-$$O(A \rightarrow B) \rightarrow (OA \rightarrow OB)$$
+$$
+O(A \rightarrow B) \rightarrow (OA \rightarrow OB)
+$$
 
 Meaning: if it is obligatory that $A$ implies $B$, then if $A$ is obligatory, $B$ is also obligatory.
 
 ### Axiom 3
 
-$$OA \rightarrow PA$$
+$$
+OA \rightarrow PA
+$$
 
 Meaning: if you are obliged to do something, then you are also permitted to do it.
 
@@ -1976,7 +2324,9 @@ The institution is placed around an external environment where concrete things h
 
 Let:
 
-$$\mathcal{E}_{ex}$$
+$$
+\mathcal{E}_{ex}
+$$
 
 be the set of events in the external environment.
 
@@ -1986,7 +2336,9 @@ Events are usually agent actions.
 
 Let:
 
-$$S_{ex}$$
+$$
+S_{ex}
+$$
 
 be the set of states in the external environment.
 
@@ -1996,7 +2348,9 @@ A state is typically considered as a set of propositions that are true in that s
 
 The environment has a transition function:
 
-$$\tau : S_{ex} \times \mathcal{E}_{ex} \rightarrow S_{ex}$$
+$$
+\tau : S_{ex} \times \mathcal{E}_{ex} \rightarrow S_{ex}
+$$
 
 This tells us how an event transforms one state into another.
 
@@ -2004,11 +2358,15 @@ The lecturer assumes determinism for simplicity.
 
 So if the environment is in state $s_0$, and event $e_0$ happens, the system transitions to state $s_1$:
 
-$$s_0 \xrightarrow{e_0} s_1$$
+$$
+s_0 \xrightarrow{e_0} s_1
+$$
 
 A trace is then:
 
-$$s_0,\ e_0,\ s_1,\ e_1,\ s_2,\ldots$$
+$$
+s_0,\ e_0,\ s_1,\ e_1,\ s_2,\ldots
+$$
 
 The lecturer says this is what happens “out in the real world”: agents take actions and generate a sequence of states and transitions.
 
@@ -2022,7 +2380,9 @@ The institution monitors the external trace and creates its own institutional tr
 
 Let:
 
-$$\mathcal{E}_{inst}$$
+$$
+\mathcal{E}_{inst}
+$$
 
 be the set of institutional events.
 
@@ -2030,7 +2390,9 @@ be the set of institutional events.
 
 Let:
 
-$$S_{inst}$$
+$$
+S_{inst}
+$$
 
 be the set of institutional states.
 
@@ -2045,7 +2407,9 @@ Institutional states are sets of facts, which may include:
 
 An external trace induces an institutional trace:
 
-$$s'_0,\ e'_0,\ s'_1,\ e'_1,\ s'_2,\ldots$$
+$$
+s'_0,\ e'_0,\ s'_1,\ e'_1,\ s'_2,\ldots
+$$
 
 The institutional trace records only what the institution cares about.
 
@@ -2065,15 +2429,21 @@ and produces an institutional event.
 
 The slide formula is garbled in the parsed text, but the intended idea is:
 
-$$generation: (S_{inst}, S_{ex}, \mathcal{E}_{ex}) \rightarrow \mathcal{E}_{inst}$$
+$$
+generation: (S_{inst}, S_{ex}, \mathcal{E}_{ex}) \rightarrow \mathcal{E}_{inst}
+$$
 
 or, more loosely:
 
-$$g(S_{inst}, S_{ex}, e_{ex}) = e_{inst}$$
+$$
+g(S_{inst}, S_{ex}, e_{ex}) = e_{inst}
+$$
 
 [UNCLEAR] The exact formal type on the slide is parsed as something like
 
-$$inst \cup ex \times \mathcal{E}_{ex} \rightarrow \mathcal{E}_{inst}$$
+$$
+inst \cup ex \times \mathcal{E}_{ex} \rightarrow \mathcal{E}_{inst}
+$$
 
 so the notation should be checked against the recording/slides.
 
@@ -2086,11 +2456,15 @@ The consequence function takes:
 
 and returns the next institutional state:
 
-$$consequence: S_{inst} \times \mathcal{E}_{inst} \rightarrow S_{inst}$$
+$$
+consequence: S_{inst} \times \mathcal{E}_{inst} \rightarrow S_{inst}
+$$
 
 or:
 
-$$c(s'_{i}, e'_{i}) = s'_{i+1}$$
+$$
+c(s'_{i}, e'_{i}) = s'_{i+1}
+$$
 
 The lecturer says the textbook version is more complicated: instead of directly giving the next institutional state, the consequence function may generate facts to add and delete from the institutional state.
 
@@ -2116,27 +2490,39 @@ The slide on page 8 shows the environment trace.
 
 ## Abbreviations
 
-$$cs$$
+$$
+cs
+$$
 
 means coursework set.
 
-$$ss$$
+$$
+ss
+$$
 
 means Susan submits.
 
-$$sv$$
+$$
+sv
+$$
 
 means Vicki submits.
 
-$$ms$$
+$$
+ms
+$$
 
 means Barbara marks Susan’s coursework.
 
-$$mv$$
+$$
+mv
+$$
 
 means Barbara marks Vicki’s coursework.
 
-$$cd(x)$$
+$$
+cd(x)
+$$
 
 means coursework due for $x$.
 
@@ -2144,27 +2530,39 @@ means coursework due for $x$.
 
 Initial state:
 
-$$start$$
+$$
+start
+$$
 
 Barbara sets coursework:
 
-$$start \xrightarrow{cs} \{cd(susan), cd(vicki)\}$$
+$$
+start \xrightarrow{cs} \{cd(susan), cd(vicki)\}
+$$
 
 Susan submits:
 
-$$\{cd(susan), cd(vicki)\} \xrightarrow{ss} \{submitted(susan), cd(vicki)\}$$
+$$
+\{cd(susan), cd(vicki)\} \xrightarrow{ss} \{submitted(susan), cd(vicki)\}
+$$
 
 Vicki submits:
 
-$$\{submitted(susan), cd(vicki)\} \xrightarrow{sv} \{submitted(susan), submitted(vicki)\}$$
+$$
+\{submitted(susan), cd(vicki)\} \xrightarrow{sv} \{submitted(susan), submitted(vicki)\}
+$$
 
 Barbara marks Susan’s coursework:
 
-$$\{submitted(susan), submitted(vicki)\} \xrightarrow{ms} \{marked(susan), submitted(vicki)\}$$
+$$
+\{submitted(susan), submitted(vicki)\} \xrightarrow{ms} \{marked(susan), submitted(vicki)\}
+$$
 
 Barbara marks Vicki’s coursework:
 
-$$\{marked(susan), submitted(vicki)\} \xrightarrow{mv} \{marked(susan), marked(vicki)\}$$
+$$
+\{marked(susan), submitted(vicki)\} \xrightarrow{mv} \{marked(susan), marked(vicki)\}
+$$
 
 ## Important observation
 
@@ -2178,7 +2576,9 @@ It does not itself mark Vicki’s submission as late or Barbara’s marking as l
 
 The lecturer adds:
 
-$$new\_day$$
+$$
+new\_day
+$$
 
 events because deadlines matter institutionally.
 
@@ -2186,27 +2586,39 @@ The new-day event may not change the external state, but it can matter to the in
 
 On slides pages 9–10, these are simplified as:
 
-$$nd$$
+$$
+nd
+$$
 
 The simplified environment trace is:
 
-$$s_0 \xrightarrow{cs} s_1$$
+$$
+s_0 \xrightarrow{cs} s_1
+$$
 
 with an $nd$ transition around $s_1$, then:
 
-$$s_1 \xrightarrow{ss} s_2$$
+$$
+s_1 \xrightarrow{ss} s_2
+$$
 
 with another $nd$, then:
 
-$$s_2 \xrightarrow{sv} s_3$$
+$$
+s_2 \xrightarrow{sv} s_3
+$$
 
 with another $nd$, then:
 
-$$s_3 \xrightarrow{ms} s_4$$
+$$
+s_3 \xrightarrow{ms} s_4
+$$
 
 with another $nd$, then:
 
-$$s_4 \xrightarrow{mv} s_5$$
+$$
+s_4 \xrightarrow{mv} s_5
+$$
 
 ---
 
@@ -2216,23 +2628,31 @@ The institution observes the environment trace and creates institutional events 
 
 ## Initial institutional state
 
-$$s'_0$$
+$$
+s'_0
+$$
 
 ## Coursework set
 
 External event:
 
-$$cs$$
+$$
+cs
+$$
 
 Institutional event:
 
-$$cs'$$
+$$
+cs'
+$$
 
 The institution is interested in coursework being set, so it creates obligations.
 
 New institutional state:
 
-$$\{O(susan, submit(f2)),\ O(vicki, submit(f2))\}$$
+$$
+\{O(susan, submit(f2)),\ O(vicki, submit(f2))\}
+$$
 
 Meaning:
 
@@ -2241,7 +2661,9 @@ Meaning:
 
 Here:
 
-$$f2$$
+$$
+f2
+$$
 
 means February 2.
 
@@ -2251,11 +2673,15 @@ means February 2.
 
 External event:
 
-$$ss$$
+$$
+ss
+$$
 
 Institutional event:
 
-$$ss'$$
+$$
+ss'
+$$
 
 Susan’s submission removes Susan’s obligation to submit.
 
@@ -2263,7 +2689,9 @@ It also creates an obligation for Barbara to mark Susan’s coursework by 20 Feb
 
 New institutional state:
 
-$$\{O(barbara, mark(susan,f20)),\ O(vicki, submit(f2))\}$$
+$$
+\{O(barbara, mark(susan,f20)),\ O(vicki, submit(f2))\}
+$$
 
 Meaning:
 
@@ -2272,7 +2700,9 @@ Meaning:
 
 Here:
 
-$$f20$$
+$$
+f20
+$$
 
 means February 20.
 
@@ -2284,13 +2714,17 @@ At the point where a new-day event occurs after the deadline, Vicki has still no
 
 The institution translates this into an institutional violation event:
 
-$$viol(vicki, submit(f2))$$
+$$
+viol(vicki, submit(f2))
+$$
 
 This means Vicki violated the obligation to submit by 2 February.
 
 The new institutional state becomes:
 
-$$\{O(barbara, mark(susan,f20)),\ O(vicki, submit(f2)),\ late\_submission(vicki)\}$$
+$$
+\{O(barbara, mark(susan,f20)),\ O(vicki, submit(f2)),\ late\_submission(vicki)\}
+$$
 
 Meaning:
 
@@ -2298,7 +2732,11 @@ Meaning:
 - Vicki’s original obligation is still represented.
 - Vicki now has an institutional fact:
 
-  $$late\_submission(vicki)$$
+  
+
+$$
+late\_submission(vicki)
+$$
 
 The lecturer stops the detailed trace here and leaves the rest as an exercise.
 
@@ -2316,17 +2754,23 @@ An agent can transform obligations into goals.
 
 Example:
 
-$$O(susan, submit(f2))$$
+$$
+O(susan, submit(f2))
+$$
 
 can become a goal for Susan’s agent:
 
-$$submit\ coursework\ by\ February\ 2$$
+$$
+submit\ coursework\ by\ February\ 2
+$$
 
 ## Institutional facts as basis for sanctions
 
 Agents can use institutional facts such as:
 
-$$late\_submission(vicki)$$
+$$
+late\_submission(vicki)
+$$
 
 to apply sanctions.
 
