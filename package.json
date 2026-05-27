@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build && pagefind --site dist",
+    "export-pdfs": "npm run build && node scripts/export-pdfs.mjs",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview"
   },
   "dependencies": {
@@ -15,6 +16,8 @@
     "remark-math": "latest"
   },
   "devDependencies": {
-    "pagefind": "latest"
+    "pagefind": "latest",
+    "pdf-lib": "^1.17.1",
+    "puppeteer": "^25.0.4"
   }
 }
