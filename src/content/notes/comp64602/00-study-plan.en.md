@@ -1,6 +1,6 @@
 ---
 subject: COMP64602
-chapter: 0
+chapter: 1
 title: "Study Plan"
 language: en
 ---
