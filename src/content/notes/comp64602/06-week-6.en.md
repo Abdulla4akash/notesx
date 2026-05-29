@@ -5,95 +5,96 @@ title: "Week 6"
 language: en
 ---
 
-# স্টাডি নোটস: এজেন্ট যোগাযোগ, ইন্টারঅ্যাকশন প্রোটোকল, কমিটমেন্ট, এবং আর্গুমেন্ট গেমস
 
-**বিষয় ও পরিধি —** এই লেকচার প্যাকটি বহু-এজেন্ট সিস্টেমে autonomous agents কীভাবে যোগাযোগ করে তা নিয়ে: communication protocols, agent communication languages, sequence diagrams, finite-state machines, commitments, commitment-based protocol enactments, এবং argumentation-as-games। বৃহত্তর বিষয়ের সঙ্গে এর সম্পর্ক হলো: এজেন্টদের interaction এমনভাবে নির্দিষ্ট করা যায় যাতে অর্থটি observable/checkable থাকে, অথচ autonomous agents-এর flexibility বজায় থাকে।
+# Study Notes: Agent Communication, Interaction Protocols, Commitments, and Argument Games
 
-**কোর্স/প্রসঙ্গ —** মূলত **COMP64602: Agent Communication / Commitments**।  
-[UNCLEAR: UML sequence diagrams এবং finite-state machines-এর slide deck-টি **COMP26120** হিসেবে লেবেল করা, commitment example deck-টি **COMP64620** হিসেবে লেবেল করা, আর আশপাশের material COMP64602।]
+**Topic and scope —** This lecture pack covers how autonomous agents communicate in multi-agent systems: communication protocols, agent communication languages, sequence diagrams, finite-state machines, commitments, commitment-based protocol enactments, and argumentation-as-games. It fits into the broader subject by showing how agent interactions can be specified with observable, checkable meaning while preserving flexibility for autonomous agents.
 
-**Source coverage —** এই নোটে uploaded slides এবং transcripts—যেখানে দুটোই পাওয়া গেছে—দুটোই মিলিয়ে ব্যবহার করা হয়েছে। **Agent Communication** material upload-এ slide-only ছিল; **Arguments and Games** material transcript-only ছিল।
+**Course/context —** Mainly **COMP64602: Agent Communication / Commitments**.  
+[UNCLEAR: one slide deck is labelled **COMP26120** for UML sequence diagrams and finite-state machines, and the commitment example deck is labelled **COMP64620**, while the surrounding material is COMP64602.]
+
+**Source coverage —** These notes combine the uploaded slides and transcripts where both were available. The **Agent Communication** material is slide-only in the upload; the **Arguments and Games** material is transcript-only in the upload.
 
 ---
 
-## 1. Agent Communication এবং Communication Protocols
+## 1. Agent Communication and Communication Protocols
 
 ### 1.1 Key concept: communication protocol
 
-**Intuition.** একটি communication protocol হলো interaction চলাকালে agents কীভাবে messages আদান-প্রদান করবে তার rule-like description। এটি নির্দিষ্ট করে কোন messages ঘটতে পারে এবং অনেক সময় সেগুলোর order কী হবে।
+**Intuition.** A communication protocol is a rule-like description of how agents should exchange messages during an interaction. It specifies what messages may occur and often in what order.
 
-**Formal / slide definition.** Communication protocol “specifies a sequence of messages to be exchanged between agents.” উদাহরণ: কোনো customer-এর কাছ থেকে order পাওয়ার পর একটি merchant software agent-এর উচিত order receipt confirm করা।
+**Formal / slide definition.** A communication protocol “specifies a sequence of messages to be exchanged between agents.” Example: after receiving an order from a customer, a merchant software agent should confirm receipt of the order.
 
-### 1.2 Multi-agent systems-এ protocols কেন গুরুত্বপূর্ণ
+### 1.2 Why protocols matter in multi-agent systems
 
-লেকচারে ধরে নেওয়া হয়েছে agents হতে পারে:
+The lecture assumes agents may be:
 
 - **autonomous**;
 - **intelligent**;
-- protocol design করা ব্যক্তিদের থেকে আলাদা মানুষ দ্বারা designed বা implemented।
+- designed or implemented by people other than the people who designed the protocol.
 
-এই কারণে protocols-এর একসঙ্গে দুইটি জিনিস দরকার:
+Because of this, protocols need two things at once:
 
-1. **Protocol ব্যবহারকারী agent-এর জন্য clear meaning**  
-   Agent যেন protocol ব্যবহার করে নিজের actions guide করতে পারে।
+1. **Clear meaning for the agent using the protocol**  
+   The agent should be able to use the protocol to guide its own actions.
 
 2. **Observable violations**  
-   Multi-agent system বা organisation যেন observe করে বলতে পারে agent protocol মেনেছে কি না।
+   The multi-agent system or organisation should be able to observe whether an agent has complied with the protocol.
 
-পুরো lecture pack জুড়ে এটি recurring theme: protocol specifications যেন agents-এর private internals inspect করার ওপর অতিরিক্ত নির্ভর না করে।
+This is a recurring theme across the lecture pack: protocol specifications should not depend too heavily on inspecting private internals of agents.
 
 ---
 
-## 2. MAS Protocol থেকে আমরা কী চাই
+## 2. What We Want from an MAS Protocol
 
 ### 2.1 Software engineering desiderata
 
-লেকচারে multi-agent system protocols-এর জন্য কয়েকটি software-engineering requirement দেওয়া হয়েছে।
+The lecture gives several software-engineering requirements for multi-agent system protocols.
 
-একটি ভালো MAS protocol হওয়া উচিত:
+A good MAS protocol should be:
 
-- **Stakeholders-এর কাছে understandable**
-  - Protocol এমন terms-এ প্রকাশ করা উচিত যা stakeholders বোঝে, যেমন `offer`, `request`, এবং `reject`।
-  - উদ্দেশ্য শুধু mathematical elegance নয়; stakeholders যেন protocol পড়ে interaction বুঝতে পারে।
+- **Understandable by stakeholders**
+  - It should use terms stakeholders understand, such as `offer`, `request`, and `reject`.
+  - The point is not just mathematical elegance; stakeholders should be able to read the protocol and understand the interaction.
 
-- **Modify ও understand করা সহজ**
-  - Protocol বদলালে developers এবং stakeholders যেন বুঝতে পারে কী বদলেছে।
+- **Easy to modify and understand**
+  - If a protocol changes, developers and stakeholders should be able to see what changed.
 
-- **Compose করা সহজ**
-  - Slide-এর উদাহরণ: purchase agree করার protocol যেন item shipping-এর protocol-এর সঙ্গে compose করা যায়।
+- **Easy to compose**
+  - Example from the slide: a protocol for agreeing a purchase should be composable with a protocol for shipping the item.
 
 - **Loosely coupled**
-  - Agents যেন অন্য agents কীভাবে protocol-এর তাদের অংশ পূরণ করে সে বিষয়ে বেশি জানতে বাধ্য না হয়।
-  - তাদের শুধু communicative interface এবং protocol-level meaning জানলেই চলা উচিত।
+  - Agents should not need to know much about how other agents fulfil their side of the protocol.
+  - They should only need to know the communicative interface and protocol-level meaning.
 
 ### 2.2 Flexibility desideratum
 
-Protocol যেন agent কীভাবে protocol fulfil করবে তার ওপর অপ্রয়োজনীয় constraints কমিয়ে দেয়।
+The protocol should minimise unnecessary constraints on how an agent fulfils it.
 
-Slides-এর উদাহরণ:
+Example from the slides:
 
-- একটি selling agent simple হতে পারে:
-  - database lookup করে;
-  - database price তার offer-এর অংশ হিসেবে report করে।
+- A selling agent could be simple:
+  - it does a database lookup;
+  - it reports the database price as part of its offer.
 
-- অথবা selling agent complex হতে পারে:
-  - comparable prices-এর জন্য internet scrape করে;
-  - customer-এর value বিচার করে;
-  - appropriate হলে lower price offer করে।
+- Or a selling agent could be complex:
+  - it scrapes the internet for comparable prices;
+  - it judges the value of the customer;
+  - it offers a lower price where appropriate.
 
-দুই ধরনের agent-ই একই protocol-এ participate করতে পারা উচিত, যতক্ষণ তাদের observable messages protocol মেনে চলে।
+Both should be able to participate in the same protocol as long as their observable messages comply.
 
 ### 2.3 Checkability desideratum
 
-একটি protocol observation থেকে checkable হওয়া উচিত।
+A protocol should be checkable from observation.
 
-এর মানে:
+That means:
 
-- agent protocol comply করছে কি না বলা সম্ভব হওয়া উচিত;
-- protocols precise হওয়া দরকার;
-- protocols observable information-এর ওপর ভিত্তি করা উচিত।
+- it should be possible to tell whether an agent is complying;
+- protocols need to be precise;
+- protocols should be based on information that can be observed.
 
-**Connection.** এটি সরাসরি FIPA ACL-এর পরবর্তী critique-এর সঙ্গে যুক্ত: correctness যদি agent-এর hidden beliefs বা intentions-এর ওপর নির্ভর করে, তাহলে external observer শুধু messages দেখে compliance check করতে নাও পারে।
+**Connection.** This directly connects to the later critique of FIPA ACL: if correctness depends on an agent’s hidden beliefs or intentions, then an external observer may not be able to check compliance just from messages.
 
 ---
 
@@ -101,27 +102,27 @@ Slides-এর উদাহরণ:
 
 ### 3.1 Key concept: communicative acts
 
-**Intuition.** একটি communicative act হলো purpose-সহ একটি message। একই logical content sender inform করছে, request করছে, promise করছে ইত্যাদির ওপর নির্ভর করে ভিন্ন অর্থ নিতে পারে।
+**Intuition.** A communicative act is a message with a purpose. The same logical content can mean different things depending on whether the sender is informing, requesting, promising, and so on.
 
-লেকচারের উদাহরণ:
+Examples from the lecture:
 
-- Information pass করা: “There is a box in the next room.”
-- Action request করা: “Take the box to the next room.”
-- Promise / commitment করা: “I will take the box to the next room.”
+- Passing information: “There is a box in the next room.”
+- Requesting action: “Take the box to the next room.”
+- Promising / committing: “I will take the box to the next room.”
 
-Underlying logical content এমন কিছু দিয়ে represent করা যায়:
+The underlying logical content can be represented as something like:
 
 ```latex
 in(next_room, box)
 ```
 
-কিন্তু communicative purpose অনুযায়ী meaning বদলায়।
+But the meaning changes depending on the communicative purpose.
 
 ### 3.2 Key concept: performative
 
-**Intuition.** Performative হলো logical content-এর সঙ্গে attached একটি tag, যা receiving agent-কে বলে content-টি কীভাবে interpret করতে হবে।
+**Intuition.** A performative is a tag attached to logical content telling the receiving agent how to interpret that content.
 
-**Slide-এর formal examples:**
+**Formal examples from the slide:**
 
 ```latex
 :tell(in(next_room, box))
@@ -137,36 +138,36 @@ in(next_room, box)
 
 Interpretation:
 
-- `:tell(...)` মানে sender information pass করছে।
-- `:perform(...)` মানে sender receiver-কে formula true করতে request করছে।
-- `:promise(...)` মানে sender promise করছে যে formula true হবে।
+- `:tell(...)` means the sender is passing information.
+- `:perform(...)` means the sender is requesting that the receiver make the formula true.
+- `:promise(...)` means the sender is promising that the formula will become true.
 
-Lecturer বলেন, দেখানো syntax কিছু BDI-style programming languages-এ ব্যবহৃত syntax-এর মতো, কিন্তু different communication languages different syntax ব্যবহার করতে পারে। মূল concept হলো **logical content** এবং **performative**-এর separation।
+The lecturer notes that the syntax shown is similar to syntax used in some BDI-style programming languages, but different communication languages may use different syntax. The important concept is the separation between **logical content** and **performative**.
 
-### 3.3 Fixed performatives-সহ agent communication languages
+### 3.3 Agent communication languages with fixed performatives
 
-অনেক agent communication language fixed set of performatives দেয়। যে agents language-টি ব্যবহার করতে পারে তারা ঐ standard performatives দিয়ে communicate করতে পারে।
+Many agent communication languages provide a fixed set of performatives. Agents that use the language can communicate using those standard performatives.
 
 Example:
 
-- **KQML** মানে **Knowledge Query and Manipulation Language**।
-- এটি ontologies / knowledge bases-এর মধ্যে communication-এর জন্য intended।
-- এতে performatives আছে, যেমন:
+- **KQML** stands for **Knowledge Query and Manipulation Language**.
+- It is intended for communication between ontologies / knowledge bases.
+- It has performatives such as:
   - `query`;
-  - `tell`।
+  - `tell`.
 
-Fixed performative language restrictive হতে পারে। Specific domains-এর richer, domain-specific performatives দরকার হতে পারে।
+A fixed performative language can be restrictive. Specific domains may need richer, domain-specific performatives.
 
 ### 3.4 Domain-specific performatives
 
-Lecture-এর business-process example:
+The lecture’s business-process example:
 
 - `request_quote`
 - `provide_quote`
 
-Nuance গুরুত্বপূর্ণ। কিছু domains-এ quote provide করা মানে হতে পারে request করলে ঐ price-এ goods supply করার commitment। অন্য domain-এ quote কেবল indicative হতে পারে। আরেক ক্ষেত্রে এটি অন্য কারও listed price report করতে পারে।
+The nuance is important. In some domains, providing a quote might imply a commitment to supply goods at that price if requested. In another domain, a quote might only be indicative. In yet another case, it might report a price listed by someone else.
 
-সুতরাং performative-এর meaning domain এবং protocol-এর ওপর নির্ভর করে।
+So the meaning of the performative depends on the domain and protocol.
 
 ---
 
@@ -174,33 +175,33 @@ Nuance গুরুত্বপূর্ণ। কিছু domains-এ quote pr
 
 ### 4.1 Key concept: FIPA ACL
 
-**Intuition.** FIPA ACL হলো একটি agent communication language, যা messages-কে শুধু performative label-এর চেয়ে বেশি semantic structure দেয়।
+**Intuition.** FIPA ACL is an agent communication language that gives messages more semantic structure than just a performative label.
 
-**Formal / slide definition.** FIPA ACL message semantics specify করতে চায় agents-এর internal mental state—যেমন beliefs এবং intentions—এর terms-এ। Example: কোনো agent কেবল তখনই একটি fact `tell` করতে পারে, যদি fact-টি তার knowledge base থেকে follows করে।
+**Formal / slide definition.** The FIPA ACL attempts to specify message semantics in terms of the internal mental state of agents, such as beliefs and intentions. Example: an agent can only tell a fact if that fact follows from its knowledge base.
 
-Transcript-এ corresponding promise example-ও আছে:
+The transcript also gives the corresponding promise example:
 
-- কোনো agent কিছু promise করতে পারে কেবল তখনই, যদি সে ঐ জিনিসটি করতে intend করে।
+- an agent can only promise to do something if it intends to do that thing.
 
-### 4.2 FIPA ACL এবং message sequence diagrams
+### 4.2 FIPA ACL and message sequence diagrams
 
-FIPA ACL communication protocols specify করে message sequence diagrams ব্যবহার করে। পরের lecture/video sequence diagrams-এর refresher দেয়।
+FIPA ACL specifies communication protocols using message sequence diagrams. The next lecture/video gives a refresher on sequence diagrams.
 
-### 4.3 Textbook critique এবং lecturer-এর response
+### 4.3 Textbook critique and lecturer’s response
 
-Textbook critique:
+The textbook critique:
 
-- FIPA-style semantics correctness determine করতে agent-এর internal state inspect করতে বলে।
-- Example: শুধু `tell` message observe করে external observer জানতে পারে না sender fact-টি সত্যিই believe করে কি না।
+- FIPA-style semantics require inspecting an agent’s internal state to determine correctness.
+- Example: from observing a `tell` message alone, an external observer cannot know whether the sender really believes the fact.
 
-Lecturer-এর response:
+The lecturer’s response:
 
-- External observer বা monitoring system-এর perspective থেকে এই critique fair।
-- কিন্তু correctness-এর আরেকটি use আছে: implementation validation।
-- যে developer agent-এর internals access করতে পারে, সে verify করতে পারে agent কেবল তখনই `tell` ব্যবহার করছে যখন সে fact-টি আসলেই believe করে।
-- তাই internal semantics implementations validate করার জন্য, এবং agents তাদের own outgoing messages internally correct কি না check করার জন্য এখনও useful।
+- This critique is fair from the perspective of an external observer or monitoring system.
+- But there is another use of correctness: implementation validation.
+- A developer who does have access to the agent’s internals can verify that the agent only uses `tell` when it actually believes the fact.
+- Internal semantics are therefore still useful for validating implementations and for agents checking that their own outgoing messages are internally correct.
 
-**Connection.** এটি সরাসরি MAS protocol checkability requirement-এর সঙ্গে যুক্ত: external monitoring observable criteria prefer করে, কিন্তু implementation verification legitimately internal mental states ব্যবহার করতে পারে।
+**Connection.** This connects directly to the MAS protocol checkability requirement: external monitoring prefers observable criteria, but implementation verification may legitimately use internal mental states.
 
 ---
 
@@ -208,48 +209,48 @@ Lecturer-এর response:
 
 ### 5.1 Key concept: sequence diagram
 
-**Intuition.** Sequence diagram participants-এর মধ্যে ordered interaction দেখায়।
+**Intuition.** A sequence diagram shows an ordered interaction between participants.
 
-**Formal / slide definition.** Sequence charts বা diagrams participants-এর মধ্যে interactions-এর sequence illustrate করে। এগুলো UML-এ formalised এবং সাধারণত use cases-কে specifications-এ convert করার সময় ব্যবহৃত হয়। FIPA ACL interaction protocols represent করতে sequence diagrams-এর একটি variant ব্যবহার করে।
+**Formal / slide definition.** Sequence charts or diagrams illustrate a sequence of interactions between participants. They are formalised in UML and are often used to convert use cases into specifications. A variant is used by FIPA ACL to represent interaction protocols.
 
-### 5.2 Sequence diagram কীভাবে পড়তে হয়
+### 5.2 How to read a sequence diagram
 
-Lecturer basics-এ focus করেন:
+The lecturer focuses on the basics:
 
-- Vertical lines হলো **lifelines**।
-  - এগুলো agents বা participants-এর timelines represent করে।
-- Lifelines-এর মধ্যে arrows হলো **messages/interactions**।
-  - Arrow-এর direction দেখায় কে message পাঠাচ্ছে এবং কাকে পাঠাচ্ছে।
-- Diagram **top to bottom** পড়তে হয়।
-  - Earlier messages উপরে থাকে।
-  - Later messages নিচে থাকে।
+- Vertical lines are **lifelines**.
+  - They represent timelines for the agents or participants.
+- Arrows between lifelines are **messages/interactions**.
+  - The direction of the arrow shows who sends the message to whom.
+- Read the diagram **from top to bottom**.
+  - Earlier messages appear higher up.
+  - Later messages appear lower down.
 
-**[EXAM FLAG]** Lecturer explicitly বলেন exam-এ expected basics হলো:
+**[EXAM FLAG]** The lecturer explicitly says the basics expected in the exam are:
 
-- vertical timelines/lifelines participants represent করে—এটা জানা;
-- diagram top to bottom পড়া;
-- প্রতিটি arrow এক agent থেকে আরেক agent-এ interaction—এটা বোঝা।
+- know that the vertical timelines/lifelines represent participants;
+- read the diagram from top to bottom;
+- understand that each arrow is an interaction from one agent to another.
 
-**[EXAM FLAG]** Lecturer explicitly বলেন arbitrary message sequence diagrams তৈরি করা students-এর কাছ থেকে expected নয়। Exam question-এ যদি `alt` boxes-এর মতো more complex features ব্যবহার করা হয়, question-এই তাদের meaning explain করা হবে।
+**[EXAM FLAG]** The lecturer explicitly says students are **not** expected to know how to create arbitrary message sequence diagrams. If more complex features such as `alt` boxes are used in an exam question, their meaning will be explained in the question.
 
 ### 5.3 Worked example: FIPA protocol specification
 
-Slide-এর sequence diagram-এ দুই participants আছে:
+The sequence diagram on the slide has two participants:
 
 - `Initiator`
 - `Participant`
 
-Interaction এভাবে এগোয়।
+The interaction proceeds as follows.
 
-1. **Initiator** পাঠায়:
+1. The **Initiator** sends:
 
 ```latex
 Request
 ```
 
-**Participant**-এর কাছে।
+to the **Participant**.
 
-2. তারপর একটি outer `Alt` box দুইটি possible branches দেয়:
+2. Then an outer `Alt` box gives two possible branches:
 
    **Branch 1: refusal**
 
@@ -257,7 +258,7 @@ Request
    Participant \rightarrow Initiator: Refuse
    ```
 
-   এর মানে participant request refuse করে।
+   This means the participant refuses the request.
 
    **Branch 2: agreement**
 
@@ -265,19 +266,19 @@ Request
    Participant \rightarrow Initiator: Agree
    ```
 
-   Agreement-এর পরে nested `Alt` box তিনটি possible outcome দেয়:
+   After agreement, a nested `Alt` box gives three possible outcomes:
 
    ```latex
    Participant \rightarrow Initiator: Fail
    ```
 
-   অথবা
+   or
 
    ```latex
    Participant \rightarrow Initiator: Inform\text{-}done
    ```
 
-   অথবা
+   or
 
    ```latex
    Participant \rightarrow Initiator: Inform\text{-}result
@@ -285,15 +286,15 @@ Request
 
 Interpretation:
 
-- `Fail`: agreed task failed।
-- `Inform-done`: task succeeded এবং report করার মতো আর কিছু নেই।
-- `Inform-result`: task succeeded এবং result report করা হয়েছে।
+- `Fail`: the agreed task failed.
+- `Inform-done`: the task succeeded and there is nothing more to report.
+- `Inform-result`: the task succeeded and a result is reported.
 
-Lecturer emphasise করেন যে এটি high level-এ interaction describe করে। Agents-এর internals জানার দরকার নেই; message sequence observe করে protocol followed হয়েছে কি না বলা যায়।
+The lecturer emphasises that this describes the interaction at a high level. It does not require knowing the agents’ internals; by observing the message sequence, one can tell whether the protocol was followed.
 
-### 5.4 FIPA example থেকে correct message sequences
+### 5.4 Correct message sequences from the FIPA example
 
-Diagram এই high-level message traces allow করে:
+The diagram allows these high-level message traces:
 
 ```latex
 Request,\ Refuse
@@ -311,13 +312,13 @@ Request,\ Agree,\ Inform\text{-}done
 Request,\ Agree,\ Inform\text{-}result
 ```
 
-এই traces-এর যেকোনোটি diagram follow করে। এমন sequence:
+Any of these traces follows the diagram. A sequence such as:
 
 ```latex
 Request,\ Inform\text{-}result
 ```
 
-diagram-এর সঙ্গে match করবে না, কারণ `Inform-result` কেবল `Agree`-এর পরে আসে।
+would not match the diagram, because `Inform-result` only appears after `Agree`.
 
 ---
 
@@ -325,16 +326,16 @@ diagram-এর সঙ্গে match করবে না, কারণ `Inform-r
 
 ### 6.1 Key concept: finite-state machine
 
-**Intuition.** Finite-state machine হলো এমন model যেখানে system সবসময় finite number of states-এর কোনো একটিতে থাকে। Labelled event observe বা consume করলে আরেক state-এ transition ঘটে।
+**Intuition.** A finite-state machine is a model where a system is always in one of a finite number of states. Observing or consuming a labelled event causes a transition to another state.
 
-**Formal / slide definition.** Finite-state machine computation-এর mathematical model। এতে থাকে:
+**Formal / slide definition.** A finite-state machine is a mathematical model of computation. It consists of:
 
-- finite set of states;
-- states-এর মধ্যে labelled transitions-এর set;
-- কিছু initial states;
-- কিছু accepting/final states।
+- a finite set of states;
+- a set of labelled transitions between states;
+- some initial states;
+- some accepting/final states.
 
-Deterministic finite-state machine-এর জন্য lecture tuple দেয়:
+For a deterministic finite-state machine, the lecture gives the tuple:
 
 ```latex
 \langle \Sigma, S, s_0, \delta, F \rangle
@@ -346,141 +347,141 @@ where:
 \Sigma
 ```
 
-labels-এর set,
+is the set of labels,
 
 ```latex
 S
 ```
 
-states-এর set,
+is the set of states,
 
 ```latex
 s_0
 ```
 
-initial state,
+is the initial state,
 
 ```latex
 \delta : S \times \Sigma \rightarrow S
 ```
 
-transition function, এবং
+is the transition function, and
 
 ```latex
 F
 ```
 
-final states-এর set।
+is the set of final states.
 
 ### 6.2 Transition labels
 
-Transition-এর label হলো application অনুযায়ী observed, generated, বা consumed কিছু।
+A label on a transition is something observed, generated, or consumed, depending on the application.
 
-Communication protocols-এর ক্ষেত্রে labels সাধারণত messages, যেমন:
+For communication protocols, labels are usually messages such as:
 
 ```latex
 Offer(s,b)
 ```
 
-অথবা
+or
 
 ```latex
 Accept(b,s)
 ```
 
-Machine যদি কোনো state-এ থাকে এবং next observed message একটি defined transition-এর সঙ্গে match করে, তাহলে protocol next state-এ advance করে।
+If the machine is in a state and the next observed message matches a defined transition, the protocol advances to the next state.
 
 ### 6.3 Partial transition function
 
-Lecturer stress করেন যে:
+The lecturer stresses that:
 
 ```latex
 \delta
 ```
 
-**partial** হতে পারে।
+may be **partial**.
 
-মানে প্রতিটি possible state-এ প্রতিটি possible label-এর জন্য transition define করা বাধ্যতামূলক নয়।
+That means it does not need to define a transition for every possible label in every possible state.
 
-যদি current state হয় `s`, observed label হয় `a`, এবং:
+If the current state is `s`, the observed label is `a`, and:
 
 ```latex
 \delta(s,a)
 ```
 
-undefined হয়, তাহলে কিছু ভুল হয়েছে।
+is undefined, then something has gone wrong.
 
-Communication protocols-এর context-এ এর মানে protocol failed: enactment-এ কেউ incorrect কিছু করেছে।
+In the context of communication protocols, this means the protocol has failed: someone has done something incorrect in the enactment.
 
-### 6.4 Algorithm: FSM দিয়ে protocol compliance check করা
+### 6.4 Algorithm: checking protocol compliance with an FSM
 
-একটি FSM protocol দেওয়া আছে:
+Given an FSM protocol:
 
 ```latex
 \langle \Sigma, S, s_0, \delta, F \rangle
 ```
 
-এবং observed message trace:
+and an observed message trace:
 
 ```latex
 m_1, m_2, \ldots, m_n
 ```
 
-checking এভাবে করা হয়।
+checking proceeds as follows.
 
-1. শুরু করো:
+1. Start in:
 
    ```latex
    current = s_0
    ```
 
-2. প্রতিটি observed message `m_i`-এর জন্য:
+2. For each observed message `m_i`:
 
-   - যদি:
+   - if:
 
      ```latex
      \delta(current, m_i)
      ```
 
-     defined হয়, update করো:
+     is defined, update:
 
      ```latex
      current := \delta(current, m_i)
      ```
 
-   - অন্যথায় protocol enactment failed।
+   - otherwise, the protocol enactment has failed.
 
-3. Communication থামলে:
+3. When communication stops:
 
-   - যদি:
+   - if:
 
      ```latex
      current \in F
      ```
 
-     তাহলে protocol correctly ended;
+     then the protocol has ended correctly;
 
-   - যদি:
+   - if:
 
      ```latex
      current \notin F
      ```
 
-     তাহলে protocol correctly ended হয়নি।
+     then the protocol has not ended correctly.
 
-Lecture-এর simple protocol example-এ ঠিক এই logic ব্যবহৃত হয়েছে।
+This is exactly the logic used in the lecture’s simple protocol example.
 
 ### 6.5 Worked example: simple seller-buyer protocol
 
-Slides-এর state diagram-এ states আছে:
+The state diagram on the slides has states:
 
 ```latex
 S0,\ S1,\ S2,\ S3
 ```
 
-এবং seller `s` ও buyer `b`-কে involving messages আছে। Agent Communication slides-এর diagram একই basic graph দেখায়, আর Sequence/FSM deck পরে `S1` ও `S3`-কে double circles দিয়ে final states হিসেবে mark করে।
+and messages involving seller `s` and buyer `b`. The diagram in the Agent Communication slides shows the same basic graph, while the Sequence/FSM deck later marks `S1` and `S3` as final states using double circles.
 
-Graph transitions:
+The graph transitions are:
 
 ```latex
 S0 \xrightarrow{Offer(s,b)} S1
@@ -498,7 +499,7 @@ S1 \xrightarrow{Reject(b,s)} S3
 S2 \xrightarrow{Update(s,b)} S1
 ```
 
-Slide-এর formal representation:
+The formal representation from the slide is:
 
 ```latex
 \Sigma = \{Offer(s,b), Accept(b,s), Update(s,b), Reject(b,s)\}
@@ -532,11 +533,11 @@ s_0 = S0
 F = \{S1,S3\}
 ```
 
-[UNCLEAR: diagram এবং `\Sigma`-তে `Update(s,b)` ব্যবহার করা হয়েছে, কিন্তু slide-এর formal transition-এ `Update(b,s)` আছে। এটি সম্ভবত slide inconsistency; recording/slides দেখে এই অংশ revise করতে হবে।]
+[UNCLEAR: the diagram and `\Sigma` use `Update(s,b)`, but the formal transition on the slide uses `Update(b,s)`. This is likely a slide inconsistency; revise this part against the recording/slides.]
 
-### 6.6 Correct এবং incorrect traces
+### 6.6 Correct and incorrect traces
 
-`S1`-এ ending correct trace:
+Correct trace ending at `S1`:
 
 ```latex
 Offer(s,b)
@@ -548,9 +549,9 @@ Reason:
 S0 \xrightarrow{Offer(s,b)} S1
 ```
 
-এবং `S1` final।
+and `S1` is final.
 
-`S3`-এ ending correct trace:
+Correct trace ending at `S3`:
 
 ```latex
 Offer(s,b),\ Reject(b,s)
@@ -566,9 +567,9 @@ S0 \xrightarrow{Offer(s,b)} S1
 S1 \xrightarrow{Reject(b,s)} S3
 ```
 
-এবং `S3` final।
+and `S3` is final.
 
-Update-সহ correct trace:
+Correct trace with update:
 
 ```latex
 Offer(s,b),\ Accept(b,s),\ Update(s,b)
@@ -588,7 +589,7 @@ S1 \xrightarrow{Accept(b,s)} S2
 S2 \xrightarrow{Update(s,b)} S1
 ```
 
-এবং `S1` final।
+and `S1` is final.
 
 Incorrect trace:
 
@@ -596,13 +597,13 @@ Incorrect trace:
 Accept(b,s)
 ```
 
-Reason: `S0` থেকে শুধু `Offer(s,b)` defined। কোনো transition নেই:
+Reason: from `S0`, only `Offer(s,b)` is defined. There is no transition:
 
 ```latex
 \delta(S0, Accept(b,s))
 ```
 
-তাই protocol fails।
+so the protocol fails.
 
 Incorrect stopping point:
 
@@ -616,25 +617,25 @@ Reason:
 S0 \rightarrow S1 \rightarrow S2
 ```
 
-কিন্তু `S2` final নয়। Communication যদি `S2`-তে থেমে যায়, কিছু ভুল হয়েছে।
+but `S2` is not final. If communication stops at `S2`, something has gone wrong.
 
-### 6.7 Syntactic correctness সম্পর্কে important note
+### 6.7 Important note about syntactic correctness
 
-Lecturer বলেন example-টি “slightly weird”: buyer accept করার পরে seller offer update করতে পারে, এবং protocol loop করতে পারে। Lecturer আরও বলেন textbook example-এ accept এবং reject হয়তো উল্টো হওয়া উচিত ছিল কি না তিনি ভাবেন।
+The lecturer comments that the example is “slightly weird”: after the buyer accepts, the seller can update the offer, and the protocol can loop. The lecturer also says they wonder whether accept and reject should be the other way round in the textbook example.
 
-কিন্তু key point হলো:
+But the key point is:
 
-**একটি protocol syntactically correct হতে sensible হওয়া বাধ্যতামূলক নয়।**
+**A protocol does not need to be sensible to be syntactically correct.**
 
-Protocol এখনও একটি well-formed finite-state machine।
+The protocol is still a well-formed finite-state machine.
 
-**[EXAM FLAG]** Lecturer explicitly বলেন students finite-state-machine tuple representation জানবে বলে expected:
+**[EXAM FLAG]** The lecturer explicitly says students are expected to know the finite-state-machine tuple representation:
 
 ```latex
 \langle \Sigma, S, s_0, \delta, F \rangle
 ```
 
-এবং exam question-এ এটি এলে কী চলছে বুঝতে হবে।
+and to understand what is going on if it appears in an exam question.
 
 ---
 
@@ -642,11 +643,11 @@ Protocol এখনও একটি well-formed finite-state machine।
 
 ### 7.1 Key concept: commitment
 
-**Intuition.** একটি commitment record করে যে এক agent আরেক agent-কে promise করেছে: কোনো triggering condition hold করলে সে কোনো condition bring about করবে।
+**Intuition.** A commitment records that one agent has promised another agent to bring about some condition if some triggering condition holds.
 
-**Lecture-এর formal definition.**
+**Formal definition from the lecture.**
 
-একটি commitment-এর form:
+A commitment has the form:
 
 ```latex
 C(debtor, creditor, antecedent, consequent)
@@ -654,123 +655,123 @@ C(debtor, creditor, antecedent, consequent)
 
 where:
 
-- `debtor` হলো agent যে commitment owed করে;
-- `creditor` হলো agent যার কাছে commitment owed;
-- `antecedent` হলো first-order formula;
-- `consequent` হলো first-order formula।
+- `debtor` is the agent who owes the commitment;
+- `creditor` is the agent to whom the commitment is owed;
+- `antecedent` is a first-order formula;
+- `consequent` is a first-order formula.
 
-Meaning:
+The meaning is:
 
-> debtor creditor-এর কাছে commit করেছে যে antecedent hold করলে consequent true করবে।
+> the debtor has committed to the creditor to make the consequent true if the antecedent holds.
 
-Antecedent creditor-এর করা কোনো কাজ হতে হবে এমন নয়। এটি শুধু কোনো circumstance occur করা হতে পারে।
+The antecedent does not have to be something the creditor does. It may simply be some circumstance that occurs.
 
-**[EXAM FLAG / IMPORTANT]** Slides commitments-কে agent interaction protocols define করার “an important modern concept” বলে, এবং lecturer বলেন commitments multi-agent systems-এ “definitely a very important concept”।
+**[EXAM FLAG / IMPORTANT]** The slides call commitments “an important modern concept” in defining agent interaction protocols, and the lecturer says commitments are “definitely a very important concept” in multi-agent systems.
 
 ### 7.2 Detached commitments
 
-Commitment **detached** হয় যখন:
+A commitment becomes **detached** when:
 
-- antecedent holds;
-- consequent এখনও hold করে না।
+- the antecedent holds;
+- the consequent does not yet hold.
 
-এর জন্য:
+For:
 
 ```latex
 C(x,y,r,u)
 ```
 
-যদি:
+if:
 
 ```latex
 r
 ```
 
-holds এবং:
+holds and:
 
 ```latex
 u
 ```
 
-এখনও hold না করে, commitment detached।
+does not yet hold, the commitment is detached.
 
-**Intuition.** Debtor-কে এখন কিছু করতে হবে। Lecturer বলেন detached commitments সম্ভবত এই protocols-এর সবচেয়ে important জিনিস, কারণ detachment parties-এর action drive করে।
+**Intuition.** The debtor now has to do something. The lecturer says detached commitments are perhaps the most important thing in these protocols because detachment drives action by the parties.
 
-**[EXAM FLAG / IMPORTANT]** Detachment কী এবং কেন matter করে তা জানো: detachment হলো point যেখানে debtor actively consequent bring about করতে obliged হয়।
+**[EXAM FLAG / IMPORTANT]** Know what detachment is and why it matters: detachment is the point at which the debtor becomes actively obliged to bring about the consequent.
 
 ### 7.3 Discharged commitments
 
-Consequent holds করলে commitment **discharged** হয়।
+A commitment is **discharged** when the consequent holds.
 
-এর জন্য:
+For:
 
 ```latex
 C(x,y,r,u)
 ```
 
-যদি:
+if:
 
 ```latex
 u
 ```
 
-holds, তাহলে commitment discharged।
+holds, then the commitment is discharged.
 
-**Intuition.** Promised outcome achieved হওয়ায় commitment চলে যায়।
+**Intuition.** The commitment goes away because the promised outcome has been achieved.
 
 ### 7.4 Formal detachment step
 
-Slide key logical note দেয়:
+The slide gives the key logical note:
 
-যদি:
+If:
 
 ```latex
 C(x,y,r,u)
 ```
 
-একটি commitment হয় এবং detached হয়, অর্থাৎ:
+is a commitment and it becomes detached, meaning:
 
 ```latex
 r
 ```
 
-holds, তাহলে:
+holds, then:
 
 ```latex
 C(x,y,\top,u)
 ```
 
-এটিও একটি commitment।
+is also a commitment.
 
 Interpretation:
 
-- `\top` মানে “true” বা “trivially true”।
-- তাই:
+- `\top` means “true” or “trivially true”.
+- So:
 
 ```latex
 C(x,y,\top,u)
 ```
 
-মানে `x` এখন কোনো further triggering condition ছাড়াই `u` bring about করতে obliged।
+means `x` is now obliged to bring about `u`, without needing any further triggering condition.
 
-### 7.5 Norms-এর সঙ্গে connection
+### 7.5 Connection to norms
 
-Commitments norms-এর সঙ্গে related, কারণ দুটিই obligation-like structures involve করে।
+Commitments are related to norms because both involve obligation-like structures.
 
-Lecturer বলেন commitment violations norm violations-এর মতোই detect করা যায়। Monitoring idea:
+The lecturer says commitment violations can be detected similarly to norm violations. The monitoring idea is:
 
-1. environment-এর events observe করা;
-2. সেই events-কে institutionally meaningful facts/events-এ map করা;
-3. commitments কখন appear, detach, বা discharge হচ্ছে তা detect করা;
-4. norm monitoring-এর মতো similar way-তে violations monitor করা।
+1. observe events in the environment;
+2. map those events to institutionally meaningful facts/events;
+3. detect when commitments appear, detach, or discharge;
+4. monitor violations in a similar way to norm monitoring.
 
-[UNCLEAR: transcript “institutional facts/events” phrase-টি “institutional trust/choice” হিসেবে garble করেছে; exact term-এর জন্য recording check করতে হবে।]
+[UNCLEAR: the transcript garbles “institutional facts/events” as “institutional trust/choice”; check the recording for the exact term.]
 
 ---
 
 ## 8. Commitment Operations
 
-Lecture এমন operations introduce করে যা commitments appear, disappear, বা change করে। Protocols messages-এর meaning define করতে এগুলো ব্যবহার করে।
+The lecture introduces operations that make commitments appear, disappear, or change. These are used by protocols to define what messages mean.
 
 ### 8.1 `CREATE`
 
@@ -778,7 +779,7 @@ Lecture এমন operations introduce করে যা commitments appear, disa
 CREATE(x,y,r,u)
 ```
 
-`x` দ্বারা performed।
+is performed by `x`.
 
 Effect:
 
@@ -786,9 +787,9 @@ Effect:
 C(x,y,r,u)
 ```
 
-holds।
+holds.
 
-Meaning: `x`, debtor, `y`, creditor-এর কাছে একটি commitment create করে।
+Meaning: `x`, the debtor, creates a commitment to `y`, the creditor.
 
 ### 8.2 `CANCEL`
 
@@ -796,19 +797,19 @@ Meaning: `x`, debtor, `y`, creditor-এর কাছে একটি commitment 
 CANCEL(x,y,r,u)
 ```
 
-`x` দ্বারা performed।
+is performed by `x`.
 
-Effect: এটি বন্ধ করে:
+Effect: it stops:
 
 ```latex
 C(x,y,r,u)
 ```
 
-আর hold করে না।
+from holding.
 
-Meaning: debtor commitment cancel করে।
+Meaning: the debtor cancels the commitment.
 
-Transcript থেকে important restriction: protocol-এ `x` যেন যখন খুশি cancel করতে পারে এমন necessarily allow করা উচিত নয়। Protocol define করবে কখন cancellation acceptable।
+Important restriction from the transcript: a protocol should not necessarily allow `x` to cancel whenever it feels like it. The protocol must define when cancellation is acceptable.
 
 ### 8.3 `RELEASE`
 
@@ -816,19 +817,19 @@ Transcript থেকে important restriction: protocol-এ `x` যেন যখ
 RELEASE(x,y,r,u)
 ```
 
-`y` দ্বারা performed।
+is performed by `y`.
 
-Effect: এটি বন্ধ করে:
+Effect: it stops:
 
 ```latex
 C(x,y,r,u)
 ```
 
-আর hold করে না।
+from holding.
 
-Meaning: creditor debtor-কে commitment থেকে release করে।
+Meaning: the creditor releases the debtor from the commitment.
 
-Lecturer বলেন এটি generally acceptable, কারণ যার কাছে commitment owed, সে বলতে পারে: “you no longer have to do that.”
+The lecturer says this is generally acceptable because the person to whom the commitment is owed can say, in effect, “you no longer have to do that.”
 
 ### 8.4 `DELEGATE`
 
@@ -836,7 +837,7 @@ Lecturer বলেন এটি generally acceptable, কারণ যার ক
 DELEGATE(x,y,z,r,u)
 ```
 
-`x` দ্বারা performed।
+is performed by `x`.
 
 Effect:
 
@@ -844,17 +845,17 @@ Effect:
 C(z,y,r,u)
 ```
 
-holds।
+holds.
 
-Meaning: `x` commitment `z`-এর কাছে delegate করে। `z`-এর এখন `y`-এর কাছে commitment আছে।
+Meaning: `x` delegates the commitment to `z`. `z` now has a commitment to `y`.
 
-Transcript একটি important nuance যোগ করে:
+The transcript adds an important nuance:
 
-- `x`-এর original commitment এখনও hold করতে পারে;
-- `x` হয়তো `z`-কে দিয়ে `u` bring about করিয়ে নিজের commitment discharge করতে চাইছে;
-- যদি `z` `u` bring about করে, তাহলে `z` এবং `x`—দুজনের commitments-ই discharged হতে পারে।
+- the original commitment on `x` may still hold;
+- `x` may be trying to discharge its own commitment by getting `z` to bring about `u`;
+- if `z` brings about `u`, both `z`’s and `x`’s commitments may be discharged.
 
-Protocol define করবে কখন এবং কাকে delegation acceptable।
+The protocol must define when and to whom delegation is acceptable.
 
 ### 8.5 `ASSIGN`
 
@@ -862,7 +863,7 @@ Protocol define করবে কখন এবং কাকে delegation accepta
 ASSIGN(x,y,z,r,u)
 ```
 
-`y` দ্বারা performed।
+is performed by `y`.
 
 Effect:
 
@@ -870,15 +871,15 @@ Effect:
 C(x,z,r,u)
 ```
 
-holds।
+holds.
 
-Meaning: creditor বদলায়। `x` `y`-এর কাছে committed ছিল, কিন্তু `y` সেই commitment-এর benefit `z`-কে assign করে।
+Meaning: the creditor changes. `x` was committed to `y`, but `y` assigns the benefit of that commitment to `z`.
 
-Transcript থেকে intuition:
+Intuition from the transcript:
 
-- `x` `y`-এর কাছে commitment করেছে;
-- `y` বলে, `y` নয়, `z` এখন consequent-এ interested party;
-- `x`-কে এখন `z`-এর জন্য এটি করতে হবে।
+- `x` made a commitment to `y`;
+- `y` says `z`, not `y`, is now the party interested in the consequent;
+- `x` must now do it for `z`.
 
 ### 8.6 `DECLARE`
 
@@ -886,13 +887,13 @@ Transcript থেকে intuition:
 DECLARE(x,y,r)
 ```
 
-`x` দ্বারা performed।
+is performed by `x`.
 
-Effect: `x` `y`-কে inform করে যে `r` holds।
+Effect: `x` informs `y` that `r` holds.
 
-Lecturer বলেন এটি আসলে commitment operation নয়, কিন্তু অনেক protocols-এ ব্যবহৃত হয়। এটি “I’ve done it” বলার একটি উপায় হিসেবে function করতে পারে।
+The lecturer says this is not really a commitment operation, but it is used in many protocols. It can function as a way of saying “I’ve done it.”
 
-Alternative: declaration message-এর বদলে agents event trace observe করতে পারে। Right action event trace-এ দেখা গেলে সবাই জানতে পারে `r` holds।
+Alternative: instead of a declaration message, agents could observe an event trace. If the right action appears in the event trace, everyone can know that `r` holds.
 
 ---
 
@@ -900,13 +901,13 @@ Alternative: declaration message-এর বদলে agents event trace observe 
 
 ### 9.1 Protocol scope
 
-Commitment example হলো store এবং customer-এর মধ্যে e-commerce-style exchange-এর জন্য খুব simple interaction protocol।
+The commitment example is a very simple interaction protocol for an e-commerce-style exchange between a store and a customer.
 
-Lecturer explicitly বলেন এই protocol particular protocol parts কখন performed হতে পারে সে বিষয়ে conditions include করে না। বরং commitment operations-এর terms-এ messages-এর meanings দেয়।
+The lecturer explicitly says this protocol does **not** include conditions on when particular protocol parts can be performed. Instead, it gives meanings to messages in terms of commitment operations.
 
-### 9.2 Commitment operations হিসেবে message meanings
+### 9.2 Message meanings as commitment operations
 
-Slide protocol define করে messages plus commitment operations হিসেবে।
+The slide defines the protocol as messages plus commitment operations.
 
 #### `offer`
 
@@ -926,7 +927,7 @@ Meaning:
 C(Store, Customer, paid(Price), delivered(Item))
 ```
 
-Store customer-এর কাছে commit করে যে price paid হলে item delivered হবে।
+The store commits to the customer that if the price is paid, the item will be delivered.
 
 #### `accept`
 
@@ -946,9 +947,9 @@ Meaning:
 C(Customer, Store, delivered(Item), paid(Price))
 ```
 
-Customer store-এর কাছে commit করে যে item delivered হলে price paid হবে।
+The customer commits to the store that if the item is delivered, the price will be paid.
 
-Lecturer note করেন, এটি store-এর offer commitment-এর converse।
+The lecturer notes that this is the converse of the store’s offer commitment.
 
 #### `reject`
 
@@ -962,9 +963,9 @@ means:
 RELEASE(Store, Customer, paid(Price), delivered(Item))
 ```
 
-Meaning: customer store-কে price paid হলে item deliver করার store commitment থেকে release করে।
+Meaning: the customer releases the store from the store’s commitment to deliver the item if the price is paid.
 
-[UNCLEAR: `reject`-এর slide text-এ `delivered(Item)`-এর পরে closing parenthesis missing মনে হয়।]
+[UNCLEAR: the slide text for `reject` appears to be missing a closing parenthesis after `delivered(Item)`.]
 
 #### `deliver`
 
@@ -978,11 +979,11 @@ means:
 DECLARE(Store, Customer, delivered(Item))
 ```
 
-Meaning: store customer-কে declare করে যে item delivered হয়েছে।
+Meaning: the store declares to the customer that the item has been delivered.
 
 #### `pay`
 
-Slide দেয়:
+The slide gives:
 
 ```latex
 pay(Customer, Store, Item)
@@ -994,23 +995,23 @@ means:
 DECLARE(Customer, Store, paid(Item))
 ```
 
-কিন্তু examples-এ messages ব্যবহার করা হয়েছে যেমন:
+But the examples use messages such as:
 
 ```latex
 pay(Price)
 ```
 
-এবং:
+and:
 
 ```latex
 pay(£12)
 ```
 
-[UNCLEAR: protocol definition `pay(Customer, Store, Item)` এবং `paid(Item)`-এ `Item` ব্যবহার করে, আর protocol-এর বাকি অংশ `paid(Price)` ব্যবহার করে এবং sequence diagrams price payment ব্যবহার করে। Re-listen/check slides করতে হবে এটি `pay(Customer, Store, Price)` এবং `paid(Price)` হওয়া উচিত কি না।]
+[UNCLEAR: the protocol definition uses `Item` in `pay(Customer, Store, Item)` and `paid(Item)`, while the rest of the protocol uses `paid(Price)` and the sequence diagrams use payment of a price. Re-listen/check slides for whether this should be `pay(Customer, Store, Price)` and `paid(Price)`.]
 
 ### 9.3 Worked example 1: offer, pay, deliver
 
-Commitment example slide deck-এর sequence diagram দেখায়:
+The sequence diagram in the commitment example slide deck shows:
 
 ```latex
 :EBook \rightarrow :Customer: offer(Price, Book)
@@ -1024,7 +1025,7 @@ Commitment example slide deck-এর sequence diagram দেখায়:
 :EBook \rightarrow :Customer: deliver(Book)
 ```
 
-এই enactment-এ কোনো `accept` বা `reject` message নেই। তবুও এটি correct।
+There is no `accept` or `reject` message in this enactment. It is still correct.
 
 #### Step-by-step commitment state
 
@@ -1040,7 +1041,7 @@ creates:
 C(EBook, Customer, paid(Price), delivered(Book))
 ```
 
-E-book store committed যে customer price pay করলে book deliver করবে।
+The e-book store is committed to deliver the book if the customer pays the price.
 
 **Step 2: pay**
 
@@ -1054,7 +1055,7 @@ declares:
 paid(Price)
 ```
 
-এটি store-এর commitment-এর antecedent true করে। ফলে store-এর commitment detached হয়:
+This makes the antecedent of the store’s commitment true. Therefore the store’s commitment becomes detached:
 
 ```latex
 C(EBook, Customer, paid(Price), delivered(Book))
@@ -1066,7 +1067,7 @@ becomes, in effect:
 C(EBook, Customer, \top, delivered(Book))
 ```
 
-Store এখন book deliver করতে obliged।
+The store is now obliged to deliver the book.
 
 **Step 3: deliver**
 
@@ -1080,15 +1081,15 @@ declares:
 delivered(Book)
 ```
 
-এটি consequent true করে, তাই store-এর commitment discharged হয়।
+This makes the consequent true, so the store’s commitment is discharged.
 
-#### কেন এই enactment correct
+#### Why this enactment is correct
 
-Customer-এর `accept` পাঠানোর দরকার ছিল না। Protocol messages-কে meaning দেয়; payment-এর আগে `accept` message require করে না। Payment নিজেই store-এর commitment detach করে, এবং delivery সেটি discharge করে।
+The customer did not need to send `accept`. The protocol gives meaning to messages; it does not require an `accept` message before payment. Payment itself detaches the store’s commitment, and delivery discharges it.
 
 ### 9.4 Worked example 2: offer, accept, deliver, pay
 
-Commitment example slide deck-এর sequence diagram দেখায়:
+The sequence diagram in the commitment example slide deck shows:
 
 ```latex
 :EBook \rightarrow :Customer: offer(£12, BraveNewWorld)
@@ -1120,7 +1121,7 @@ creates:
 C(EBook, Customer, paid(£12), delivered(BraveNewWorld))
 ```
 
-Store commit করে যে £12 paid হলে *Brave New World* deliver করবে।
+The store commits to deliver *Brave New World* if £12 is paid.
 
 **Step 2: accept**
 
@@ -1134,7 +1135,7 @@ creates:
 C(Customer, EBook, delivered(BraveNewWorld), paid(£12))
 ```
 
-Customer commit করে যে store book deliver করলে সে £12 pay করবে।
+The customer commits to pay £12 if the store delivers the book.
 
 **Step 3: deliver**
 
@@ -1148,25 +1149,25 @@ declares:
 delivered(BraveNewWorld)
 ```
 
-এর দুইটি effect আছে:
+This has two effects:
 
-1. Store-এর commitment discharged, কারণ consequent:
-
-   ```latex
-   delivered(BraveNewWorld)
-   ```
-
-   true।
-
-2. Customer-এর commitment detached, কারণ তার antecedent:
+1. The store’s commitment is discharged, because the consequent:
 
    ```latex
    delivered(BraveNewWorld)
    ```
 
-   true।
+   is true.
 
-তাই customer-এর এখন detached commitment আছে:
+2. The customer’s commitment is detached, because its antecedent:
+
+   ```latex
+   delivered(BraveNewWorld)
+   ```
+
+   is true.
+
+So the customer now has the detached commitment:
 
 ```latex
 C(Customer, EBook, \top, paid(£12))
@@ -1184,192 +1185,192 @@ declares:
 paid(£12)
 ```
 
-এটি customer-এর commitment discharge করে।
+This discharges the customer’s commitment.
 
-#### কেন এই enactment correct
+#### Why this enactment is correct
 
-Store payment-এর আগে deliver করে, কারণ store customer-কে trust করে। এটি এখনও correct, কারণ `accept` message customer-to-store commitment create করেছে: store deliver করলে customer pay করবে।
+The store delivers before payment because it trusts the customer. This is still correct because the `accept` message created a customer-to-store commitment: if the store delivers, the customer will pay.
 
-### 9.5 Commitment example থেকে main lesson
+### 9.5 Main lesson from the commitment example
 
-দুই enactment-ই correct:
+Both enactments are correct:
 
 1. `offer`, `pay`, `deliver`
 2. `offer`, `accept`, `deliver`, `pay`
 
-দুইটাই correct কারণ protocol single rigid message order impose না করে commitment operations ব্যবহার করে messages-এর meanings দেয়। Messages ব্যবহার করার সময় correct থাকলে এটি agents-কে flexibility দেয়।
+The reason both are correct is that the protocol gives meanings to messages using commitment operations rather than imposing a single rigid message order. This gives agents flexibility, provided messages are correct when used.
 
-**Connection.** এটি সরাসরি আগের MAS protocol flexibility desideratum-কে support করে: agents observable correctness বজায় রেখে different ways-এ protocol fulfil করতে পারে।
+**Connection.** This directly supports the earlier MAS protocol desideratum of flexibility: agents can fulfil the protocol in different ways while preserving observable correctness.
 
 ---
 
 ## 10. Argumentation and Games
 
-### 10.1 Topic: multi-agent systems-এ argumentation
+### 10.1 Topic: argumentation in multi-agent systems
 
-Lecture argumentation-কে game theory-এর সঙ্গে connect করে।
+The lecture connects argumentation with game theory.
 
-Starting point হলো argumentation useful:
+The starting point is that argumentation is useful for reconciling:
 
-- different sources of information reconcile করতে;
-- different viewpoints reconcile করতে;
-- different proposed courses of action reconcile করতে।
+- different sources of information;
+- different viewpoints;
+- different proposed courses of action.
 
-Multi-agent system-এ প্রতিটি agent-এর থাকতে পারে:
+In a multi-agent system, each agent may have:
 
 - privileged information;
-- নিজস্ব objectives;
-- পুরো situation সম্পর্কে only partial knowledge।
+- its own objectives;
+- only partial knowledge of the whole situation.
 
-তাই কোনো individual agent initially complete final argumentation framework জানে না। Agents communicate করে এবং একে অন্যের arguments attack করার সঙ্গে সঙ্গে argument graph incrementally build করতে হয়।
+Therefore, no individual agent initially knows the complete final argumentation framework. The argument graph must be built incrementally as agents communicate and attack one another’s arguments.
 
-### 10.2 Key concept: argument graph incrementally built হয়
+### 10.2 Key concept: argument graph built incrementally
 
-**Intuition.** Complete argument graph আগে থেকেই known ধরে নেওয়ার বদলে agents interaction-এর সময় arguments reveal করে।
+**Intuition.** Instead of assuming a complete argument graph is already known, the agents reveal arguments during interaction.
 
-প্রতিটি agent arguments এবং attacks contribute করে:
+Each agent contributes arguments and attacks:
 
-- এক agent একটি course of action propose করে;
-- আরেক agent অন্য argument দিয়ে attack করে;
-- আরেক agent সেই attack-কে attack করতে পারে;
-- dialogue proceed করার সঙ্গে সঙ্গে graph grow করে।
+- one agent proposes a course of action;
+- another agent attacks it with a different argument;
+- another agent may attack that attack;
+- the graph grows as the dialogue proceeds.
 
-এই incremental construction গুরুত্বপূর্ণ, কারণ এটি multi-agent setting-এর সঙ্গে match করে: agents শুরুতে সব arguments জানে না।
+This incremental construction is important because it matches the multi-agent setting: agents do not start with all arguments known.
 
 ### 10.3 Worked example: smart home system
 
-Example হলো একটি smart home system, যা observe করে যে বাড়ির এক child marijuana smoke করছে।
+The example is a smart home system that observes one of the children in the house smoking marijuana.
 
 #### Legal agent
 
-Legal agent argue করে:
+The legal agent argues:
 
-- marijuana smoking illegal;
-- তাই police alert করা উচিত।
+- smoking marijuana is illegal;
+- therefore, the police should be alerted.
 
-এটি proposed course of action: police contact করা।
+This is a proposed course of action: contact the police.
 
 #### Social agent
 
-Social agent-এর social norms-এর model আছে এবং সে argue করে:
+The social agent has a model of social norms and argues:
 
-- child-এর পক্ষ থেকে এটি bad behaviour;
-- parents alert করা উচিত;
-- parents decide করবে কী করা হবে।
+- this is bad behaviour by the child;
+- the parents should be alerted;
+- the parents should decide what to do.
 
-এটি legal agent-এর argument attack করে যে police alert করা উচিত।
+This attacks the legal agent’s argument that the police should be alerted.
 
 #### Legal agent repeats
 
-Legal agent repeat করতে পারে:
+The legal agent can repeat:
 
-- এটি illegal;
-- police alert করা উচিত।
+- this is illegal;
+- the police should be alerted.
 
-Lecturer explain করেন graph form-এ এটি cycle create করে, কিন্তু argument game tree হিসেবে build করলে repeated argument tree-এর নিচে infinite branch হিসেবে চলতে থাকবে। Slide/lecture সীমিত space-এর কারণে compactly represent করে।
+The lecturer explains that this creates a cycle in graph form, but when building an argument game as a tree, the repeated argument would continue down the tree as an infinite branch. The slide/lecture represents it compactly because there is limited space.
 
 #### Privacy agent
 
-Privacy agent argue করে:
+The privacy agent argues:
 
-- system police contact করতে absolutely legally obliged না হলে, house-এর কেউ request না করলে police contact করা উচিত নয়।
+- unless the system is absolutely legally obliged to contact the police, it should not contact the police unless requested by someone in the house.
 
-এটি police alert করার argument attack করে।
+This attacks the argument that the police should be alerted.
 
-Lecturer এটিকে reasonable smart-home heuristic হিসেবে frame করেন:
+The lecturer frames this as a reasonable smart-home heuristic:
 
-- কেউ injured বা murdered হলে system police contact করতে obliged হতে পারে;
-- কিন্তু অনেক other things-এর জন্য household request না করলে police contact করা উচিত নয়।
+- if someone has been injured or murdered, the system may be obliged to contact police;
+- for many other things, it should not contact police unless requested by the household.
 
 #### Outcome
 
-Privacy agent-এর argument-এর পরে আর কোনো agents contribute করে না। এরপর system argumentation framework-এর ওপর reasoning করে decide করতে পারে কোন arguments accepted।
+After the privacy agent’s argument, no further agents contribute anything. The system can then reason over the argumentation framework to decide which arguments are accepted.
 
-[UNCLEAR: transcript বলে outcome হলো “not to contact the police, but to contact the police,” যা contradictory। Surrounding explanation থেকে intended contrast সম্ভবত police contact না করে parents contact করা, কিন্তু transcript check করতে হবে।]
+[UNCLEAR: the transcript says the outcome is “not to contact the police, but to contact the police,” which is contradictory. From the surrounding explanation, the intended contrast is likely not contacting the police and instead contacting the parents, but the transcript must be checked.]
 
 ---
 
 ## 11. Argument Games
 
-### 11.1 Key concept: game হিসেবে argumentation
+### 11.1 Key concept: argumentation as a game
 
-**Intuition.** Agents game-এর players-এর মতো। প্রতিটি player arguments put forward করে এবং অন্য side-এর arguments attack করে কোনো proposed course of action support করতে চায়।
+**Intuition.** The agents are like players in a game. Each player tries to support a proposed course of action by putting forward arguments and attacking the other side’s arguments.
 
-Lecture এটি describe করে ব্যবহার করে:
+The lecture describes this using:
 
 - arguments;
 - attacks;
 - dispute trees;
 - disputes;
 - strategies;
-- winning strategies।
+- winning strategies.
 
 ### 11.2 Key concept: dispute tree
 
-**Intuition.** Dispute tree হলো argument game-এর tree-shaped representation।
+**Intuition.** A dispute tree is a tree-shaped representation of an argument game.
 
-Lecture দুইটি structure contrast করে:
+The lecture contrasts two structures:
 
 1. **Argument graph**
-   - Cycles possible।
-   - Repeated attacks loops form করতে পারে।
+   - Cycles are possible.
+   - Repeated attacks can form loops.
 
 2. **Dispute tree**
-   - Argument graph থেকে built।
-   - Arguments repeat হতে পারে।
-   - Graph-এর cycle tree-তে infinite branch হয়ে যায়।
+   - Built from the argument graph.
+   - Arguments may repeat.
+   - A cycle in the graph becomes an infinite branch in the tree.
 
-Dispute tree-এর root হলো initial argument। Smart-home example-এ initial argument হলো legal agent-এর argument যে police contact করা উচিত।
+The root of the dispute tree is the initial argument. In the smart-home example, the initial argument is the legal agent’s argument that the police should be contacted.
 
 ### 11.3 Key concept: dispute
 
-একটি **dispute** হলো dispute tree-এর single branch।
+A **dispute** is a single branch of the dispute tree.
 
-সুতরাং dispute tree-তে attack এবং defence-এর several possible lines থাকলে, tree-এর প্রতিটি path একটি dispute।
+So if the dispute tree contains several possible lines of attack and defence, each path down the tree is a dispute.
 
 ### 11.4 Key concept: strategy
 
-Strategy player-কে বলে possible attacks-এর response হিসেবে কোন arguments make করতে হবে।
+A strategy tells a player which arguments to make in response to possible attacks.
 
-Lecturer-এর intuition:
+The lecturer’s intuition:
 
-- এক player একটি course of action recommend করতে চায়;
-- opponents attack করে;
-- player-এর relevant arguments defend করার way দরকার;
-- winning strategy দেখায় player কীভাবে respond করতে পারে যাতে opponent root argument defeat করতে না পারে।
+- one player wants to recommend a course of action;
+- opponents attack;
+- the player needs a way to defend all relevant arguments;
+- a winning strategy shows how the player can respond so that the opponent cannot defeat the root argument.
 
 ### 11.5 Formal-ish definition: winning strategy
 
-Transcript garbled কিন্তু recoverable definition দেয়।
+The transcript gives a garbled but recoverable definition.
 
 Given:
 
-- একটি argument graph;
-- root argument `A`-সহ একটি dispute tree `T`;
-- একটি subtree `T'`;
-- ঐ subtree-এর disputes-এর set, এখানে লেখা হচ্ছে:
+- an argument graph;
+- a dispute tree `T` with root argument `A`;
+- a subtree `T'`;
+- a set of disputes in that subtree, written here as:
 
 ```latex
 D(T')
 ```
 
-একটি subtree `T'`, `A`-এর জন্য winning strategy যদি:
+A subtree `T'` is a winning strategy for `A` if:
 
-1. `D(T')` non-empty এবং finite।
+1. `D(T')` is non-empty and finite.
 
-2. `D(T')`-এর প্রতিটি dispute finite।
+2. Each dispute in `D(T')` is finite.
 
-3. প্রতিটি dispute শেষ হয় [UNCLEAR: transcript says “opponent,” কিন্তু সঙ্গে সঙ্গে explain করে “the proponent has had the final say.” এগুলো conflict করে। Recording/slides check করো।]
+3. Each dispute ends in an argument by [UNCLEAR: the transcript says “opponent,” but immediately explains that “the proponent has had the final say.” These conflict. Check the recording/slides.]
 
-4. Strategy যেন শুধু opponent possible attacks make করতে ব্যর্থ হয়েছে বলে win না করে। তাই proponent argument-এ পৌঁছানো কোনো dispute branch-এর জন্য, every possible attacking argument subtree-এর কোথাও represented হতে হবে।
+4. The strategy must not win merely because the opponent failed to make possible attacks. So, for a dispute branch that reaches a proponent argument, every possible attacking argument must be represented somewhere in the subtree.
 
-Condition 4-এর intuition:
+The intuition of condition 4:
 
-- যদি কোনো argument attack করা যায়, strategy-তে সেই possible attack-এর response include করতে হবে;
-- opponent subtree-তে সব possible attacks “try” করেছে;
-- proponent তবুও root argument defend করতে পারলে, proponent-এর winning strategy আছে।
+- if an argument can be attacked, the strategy must include a response to that possible attack;
+- the opponent has “tried” all possible attacks in the subtree;
+- if the proponent can still defend the root argument, then the proponent has a winning strategy.
 
-Lecturer-এর summary: strategy দ্বারা specified arguments proponent make করলে opponent proponent-এর argument defeat করতে পারে না।
+The lecturer’s summary: as long as the proponent makes the arguments specified by the strategy, the opponent cannot defeat the proponent’s argument.
 
 ---
 
@@ -1377,99 +1378,99 @@ Lecturer-এর summary: strategy দ্বারা specified arguments propone
 
 ### 12.1 Key concept: dialogue game
 
-**Intuition.** Dialogue game abstract argument game-কে extend করে arguments-এর internal form আরও include করে।
+**Intuition.** A dialogue game extends the abstract argument game by including more of the internal form of arguments.
 
-Arguments-কে শুধু graph-এর abstract nodes হিসেবে treat করার বদলে dialogue game logical forms include করতে পারে, যেমন:
+Instead of treating arguments only as abstract nodes in a graph, a dialogue game can include logical forms such as:
 
 - claiming `\phi`;
 - asking why `\phi`;
-- `\phi`-এর জন্য reason `\psi` দেওয়া;
-- contradiction বা complement attack করা।
+- giving a reason `\psi` for `\phi`;
+- attacking a contradiction or complement.
 
-এটি system-কে arguments-এর logical content-এর ওপর ভিত্তি করে define করতে দেয় কোন ধরনের moves কোন moves attack করতে পারে।
+This allows the system to define what kinds of moves can attack what other moves, based on the logical content of the arguments.
 
 ### 12.2 Dialogue move: claiming `\phi`
 
-একটি move হতে পারে:
+A move can be:
 
 ```latex
 claim(\phi)
 ```
 
-Meaning: agent assert করে যে `\phi` is the case।
+Meaning: the agent asserts that `\phi` is the case.
 
-Transcript বলে এটি কেবল তখন stated হতে পারে যদি `\phi` agent-এর knowledge base থেকে [UNCLEAR: “disputed usable”] হয়। Intended term সম্ভবত derivable/provable/usable-এর মতো কিছু, কিন্তু transcript check করতে হবে।
+The transcript says this can only be stated if `\phi` is [UNCLEAR: “disputed usable”] from the agent’s knowledge base. The intended term is likely something like derivable/provable/usable, but the transcript must be checked.
 
 ### 12.3 Dialogue move: asking why `\phi`
 
-একটি move হতে পারে:
+A move can be:
 
 ```latex
 why(\phi)
 ```
 
-Meaning: agent জিজ্ঞেস করে কেন `\phi` is the case।
+Meaning: the agent asks why `\phi` is the case.
 
-এটি `\phi`-এর bare claim attack করে। কোনো agent reason না দিয়ে `\phi` claim করলে, আরেক agent জিজ্ঞেস করতে পারে:
+This attacks a bare claim of `\phi`. If an agent has claimed `\phi` without giving a reason, another agent can ask:
 
 ```latex
 why(\phi)?
 ```
 
-Lecture দুই variants note করে:
+The lecture notes two variants:
 
-- কিছু systems-এ agent কেবল তখনই why `\phi` ask করতে পারে, যদি সে `\phi` believe না করে;
-- অন্য systems-এ agent `\phi` believe করলেও why `\phi` ask করতে পারে, কারণ সে অন্য agent-এর reason জানতে চায়।
+- in some systems, an agent can only ask why `\phi` if it does not believe `\phi`;
+- in other systems, an agent can ask why `\phi` even if it does believe `\phi`, because it wants the other agent’s reason.
 
 ### 12.4 Dialogue move: `\phi` since `\psi`
 
-একটি move হতে পারে:
+A move can be:
 
 ```latex
 \phi \text{ since } \psi
 ```
 
-Meaning: `\psi` is the case বলে `\phi` is the case।
+Meaning: `\phi` is the case because `\psi` is the case.
 
-এটি attack করে:
+This attacks:
 
 ```latex
 why(\phi)
 ```
 
-কারণ এটি requested reason provide করে।
+because it provides the requested reason.
 
-Transcript আরও বলে এটি `\phi`-এর complement assert করা argument attack করতে পারে। Overline notation:
+The transcript also says it can attack an argument asserting the complement of `\phi`. The overline notation:
 
 ```latex
 \overline{\phi}
 ```
 
-মানে `\phi`-এর negation, বা অন্তত `\phi`-কে contradict করে এমন কিছু।
+means the negation of `\phi`, or at least something that contradicts `\phi`.
 
-Move:
+The move:
 
 ```latex
 \phi \text{ since } \psi
 ```
 
-শুধু তখন stated হতে পারে যদি agent-এর knowledge base implication contain করে:
+can only be stated if the agent’s knowledge base contains the implication:
 
 ```latex
 \psi \Rightarrow \phi
 ```
 
-[UNCLEAR: transcript এই section heavily garble করেছে: “wi fi” হলো `why \phi`, “five” হলো `\phi`, এবং “eight psi implies five” হলো `if \psi implies \phi`। Exact allowed attack relation-এর জন্য re-listen করো।]
+[UNCLEAR: the transcript garbles this section heavily: “wi fi” is `why \phi`, “five” is `\phi`, and “eight psi implies five” is `if \psi implies \phi`. Re-listen for the exact allowed attack relation.]
 
-### 12.5 Textbook-এর সঙ্গে connection
+### 12.5 Connection to the textbook
 
-Lecturer বলেন textbook-এ আছে:
+The lecturer says the textbook has:
 
-- cycles-এর কারণে infinite graphs prevent করার আরও details;
-- আরও dialogue-game moves;
-- একটি argument build হওয়ার example।
+- more details on preventing infinite graphs caused by cycles;
+- more dialogue-game moves;
+- an example of an argument being built.
 
-এই lecture শুধু idea sketch করে।
+This lecture only sketches the idea.
 
 ---
 
@@ -1477,17 +1478,17 @@ Lecturer বলেন textbook-এ আছে:
 
 ### Sequence diagrams
 
-**[EXAM FLAG]** Basics জানো:
+**[EXAM FLAG]** Know the basics:
 
-- lifelines হলো participants-এর vertical timelines;
-- diagram top to bottom পড়তে হয়;
-- arrows হলো এক participant থেকে আরেক participant-এ interactions/messages।
+- lifelines are vertical timelines for participants;
+- read the diagram top to bottom;
+- arrows are interactions/messages from one participant to another.
 
-**[EXAM FLAG]** Arbitrary message sequence diagrams construct করা expected নয়। Exam question-এ `alt` boxes-এর মতো জিনিস ব্যবহার করলে তাদের meaning explain করা হবে।
+**[EXAM FLAG]** You are not expected to know how to construct arbitrary message sequence diagrams. If an exam question uses things like `alt` boxes, their meaning will be explained.
 
 ### Finite-state machines
 
-**[EXAM FLAG]** Deterministic FSM representation জানো:
+**[EXAM FLAG]** Know the deterministic FSM representation:
 
 ```latex
 \langle \Sigma, S, s_0, \delta, F \rangle
@@ -1499,25 +1500,25 @@ with:
 \delta : S \times \Sigma \rightarrow S
 ```
 
-এবং প্রতিটি component কী বোঝায় জানো।
+and know what each component means.
 
-**[EXAM FLAG]** বোঝো যে `\delta` partial হতে পারে। Current state-এ observed message-এর জন্য transition defined না থাকলে protocol failed।
+**[EXAM FLAG]** Understand that `\delta` may be partial. If no transition is defined for the observed message in the current state, the protocol has failed.
 
-**[EXAM FLAG]** Final/accepting states বোঝো: `F`-এ stop করা correct; `F`-এর বাইরে stop করা, যেমন worked example-এ `S2`, incorrect।
+**[EXAM FLAG]** Understand final/accepting states: stopping in `F` is correct; stopping outside `F`, such as at `S2` in the worked example, is incorrect.
 
 ### Commitments
 
-**[EXAM FLAG / IMPORTANT]** Commitments agent interaction protocols define করার important modern concept। জানো:
+**[EXAM FLAG / IMPORTANT]** Commitments are an important modern concept for defining agent interaction protocols. Know:
 
 ```latex
 C(debtor, creditor, antecedent, consequent)
 ```
 
-এবং debtor, creditor, antecedent, consequent-এর roles।
+and the roles of debtor, creditor, antecedent, and consequent.
 
-**[EXAM FLAG / IMPORTANT]** Detached commitments action drive করে। Antecedent holds এবং consequent এখনও hold না করলে commitment detached।
+**[EXAM FLAG / IMPORTANT]** Detached commitments drive action. A commitment is detached when the antecedent holds and the consequent does not yet hold.
 
-**[EXAM FLAG / IMPORTANT]** Detachment transformation জানো:
+**[EXAM FLAG / IMPORTANT]** Know the detachment transformation:
 
 ```latex
 C(x,y,r,u),\ r \text{ holds}
@@ -1525,88 +1526,88 @@ C(x,y,r,u),\ r \text{ holds}
 C(x,y,\top,u)
 ```
 
-Meaning: `x` এখন `u` bring about করতে obliged।
+Meaning: `x` is now obliged to bring about `u`.
 
-**[EXAM FLAG]** Basic commitment operations জানো:
+**[EXAM FLAG]** Know the basic commitment operations:
 
 ```latex
 CREATE,\ CANCEL,\ RELEASE,\ DELEGATE,\ ASSIGN,\ DECLARE
 ```
 
-এবং each operation কে performs করে।
+and who performs each operation.
 
 ### Protocol design
 
-**[EXAM FLAG / HIGH VALUE]** একটি protocol হওয়া উচিত:
+**[EXAM FLAG / HIGH VALUE]** A protocol should be:
 
-- stakeholders-এর কাছে understandable;
+- understandable to stakeholders;
 - modifiable;
 - composable;
 - loosely coupled;
 - flexible;
 - precise;
-- observation থেকে checkable।
+- checkable from observation.
 
 ---
 
-## 14. Recording/Slides-এ আবার দেখার মতো Unclear Sections
+## 14. Unclear Sections to Revisit in the Recording/Slides
 
 1. **Course code inconsistency**  
-   [UNCLEAR] Main material COMP64602, কিন্তু UML/FSM deck COMP26120 এবং commitment example COMP64620।
+   [UNCLEAR] Main material is COMP64602, but the UML/FSM deck is COMP26120 and the commitment example is COMP64620.
 
 2. **FIPA / ACL transcript garbling**  
-   [UNCLEAR] Transcript কিছু জায়গায় “FIFA ACM” বলে; slides clearly FIPA ACL refer করে।
+   [UNCLEAR] Transcript says “FIFA ACM” in places; the slides clearly refer to FIPA ACL.
 
 3. **Sequence diagram transcript garbling**  
-   [UNCLEAR] Transcript “sequence sagas” / “secrets diagrams” বলে; slides এবং context sequence diagrams indicate করে।
+   [UNCLEAR] Transcript says “sequence sagas” / “secrets diagrams”; the slides and context indicate sequence diagrams.
 
 4. **FSM update argument order**  
-   [UNCLEAR] State diagram এবং `\Sigma` ব্যবহার করে:
+   [UNCLEAR] The state diagram and `\Sigma` use:
 
    ```latex
    Update(s,b)
    ```
 
-   কিন্তু formal transition slide দেয়:
+   but the formal transition slide gives:
 
    ```latex
    \delta(S2, Update(b,s)) \rightarrow S1
    ```
 
-   এটি slide typo নাকি intended—check করো।
+   Check whether this is a slide typo or intended.
 
 5. **Simple protocol accept/reject oddness**  
-   [UNCLEAR] Lecturer note করেন protocol slightly weird এবং textbook example-এ accept/reject হয়তো উল্টো হওয়া উচিত কি না ভাবেন। Lecture বলে protocol as given নিতে।
+   [UNCLEAR] The lecturer notes the protocol is slightly weird and wonders whether accept/reject should be the other way around in the textbook example. The lecture says to take the protocol as given.
 
 6. **Commitment example `pay` signature**  
-   [UNCLEAR] Slide দেয়:
+   [UNCLEAR] The slide gives:
 
    ```latex
    pay(Customer, Store, Item) \mapsto DECLARE(Customer, Store, paid(Item))
    ```
 
-   কিন্তু protocol এবং examples price payment ব্যবহার করে:
+   but the protocol and examples use payment of a price:
 
    ```latex
    paid(Price),\ pay(Price),\ pay(£12)
    ```
 
-   Slide-এ `Price` rather than `Item` হওয়া উচিত কি না check করো।
+   Check whether the slide should say `Price` rather than `Item`.
 
 7. **Commitment example `reject` parenthesis**  
-   [UNCLEAR] Slide-এর `RELEASE(...)` expression-এ closing parenthesis missing মনে হয়।
+   [UNCLEAR] The slide appears to omit a closing parenthesis in the `RELEASE(...)` expression.
 
-8. **Commitments এবং institutions wording**  
-   [UNCLEAR] Environment events observe করে institutional facts/events-এ map করার phrase transcript garble করেছে।
+8. **Commitments and institutions wording**  
+   [UNCLEAR] The transcript garbles the phrase around observing environment events and mapping them to institutional facts/events.
 
 9. **Argumentation smart-home outcome**  
-   [UNCLEAR] Transcript বলে system decide করে “not to contact the police, but to contact the police.” Surrounding explanation indicate করে intended outcome সম্ভবত police contact না করে parents contact করা, কিন্তু recording check করতে হবে।
+   [UNCLEAR] The transcript says the system decides “not to contact the police, but to contact the police.” The surrounding explanation indicates the intended outcome is probably not contacting police and instead contacting parents, but the recording should be checked.
 
 10. **Winning strategy definition**  
-    [UNCLEAR] Transcript বলে each dispute opponent-এর argument দিয়ে ends, তারপর explain করে proponent has had the final say। এগুলো conflict করে। Exact formal definition revisit করো।
+    [UNCLEAR] The transcript says each dispute ends in an argument by the opponent, then explains that the proponent has had the final say. These conflict. Revisit the exact formal definition.
 
 11. **Dialogue-game logical conditions**  
-    [UNCLEAR] Agent কখন `\phi` claim করতে পারে, `why(\phi)` ask করতে পারে, এবং `\phi` since `\psi` assert করতে পারে—এই conditions transcript garble করেছে। Exact knowledge-base condition এবং attack relation-এর জন্য বিশেষ করে re-listen করো।
+    [UNCLEAR] The transcript garbles the conditions for when an agent may claim `\phi`, ask `why(\phi)`, and assert `\phi` since `\psi`. Re-listen especially for the exact knowledge-base condition and attack relation.
 
 ---
 
