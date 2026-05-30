@@ -228,7 +228,8 @@ pre {
 
 .chapter-actions,
 .language-toggle,
-.chapter-footer {
+.chapter-footer,
+.chapter-nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -263,7 +264,8 @@ pre {
 }
 
 .button.disabled,
-.pill.disabled {
+.pill.disabled,
+.chapter-nav-link.disabled {
   color: var(--disabled);
   border-color: var(--border);
   background: var(--code-background);
@@ -351,11 +353,32 @@ pre {
   padding: 0.4rem 0;
 }
 
+.chapter-nav {
+  justify-content: space-between;
+}
+
+.chapter-nav-top {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.chapter-nav-bottom,
 .chapter-footer {
   justify-content: space-between;
   margin-top: 3rem;
   padding-top: 1.25rem;
   border-top: 1px solid var(--border);
+}
+
+.chapter-nav-link {
+  min-width: 7rem;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.chapter-nav-link:last-child {
+  text-align: right;
 }
 
 @media (min-width: 42rem) {
@@ -412,6 +435,7 @@ pre {
   .breadcrumb,
   .language-toggle,
   .chapter-footer,
+  .chapter-nav,
   .search,
   .pagefind-ui,
   .pagefind-data {

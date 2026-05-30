@@ -53,6 +53,8 @@ const languageNotes = subjectNotes
 const currentLanguageIndex = languageNotes.findIndex((entry) => entry.id === note.id);
 const previousNote = languageNotes[currentLanguageIndex - 1];
 const nextNote = languageNotes[currentLanguageIndex + 1];
+const previousHref = previousNote ? `/${subject.slug}/${getChapterSlug(previousNote)}/${language}/` : undefined;
+const nextHref = nextNote ? `/${subject.slug}/${getChapterSlug(nextNote)}/${language}/` : undefined;
 
 const alternateEn = currentChapter?.en;
 const alternateBn = currentChapter?.bn;
@@ -113,6 +115,23 @@ const pagefindChapter = `Chapter ${note.data.chapter}: ${note.data.title}`;
       </div>
     </header>
 
+    <nav class="chapter-nav chapter-nav-top" aria-label="Chapter navigation">
+      {
+        previousHref ? (
+          <a class="chapter-nav-link" href={previousHref}>{"\u2190 Previous"}</a>
+        ) : (
+          <span class="chapter-nav-link disabled" aria-disabled="true">{"\u2190 Previous"}</span>
+        )
+      }
+      {
+        nextHref ? (
+          <a class="chapter-nav-link" href={nextHref}>{"Next \u2192"}</a>
+        ) : (
+          <span class="chapter-nav-link disabled" aria-disabled="true">{"Next \u2192"}</span>
+        )
+      }
+    </nav>
+
     <div class="pagefind-data" data-pagefind-ignore>
       <span data-pagefind-meta={`subject:${subject.code}`} data-pagefind-filter={`subject:${subject.code}`}></span>
       <span data-pagefind-meta={`chapter:${pagefindChapter}`}></span>
@@ -123,21 +142,21 @@ const pagefindChapter = `Chapter ${note.data.chapter}: ${note.data.title}`;
       <Content />
     </article>
 
-    <footer class="chapter-footer">
+    <nav class="chapter-nav chapter-nav-bottom" aria-label="Chapter navigation">
       {
-        previousNote && (
-          <a href={`/${subject.slug}/${getChapterSlug(previousNote)}/${language}/`}>
-            Previous: Chapter {previousNote.data.chapter}
-          </a>
+        previousHref ? (
+          <a class="chapter-nav-link" href={previousHref}>{"\u2190 Previous"}</a>
+        ) : (
+          <span class="chapter-nav-link disabled" aria-disabled="true">{"\u2190 Previous"}</span>
         )
       }
       {
-        nextNote && (
-          <a href={`/${subject.slug}/${getChapterSlug(nextNote)}/${language}/`}>
-            Next: Chapter {nextNote.data.chapter}
-          </a>
+        nextHref ? (
+          <a class="chapter-nav-link" href={nextHref}>{"Next \u2192"}</a>
+        ) : (
+          <span class="chapter-nav-link disabled" aria-disabled="true">{"Next \u2192"}</span>
         )
       }
-    </footer>
+    </nav>
   </main>
 </BaseLayout>
