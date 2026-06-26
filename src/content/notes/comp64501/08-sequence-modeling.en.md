@@ -1497,7 +1497,9 @@ $$
 r_{ni}
 =
 \begin{cases}
-\sin\left(\frac{n}{L^{i/D}}\right), & \text{if } i \text{ is even} \\[6pt]
+\sin\left(\frac{n}{L^{i/D}}\right), & \text{if } i \text{ is even} \
+$$
+6pt]
 \cos\left(\frac{n}{L^{(i-1)/D}}\right), & \text{if } i \text{ is odd}
 \end{cases}
 $$
