@@ -1,6 +1,6 @@
 ---
 subject: COMP64501
-chapter: 1.5
+chapter: 21
 title: "Introduction to ML — Question Bank"
 language: en
 ---

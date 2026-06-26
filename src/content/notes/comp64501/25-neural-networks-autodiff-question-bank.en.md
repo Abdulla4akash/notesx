@@ -1,6 +1,6 @@
 ---
 subject: COMP64501
-chapter: 5.5
+chapter: 25
 title: "Neural Networks & Autodiff — Question Bank"
 language: en
 ---

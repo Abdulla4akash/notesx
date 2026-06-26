@@ -1,6 +1,6 @@
 ---
 subject: COMP64501
-chapter: 3.5
+chapter: 23
 title: "Linear Models — Question Bank"
 language: en
 ---

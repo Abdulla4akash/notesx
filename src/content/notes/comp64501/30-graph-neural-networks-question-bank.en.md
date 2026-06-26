@@ -1,6 +1,6 @@
 ---
 subject: COMP64501
-chapter: 10.5
+chapter: 30
 title: "Graph Neural Networks — Question Bank"
 language: en
 ---

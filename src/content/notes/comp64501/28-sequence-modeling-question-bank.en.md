@@ -1,6 +1,6 @@
 ---
 subject: COMP64501
-chapter: 8.5
+chapter: 28
 title: "Sequence Modeling — Question Bank"
 language: en
 ---
