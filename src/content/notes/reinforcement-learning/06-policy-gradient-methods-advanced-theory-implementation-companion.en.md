@@ -1,6 +1,6 @@
 ---
 subject: "Self Learning"
-chapter: 5
+chapter: 6
 title: "Policy-Gradient Methods: Advanced Theory and Implementation Companion"
 language: en
 ---

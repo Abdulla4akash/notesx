@@ -1,6 +1,6 @@
 ---
 subject: "Self Learning"
-chapter: 7
+chapter: 4
 title: "Deep Q-Networks: Advanced Build-and-Debug Companion Notes"
 language: en
 ---

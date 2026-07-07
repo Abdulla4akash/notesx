@@ -1,6 +1,6 @@
 ---
 subject: "Self Learning"
-chapter: 4
+chapter: 5
 title: "Policy-Gradient Methods"
 language: en
 ---

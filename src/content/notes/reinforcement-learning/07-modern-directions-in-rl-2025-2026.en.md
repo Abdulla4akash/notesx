@@ -1,6 +1,6 @@
 ---
 subject: "Self Learning"
-chapter: 2
+chapter: 7
 title: "Modern Directions in Reinforcement Learning, 2025-2026"
 language: en
 ---

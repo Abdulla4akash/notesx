@@ -1,6 +1,6 @@
 ---
 subject: "Self Learning"
-chapter: 6
+chapter: 2
 title: "Advanced Companion Notes on Q-Learning"
 language: en
 ---
