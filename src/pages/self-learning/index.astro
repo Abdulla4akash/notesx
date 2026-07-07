@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { selfLearning } from "../../config/subjects";
+---
+
+<BaseLayout title="Self Learning - Notes">
+  <main class="site-main">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <span>Self Learning</span>
+    </nav>
+
+    <header class="page-header">
+      <p class="eyebrow">Independent Study</p>
+      <h1>Self Learning</h1>
+    </header>
+
+    <section class="subject-grid" aria-label="Self Learning subjects">
+      {
+        selfLearning.map((subject) => (
+          <a class="subject-card" href={`/${subject.slug}/`}>
+            <span class="subject-code">{subject.code}</span>
+            <span class="subject-name">{subject.name}</span>
+          </a>
+        ))
+      }
+    </section>
+  </main>
+</BaseLayout>

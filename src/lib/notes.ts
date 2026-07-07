@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { subjects } from "../config/subjects";
+import { allSubjects } from "../config/subjects";
 
 export type NoteEntry = CollectionEntry<"notes">;
 export type Language = "en" | "bn";
@@ -15,7 +15,7 @@ export interface PdfEntry {
 }
 
 export function getSubjectBySlug(slug: string) {
-  return subjects.find((subject) => subject.slug === slug);
+  return allSubjects.find((subject) => subject.slug === slug);
 }
 
 export function getSubjectSlug(note: NoteEntry) {

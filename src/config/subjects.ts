@@ -11,3 +11,11 @@ export const subjects = [
 ] as const;
 
 export type Subject = (typeof subjects)[number];
+
+export const selfLearning = [
+  { slug: "reinforcement-learning", code: "Self Learning", name: "Reinforcement Learning" },
+] as const;
+
+export type SelfLearning = (typeof selfLearning)[number];
+
+export const allSubjects = [...subjects, ...selfLearning] as const;

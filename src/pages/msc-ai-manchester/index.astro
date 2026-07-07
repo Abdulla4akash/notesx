@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { subjects } from "../../config/subjects";
+---
+
+<BaseLayout title="MSc AI Manchester - Notes">
+  <main class="site-main">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <span>MSc AI Manchester</span>
+    </nav>
+
+    <header class="page-header">
+      <p class="eyebrow">Degree Notes</p>
+      <h1>MSc AI Manchester</h1>
+    </header>
+
+    <section class="subject-grid" aria-label="MSc AI Manchester subjects">
+      {
+        subjects.map((subject) => (
+          <a class="subject-card" href={`/${subject.slug}/`}>
+            <span class="subject-code">{subject.code}</span>
+            <span class="subject-name">{subject.name}</span>
+          </a>
+        ))
+      }
+    </section>
+  </main>
+</BaseLayout>

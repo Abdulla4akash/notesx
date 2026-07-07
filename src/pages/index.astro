@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { subjects } from "../config/subjects";
 ---
 
 <BaseLayout title="Notes" pagefind>
@@ -10,15 +9,15 @@ import { subjects } from "../config/subjects";
       <div id="search" class="search"></div>
     </section>
 
-    <section class="subject-grid" aria-label="Subjects">
-      {
-        subjects.map((subject) => (
-          <a class="subject-card" href={`/${subject.slug}/`}>
-            <span class="subject-code">{subject.code}</span>
-            <span class="subject-name">{subject.name}</span>
-          </a>
-        ))
-      }
+    <section class="subject-grid home-section-grid" aria-label="Note sections">
+      <a class="subject-card" href="/msc-ai-manchester/">
+        <span class="subject-code">Degree Notes</span>
+        <span class="subject-name">MSc AI Manchester</span>
+      </a>
+      <a class="subject-card" href="/self-learning/">
+        <span class="subject-code">Independent Study</span>
+        <span class="subject-name">Self Learning</span>
+      </a>
     </section>
   </main>
 </BaseLayout>

@@ -135,6 +135,10 @@ pre {
   gap: 1rem;
 }
 
+.home-section-grid {
+  max-width: 48rem;
+}
+
 .subject-card {
   display: block;
   min-height: 8rem;

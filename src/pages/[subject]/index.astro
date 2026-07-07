@@ -1,11 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { subjects } from "../../config/subjects";
+import { allSubjects } from "../../config/subjects";
 import { getPdfEntriesForSubject, groupChapters, notesForSubject } from "../../lib/notes";
 
 export function getStaticPaths() {
-  return subjects.map((subject) => ({
+  return allSubjects.map((subject) => ({
     params: { subject: subject.slug },
     props: { subject }
   }));
