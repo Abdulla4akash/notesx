@@ -1,14 +1,25 @@
+/* ---------------------------------------------------------------------------
+   Theme
+   Light is the default. Dark applies when the OS prefers it, unless the reader
+   has explicitly chosen light. An explicit choice sets data-theme on <html>
+   and always wins.
+   --------------------------------------------------------------------------- */
+
 :root {
   color-scheme: light dark;
   --background: #f8f6f1;
   --surface: #fffdf8;
+  --surface-raised: #f2eee4;
   --foreground: #24211c;
   --muted: #6f6a61;
   --border: #d9d2c5;
+  --border-strong: #bdb4a3;
   --accent: #526b5d;
   --accent-strong: #344b3f;
-  --disabled: #9b968d;
+  --accent-soft: #e4ece6;
+  --disabled: #857f74;
   --code-background: #eee8dd;
+  --shadow: 0 1px 2px rgb(36 33 28 / 6%);
   --pagefind-ui-primary: var(--accent);
   --pagefind-ui-text: var(--foreground);
   --pagefind-ui-background: var(--surface);
@@ -21,17 +32,39 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --background: #191917;
     --surface: #211f1c;
+    --surface-raised: #2b2925;
     --foreground: #eee9df;
     --muted: #b3aa9b;
     --border: #3b3832;
+    --border-strong: #565046;
     --accent: #a7bfad;
     --accent-strong: #c8d8cc;
-    --disabled: #777064;
+    --accent-soft: #2a332c;
+    --disabled: #8b8477;
     --code-background: #2b2925;
+    --shadow: 0 1px 2px rgb(0 0 0 / 30%);
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #191917;
+  --surface: #211f1c;
+  --surface-raised: #2b2925;
+  --foreground: #eee9df;
+  --muted: #b3aa9b;
+  --border: #3b3832;
+  --border-strong: #565046;
+  --accent: #a7bfad;
+  --accent-strong: #c8d8cc;
+  --accent-soft: #2a332c;
+  --disabled: #8b8477;
+  --code-background: #2b2925;
+  --shadow: 0 1px 2px rgb(0 0 0 / 30%);
 }
 
 * {
@@ -43,6 +76,7 @@ html {
   background: var(--background);
   color: var(--foreground);
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 html[lang="bn"] {
@@ -66,6 +100,13 @@ a {
 
 a:hover {
   color: var(--accent-strong);
+}
+
+/* Visible keyboard focus everywhere, without affecting mouse users. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
 h1,
@@ -129,6 +170,64 @@ pre {
   padding-left: 1rem !important;
 }
 
+/* ---------------------------------------------------------------------------
+   Theme toggle
+   --------------------------------------------------------------------------- */
+
+.theme-toggle {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.theme-toggle:hover {
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+.theme-toggle svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  display: block;
+}
+
+/* Show the icon matching what clicking will switch *to*. */
+.theme-toggle .icon-dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-dark {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-light {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon-dark {
+    display: block;
+  }
+
+  :root:not([data-theme="light"]) .theme-toggle .icon-light {
+    display: none;
+  }
+}
+
 .subject-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -148,11 +247,14 @@ pre {
   background: var(--surface);
   color: var(--foreground);
   text-decoration: none;
+  box-shadow: var(--shadow);
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
 .subject-card:hover {
   color: var(--foreground);
   border-color: var(--accent);
+  transform: translateY(-2px);
 }
 
 .subject-code,
@@ -220,6 +322,12 @@ pre {
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--surface);
+  box-shadow: var(--shadow);
+  transition: border-color 0.15s ease;
+}
+
+.chapter-row:hover {
+  border-color: var(--border-strong);
 }
 
 .chapter-row h2 {
@@ -254,11 +362,13 @@ pre {
   text-decoration: none;
   font-weight: 700;
   line-height: 1;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .button:hover,
 .pill:hover {
   border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .pill.active {
@@ -274,6 +384,13 @@ pre {
   border-color: var(--border);
   background: var(--code-background);
   cursor: not-allowed;
+}
+
+.button.disabled:hover,
+.pill.disabled:hover,
+.chapter-nav-link.disabled:hover {
+  border-color: var(--border);
+  background: var(--code-background);
 }
 
 .note-page {
@@ -298,6 +415,7 @@ pre {
 
 .note-content :where(h2, h3) {
   margin-top: 2rem;
+  scroll-margin-top: 1rem;
 }
 
 .note-content :where(ul, ol) {
@@ -310,13 +428,24 @@ pre {
 
 .note-content blockquote {
   margin: 1.4rem 0;
-  padding-left: 1rem;
-  border-left: 3px solid var(--border);
-  color: var(--muted);
+  padding: 0.6rem 1rem;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  background: var(--accent-soft);
+  color: inherit;
 }
 
+.note-content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* Wide tables scroll horizontally instead of overflowing the page. */
 .note-content table {
-  width: 100%;
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
   margin: 1.5rem 0;
   border-collapse: collapse;
   font-size: 0.95rem;
@@ -334,6 +463,10 @@ pre {
   background: var(--code-background);
 }
 
+.note-content tbody tr:nth-child(even) {
+  background: var(--surface-raised);
+}
+
 .note-content :not(pre) > code {
   padding: 0.1rem 0.25rem;
   border-radius: 4px;
@@ -349,6 +482,74 @@ pre {
   background: var(--code-background) !important;
   font-size: 0.9rem;
   line-height: 1.5;
+}
+
+/* ---------------------------------------------------------------------------
+   Collapsible blocks — used heavily by the flashcard chapters
+   --------------------------------------------------------------------------- */
+
+.note-content details {
+  margin: 0.6rem 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.note-content details[open] {
+  border-color: var(--border-strong);
+}
+
+.note-content summary {
+  padding: 0.75rem 0.9rem 0.75rem 2.1rem;
+  position: relative;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+
+.note-content summary::-webkit-details-marker {
+  display: none;
+}
+
+.note-content summary:hover {
+  background: var(--accent-soft);
+}
+
+/* Custom disclosure triangle, so it can be positioned and coloured. */
+.note-content summary::before {
+  content: "";
+  position: absolute;
+  left: 0.9rem;
+  top: 1.15rem;
+  width: 0;
+  height: 0;
+  border-left: 5px solid var(--accent);
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: transform 0.15s ease;
+}
+
+.note-content details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.note-content details[open] > summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.note-content details > :not(summary) {
+  padding-inline: 0.9rem;
+}
+
+.note-content details > :not(summary):first-of-type {
+  padding-top: 0.8rem;
+}
+
+.note-content details > :last-child {
+  padding-bottom: 0.8rem;
+  margin-bottom: 0;
 }
 
 .katex-display {
@@ -406,20 +607,38 @@ pre {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
 @media print {
   @page {
     margin: 0.7in;
   }
 
-  :root {
+  :root,
+  :root[data-theme="dark"] {
     --background: #ffffff;
     --surface: #ffffff;
+    --surface-raised: #ffffff;
     --foreground: #000000;
     --muted: #000000;
     --border: #999999;
+    --border-strong: #999999;
     --accent: #000000;
     --accent-strong: #000000;
+    --accent-soft: #ffffff;
     --code-background: #f2f2f2;
+    --shadow: none;
   }
 
   html,
@@ -442,7 +661,8 @@ pre {
   .chapter-nav,
   .search,
   .pagefind-ui,
-  .pagefind-data {
+  .pagefind-data,
+  .theme-toggle {
     display: none !important;
   }
 
@@ -455,10 +675,35 @@ pre {
     line-height: 1.5;
   }
 
+  /* Expand every collapsible block so answers are printed too. */
+  .note-content details {
+    border: none;
+    break-inside: avoid;
+  }
+
+  .note-content details > :not(summary) {
+    display: block !important;
+    padding-inline: 0;
+  }
+
+  .note-content summary {
+    padding-left: 0;
+    border-bottom: none;
+  }
+
+  .note-content summary::before {
+    display: none;
+  }
+
   .note-content pre {
     white-space: pre-wrap;
     overflow-wrap: anywhere;
     break-inside: avoid;
+  }
+
+  .note-content table {
+    display: table;
+    width: 100%;
   }
 
   .note-content table,
