@@ -10,6 +10,7 @@ import {
   notesForSubject,
   type Language
 } from "../../../../lib/notes";
+import { chapterKind, chapterKindLabel, subjectHue } from "../../../../lib/ui";
 
 export async function getStaticPaths() {
   const notes = await getCollection("notes");
@@ -60,9 +61,15 @@ const alternateEn = currentChapter?.en;
 const alternateBn = currentChapter?.bn;
 const originalPdf = currentChapter?.pdf;
 const pagefindChapter = `Chapter ${note.data.chapter}: ${note.data.title}`;
+const hue = subjectHue(subject.slug);
+const kind = chapterKind(note.data.title, note.data.chapter);
 ---
 
-<BaseLayout title={`${subject.code} Chapter ${note.data.chapter} - ${note.data.title}`} lang={language}>
+<BaseLayout
+  title={`${subject.code} Chapter ${note.data.chapter} - ${note.data.title}`}
+  lang={language}
+  hue={hue}
+>
   <main class="site-main note-page">
     <header class="note-header">
       <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -82,6 +89,11 @@ const pagefindChapter = `Chapter ${note.data.chapter}: ${note.data.title}`;
           )
         }
       </nav>
+
+      <p class="note-kind">
+        <span class="chapter-badge" data-kind={kind}>{chapterKindLabel(kind)}</span>
+        <span class="chapter-index">Chapter {note.data.chapter}</span>
+      </p>
 
       <h1>{note.data.title}</h1>
 

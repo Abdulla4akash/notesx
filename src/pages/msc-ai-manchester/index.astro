@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { subjects } from "../../config/subjects";
+import { subjectHue } from "../../lib/ui";
 ---
 
 <BaseLayout title="MSc AI Manchester - Notes">
@@ -14,12 +15,17 @@ import { subjects } from "../../config/subjects";
     <header class="page-header">
       <p class="eyebrow">Degree Notes</p>
       <h1>MSc AI Manchester</h1>
+      <p class="page-lead">{subjects.length} taught units</p>
     </header>
 
     <section class="subject-grid" aria-label="MSc AI Manchester subjects">
       {
         subjects.map((subject) => (
-          <a class="subject-card" href={`/${subject.slug}/`}>
+          <a
+            class="subject-card"
+            href={`/${subject.slug}/`}
+            style={`--subject-h: ${subjectHue(subject.slug)}`}
+          >
             <span class="subject-code">{subject.code}</span>
             <span class="subject-name">{subject.name}</span>
           </a>

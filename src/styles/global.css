@@ -67,6 +67,35 @@
   --shadow: 0 1px 2px rgb(0 0 0 / 30%);
 }
 
+/* ---------------------------------------------------------------------------
+   Subject colour identity
+   Pages and cards set --subject-h (a hue). Everything else is derived, so both
+   themes stay legible without hand-picking a palette per subject.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --subject-h: 205;
+  /* 34% lightness keeps every hue at >=4.5:1 on the light surface; green and
+     teal are perceptually brightest and set the floor. */
+  --subject-accent: hsl(var(--subject-h) 42% 34%);
+  --subject-tint: hsl(var(--subject-h) 52% 95%);
+  --subject-edge: hsl(var(--subject-h) 40% 78%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --subject-accent: hsl(var(--subject-h) 45% 72%);
+    --subject-tint: hsl(var(--subject-h) 24% 15%);
+    --subject-edge: hsl(var(--subject-h) 26% 34%);
+  }
+}
+
+:root[data-theme="dark"] {
+  --subject-accent: hsl(var(--subject-h) 45% 72%);
+  --subject-tint: hsl(var(--subject-h) 24% 15%);
+  --subject-edge: hsl(var(--subject-h) 26% 34%);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -174,11 +203,213 @@ pre {
    Theme toggle
    --------------------------------------------------------------------------- */
 
-.theme-toggle {
-  position: fixed;
-  top: 0.75rem;
-  right: 0.75rem;
+.site-header {
+  position: sticky;
+  top: 0;
   z-index: 20;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--background) 88%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.site-header-inner {
+  width: min(100% - 2rem, 72rem);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.brand-mark {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 5px;
+  background: linear-gradient(140deg, var(--subject-accent), var(--accent));
+}
+
+.brand-text {
+  font-size: 1.05rem;
+}
+
+.site-footer {
+  margin-top: 4rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.site-footer-inner {
+  width: min(100% - 2rem, 72rem);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 1.5rem 0;
+}
+
+.site-footer a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.site-footer a:hover {
+  color: var(--accent-strong);
+}
+
+/* ---------------------------------------------------------------------------
+   Home
+   --------------------------------------------------------------------------- */
+
+.hero {
+  width: min(100%, 46rem);
+  margin-bottom: 2.5rem;
+}
+
+.hero h1 {
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, var(--foreground), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-lead {
+  max-width: 40rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.section-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 48rem;
+}
+
+.section-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.4rem;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--subject-accent);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--foreground);
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.section-card:hover {
+  color: var(--foreground);
+  background: var(--subject-tint);
+  transform: translateY(-2px);
+}
+
+.section-card-eyebrow {
+  color: var(--subject-accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.section-card-title {
+  font-size: 1.35rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.section-card-meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.page-lead {
+  margin-top: 0.5rem;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------------------
+   Chapter type badges
+   --------------------------------------------------------------------------- */
+
+.chapter-badge {
+  --badge-h: 210;
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: hsl(var(--badge-h) 45% 93%);
+  color: hsl(var(--badge-h) 55% 28%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.chapter-badge[data-kind="notes"] { --badge-h: 210; }
+.chapter-badge[data-kind="flashcards"] { --badge-h: 150; }
+.chapter-badge[data-kind="questions"] { --badge-h: 275; }
+.chapter-badge[data-kind="exercises"] { --badge-h: 25; }
+.chapter-badge[data-kind="exam"] { --badge-h: 350; }
+.chapter-badge[data-kind="plan"] { --badge-h: 45; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .chapter-badge {
+    background: hsl(var(--badge-h) 30% 20%);
+    color: hsl(var(--badge-h) 55% 78%);
+  }
+}
+
+:root[data-theme="dark"] .chapter-badge {
+  background: hsl(var(--badge-h) 30% 20%);
+  color: hsl(var(--badge-h) 55% 78%);
+}
+
+.chapter-index {
+  margin-left: 0.5rem;
+}
+
+.tally {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.tally-item strong {
+  color: var(--foreground);
+}
+
+.note-kind {
+  margin-bottom: 0.6rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -239,27 +470,45 @@ pre {
 }
 
 .subject-card {
+  position: relative;
   display: block;
-  min-height: 8rem;
-  padding: 1.2rem;
+  min-height: 8.5rem;
+  padding: 1.3rem 1.2rem 1.2rem;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--surface);
   color: var(--foreground);
   text-decoration: none;
   box-shadow: var(--shadow);
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  overflow: hidden;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+/* Coloured spine identifying the subject. */
+.subject-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--subject-accent);
 }
 
 .subject-card:hover {
   color: var(--foreground);
-  border-color: var(--accent);
+  border-color: var(--subject-edge);
+  background: var(--subject-tint);
   transform: translateY(-2px);
 }
 
 .subject-code,
 .subject-name {
   display: block;
+}
+
+.subject-card .subject-code {
+  color: var(--subject-accent);
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .subject-code,
@@ -315,19 +564,43 @@ pre {
 }
 
 .chapter-row {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-  padding: 1rem;
+  padding: 1rem 1rem 1rem 1.15rem;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--surface);
   box-shadow: var(--shadow);
-  transition: border-color 0.15s ease;
+  overflow: hidden;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
+/* Left spine tinted by chapter type, matching the badge. */
+.chapter-row::before {
+  content: "";
+  --badge-h: 210;
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: hsl(var(--badge-h) 45% 55%);
+}
+
+.chapter-row[data-kind="notes"]::before { --badge-h: 210; }
+.chapter-row[data-kind="flashcards"]::before { --badge-h: 150; }
+.chapter-row[data-kind="questions"]::before { --badge-h: 275; }
+.chapter-row[data-kind="exercises"]::before { --badge-h: 25; }
+.chapter-row[data-kind="exam"]::before { --badge-h: 350; }
+.chapter-row[data-kind="plan"]::before { --badge-h: 45; }
+
 .chapter-row:hover {
-  border-color: var(--border-strong);
+  border-color: var(--subject-edge);
+  background: var(--subject-tint);
+}
+
+.chapter-main {
+  min-width: 0;
 }
 
 .chapter-row h2 {
@@ -595,6 +868,10 @@ pre {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .section-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .chapter-row {
     grid-template-columns: 1fr auto;
     align-items: center;
@@ -662,7 +939,10 @@ pre {
   .search,
   .pagefind-ui,
   .pagefind-data,
-  .theme-toggle {
+  .theme-toggle,
+  .site-header,
+  .site-footer,
+  .note-kind {
     display: none !important;
   }
 

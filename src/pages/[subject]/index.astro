@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { allSubjects } from "../../config/subjects";
 import { getPdfEntriesForSubject, groupChapters, notesForSubject } from "../../lib/notes";
+import { chapterKind, chapterKindLabel, subjectHue } from "../../lib/ui";
 
 export function getStaticPaths() {
   return allSubjects.map((subject) => ({
@@ -15,9 +16,20 @@ const { subject } = Astro.props;
 const notes = await getCollection("notes");
 const pdfs = getPdfEntriesForSubject(subject.slug);
 const chapters = groupChapters(notesForSubject(notes, subject.slug), pdfs);
+const hue = subjectHue(subject.slug);
+
+const decorated = chapters.map((chapter) => ({
+  ...chapter,
+  kind: chapterKind(chapter.title, chapter.chapter)
+}));
+
+const counts = decorated.reduce<Record<string, number>>((acc, chapter) => {
+  acc[chapter.kind] = (acc[chapter.kind] ?? 0) + 1;
+  return acc;
+}, {});
 ---
 
-<BaseLayout title={`${subject.code} - ${subject.name}`}>
+<BaseLayout title={`${subject.code} - ${subject.name}`} hue={hue}>
   <main class="site-main">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
@@ -25,20 +37,36 @@ const chapters = groupChapters(notesForSubject(notes, subject.slug), pdfs);
       <span>{subject.code}</span>
     </nav>
 
-    <header class="page-header">
+    <header class="page-header subject-header">
       <p class="eyebrow">{subject.code}</p>
       <h1>{subject.name}</h1>
+      {
+        decorated.length > 0 && (
+          <ul class="tally" aria-label="Chapter breakdown">
+            {Object.entries(counts).map(([kind, n]) => (
+              <li class="tally-item" data-kind={kind}>
+                <strong>{n}</strong> {chapterKindLabel(kind as any).toLowerCase()}
+              </li>
+            ))}
+          </ul>
+        )
+      }
     </header>
 
     {
-      chapters.length === 0 ? (
+      decorated.length === 0 ? (
         <p class="empty-state">No chapters yet</p>
       ) : (
         <ol class="chapter-list">
-          {chapters.map((chapter) => (
-            <li class="chapter-row">
-              <div>
-                <p class="chapter-number">Chapter {chapter.chapter}</p>
+          {decorated.map((chapter) => (
+            <li class="chapter-row" data-kind={chapter.kind}>
+              <div class="chapter-main">
+                <p class="chapter-number">
+                  <span class="chapter-badge" data-kind={chapter.kind}>
+                    {chapterKindLabel(chapter.kind)}
+                  </span>
+                  <span class="chapter-index">Chapter {chapter.chapter}</span>
+                </p>
                 <h2>{chapter.title}</h2>
               </div>
               <div class="chapter-actions" aria-label={`Chapter ${chapter.chapter} languages`}>
