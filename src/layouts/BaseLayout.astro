@@ -33,7 +33,7 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
         // wrong colours. No stored choice means follow the OS preference.
         try {
           const saved = localStorage.getItem("theme");
-          const allowed = ["light","dark","claude","tokyo-night","solarized-dark","gmk-laser","gmk-olivia","gmk-dolch"];
+          const allowed = ["light","dark","claude","tokyo-night","solarized-dark","gmk-laser","gmk-olivia","gmk-dolch","dracula","nord","gruvbox-dark","catppuccin","rose-pine","everforest"];
           if (allowed.includes(saved)) {
             document.documentElement.dataset.theme = saved;
           }
@@ -56,6 +56,12 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
           <option value="gmk-laser">GMK Laser</option>
           <option value="gmk-olivia">GMK Olivia</option>
           <option value="gmk-dolch">GMK Dolch</option>
+          <option value="dracula">Dracula</option>
+          <option value="nord">Nord</option>
+          <option value="gruvbox-dark">Gruvbox Dark</option>
+          <option value="catppuccin">Catppuccin</option>
+          <option value="rose-pine">Rose Pine</option>
+          <option value="everforest">Everforest</option>
         </select>
       </div>
     </header>
@@ -76,7 +82,7 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
 
           const root = document.documentElement;
           const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-          const allowed = ["light","dark","claude","tokyo-night","solarized-dark","gmk-laser","gmk-olivia","gmk-dolch"];
+          const allowed = ["light","dark","claude","tokyo-night","solarized-dark","gmk-laser","gmk-olivia","gmk-dolch","dracula","nord","gruvbox-dark","catppuccin","rose-pine","everforest"];
 
           const getCurrent = () => {
             const t = root.dataset.theme;
