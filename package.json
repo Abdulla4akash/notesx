@@ -16,6 +16,7 @@
     "remark-math": "latest"
   },
   "devDependencies": {
+    "@vite-pwa/astro": "^1.2.0",
     "pagefind": "latest",
     "pdf-lib": "^1.17.1",
     "puppeteer": "^25.0.4"

@@ -1,0 +1,16 @@
+{
+  "name": "NotesX — MSc AI Manchester",
+  "short_name": "NotesX",
+  "description": "Study notes, flashcards & question banks — MSc AI Manchester, EN/BN",
+  "theme_color": "#f8f6f1",
+  "background_color": "#f8f6f1",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

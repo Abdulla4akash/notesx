@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="NotesX">
+  <rect width="512" height="512" rx="112" fill="#f8f6f1"/>
+  <rect x="32" y="32" width="448" height="448" rx="80" fill="url(#g)"/>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#526b5d"/>
+      <stop offset="100%" stop-color="#7aa2f7"/>
+    </linearGradient>
+  </defs>
+  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Charter, Georgia, serif" font-size="180" font-weight="700" fill="#fffdf8" letter-spacing="-4">NX</text>
+</svg>
