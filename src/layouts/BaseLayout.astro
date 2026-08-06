@@ -25,7 +25,6 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet" />
     {pagefind && <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />}
     <script is:inline>
-      {`
         // Apply the saved theme before first paint to avoid a flash of the
         // wrong colours. No stored choice means follow the OS preference.
         try {
@@ -34,7 +33,6 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
             document.documentElement.dataset.theme = saved;
           }
         } catch (e) {}
-      `}
     </script>
   </head>
   <body>
@@ -72,7 +70,6 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
     </footer>
 
     <script is:inline>
-      {`
         (() => {
           const button = document.querySelector(".theme-toggle");
           if (!button) return;
@@ -113,14 +110,12 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
 
           syncAria();
         })();
-      `}
     </script>
     {
       pagefind && (
         <>
           <script src="/pagefind/pagefind-ui.js" is:inline></script>
           <script is:inline>
-            {`
               window.addEventListener("DOMContentLoaded", () => {
                 if (!window.PagefindUI) return;
 
@@ -144,7 +139,6 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
                   }
                 });
               });
-            `}
           </script>
         </>
       )
