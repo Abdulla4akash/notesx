@@ -48,6 +48,7 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
           class="theme-toggle"
           type="button"
           aria-label="Switch between light and dark theme"
+          aria-pressed="false"
           title="Switch theme"
         >
           <svg class="icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
@@ -82,20 +83,35 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
           const current = () =>
             root.dataset.theme || (prefersDark.matches ? "dark" : "light");
 
+          const syncAria = () => {
+            try {
+              button.setAttribute("aria-pressed", String(current() === "dark"));
+            } catch (e) {}
+          };
+
           button.addEventListener("click", () => {
             const next = current() === "dark" ? "light" : "dark";
             root.dataset.theme = next;
             try {
               localStorage.setItem("theme", next);
             } catch (e) {}
+            syncAria();
           });
 
           // Keep following the OS while the reader has made no explicit choice.
-          prefersDark.addEventListener("change", () => {
+          const onChange = () => {
             try {
-              if (!localStorage.getItem("theme")) delete root.dataset.theme;
+              if (!localStorage.getItem("theme")) root.removeAttribute("data-theme");
             } catch (e) {}
-          });
+            syncAria();
+          };
+          if (typeof prefersDark.addEventListener === "function") {
+            prefersDark.addEventListener("change", onChange);
+          } else if (typeof prefersDark.addListener === "function") {
+            prefersDark.addListener(onChange);
+          }
+
+          syncAria();
         })();
       `}
     </script>

@@ -8,7 +8,10 @@ export default defineConfig({
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
     shikiConfig: {
-      theme: "min-light"
+      themes: {
+        light: "min-light",
+        dark: "github-dark"
+      }
     }
   }
 });

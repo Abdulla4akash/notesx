@@ -67,6 +67,23 @@
   --shadow: 0 1px 2px rgb(0 0 0 / 30%);
 }
 
+:root[data-theme="light"] {
+  color-scheme: light;
+  --background: #f8f6f1;
+  --surface: #fffdf8;
+  --surface-raised: #f2eee4;
+  --foreground: #24211c;
+  --muted: #6f6a61;
+  --border: #d9d2c5;
+  --border-strong: #bdb4a3;
+  --accent: #526b5d;
+  --accent-strong: #344b3f;
+  --accent-soft: #e4ece6;
+  --disabled: #857f74;
+  --code-background: #eee8dd;
+  --shadow: 0 1px 2px rgb(36 33 28 / 6%);
+}
+
 /* ---------------------------------------------------------------------------
    Subject colour identity
    Pages and cards set --subject-h (a hue). Everything else is derived, so both
@@ -94,6 +111,12 @@
   --subject-accent: hsl(var(--subject-h) 45% 72%);
   --subject-tint: hsl(var(--subject-h) 24% 15%);
   --subject-edge: hsl(var(--subject-h) 26% 34%);
+}
+
+:root[data-theme="light"] {
+  --subject-accent: hsl(var(--subject-h) 42% 34%);
+  --subject-tint: hsl(var(--subject-h) 52% 95%);
+  --subject-edge: hsl(var(--subject-h) 40% 78%);
 }
 
 * {
@@ -383,6 +406,11 @@ pre {
   color: hsl(var(--badge-h) 55% 78%);
 }
 
+:root[data-theme="light"] .chapter-badge {
+  background: hsl(var(--badge-h) 45% 93%);
+  color: hsl(var(--badge-h) 55% 28%);
+}
+
 .chapter-index {
   margin-left: 0.5rem;
 }
@@ -457,6 +485,14 @@ pre {
   :root:not([data-theme="light"]) .theme-toggle .icon-light {
     display: none;
   }
+}
+
+:root[data-theme="light"] .theme-toggle .icon-dark {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-toggle .icon-light {
+  display: block;
 }
 
 .subject-grid {
@@ -752,9 +788,48 @@ pre {
   padding: 1rem;
   border: 1px solid var(--border);
   border-radius: 6px;
-  background: var(--code-background) !important;
+  background: var(--code-background);
   font-size: 0.9rem;
   line-height: 1.5;
+}
+
+/* Shiki dual-theme: let Shiki control pre background via its generated vars.
+   Fallback to our var when Shiki theme is not applied. */
+.note-content pre.astro-code,
+.note-content pre:has(code) {
+  background: var(--code-background);
+}
+
+/* Shiki dual themes: dark overrides using CSS variables emitted by Astro.
+   Light is the inline default; dark is stored in --shiki-dark-* vars. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .astro-code,
+  :root:not([data-theme="light"]) .astro-code span {
+    background-color: var(--shiki-dark-bg) !important;
+    color: var(--shiki-dark) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+}
+
+:root[data-theme="dark"] .astro-code,
+:root[data-theme="dark"] .astro-code span {
+  background-color: var(--shiki-dark-bg) !important;
+  color: var(--shiki-dark) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+:root[data-theme="dark"] .astro-code {
+  border-color: var(--border);
+}
+
+/* Ensure KaTeX inherits foreground in dark mode */
+.katex,
+.katex-display {
+  color: var(--foreground);
 }
 
 /* ---------------------------------------------------------------------------
