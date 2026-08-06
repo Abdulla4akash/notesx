@@ -142,6 +142,27 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
                 // filtering by subject still showed every chapter. Wrap
                 // multi-word queries as exact phrase "\"chapter 7\"" before
                 // Pagefind searches. Single words and already-quoted queries untouched.
+                // Patch both via window.pagefind.search and via input capture (UI reads input.value).
+                const attachPhraseInputFix = () => {
+                  const input = document.querySelector('.pagefind-ui__search-input');
+                  if (!input || input.dataset.phraseFixed) return false;
+                  input.dataset.phraseFixed = "1";
+                  input.addEventListener('input', () => {
+                    const v = input.value;
+                    if (v.startsWith('"') && v.endsWith('"') && v.length > 1) return;
+                    if (v.trim().includes(' ')) {
+                      const quoted = `"${v.trim()}"`;
+                      queueMicrotask(() => {
+                        if (input.value === v) {
+                          input.value = quoted;
+                          try { input.setSelectionRange(quoted.length, quoted.length); } catch(e){}
+                          input.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                      });
+                    }
+                  });
+                  return true;
+                };
                 const patchPhraseSearch = () => {
                   if (!window.pagefind?.search) return false;
                   const origSearch = window.pagefind.search.bind(window.pagefind);
@@ -156,7 +177,9 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
                 };
                 let tries = 0;
                 const iv = setInterval(() => {
-                  if (patchPhraseSearch()) clearInterval(iv);
+                  const a = attachPhraseInputFix();
+                  const b = patchPhraseSearch();
+                  if (a && b) clearInterval(iv);
                   else if (++tries > 40) clearInterval(iv);
                 }, 250);
               });
