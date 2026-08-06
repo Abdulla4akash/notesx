@@ -1120,11 +1120,7 @@ pre {
 }
 
 .note-toc {
-  position: sticky;
-  top: 4.5rem;
-  align-self: start;
-  max-height: calc(100vh - 5rem);
-  overflow-y: auto;
+  position: relative;
   padding: 0.9rem;
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -1201,12 +1197,20 @@ pre {
 
 @media (min-width: 64rem) {
   .note-layout {
-    grid-template-columns: 14rem minmax(0, 68ch);
-    align-items: start;
+    display: block;
   }
   .note-layout.has-toc {
-    width: min(100% - 2rem, 86rem);
+    width: min(100% - 2rem, 68ch);
     margin: 0 auto;
+  }
+  .note-toc {
+    position: fixed;
+    left: 1rem;
+    top: 4.5rem;
+    width: 13.5rem;
+    max-height: calc(100vh - 5.5rem);
+    overflow-y: auto;
+    z-index: 5;
   }
 }
 
