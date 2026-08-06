@@ -559,10 +559,20 @@ pre {
 }
 
 .note-kind {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
   margin-bottom: 0.6rem;
   color: var(--muted);
   font-size: 0.82rem;
   text-transform: uppercase;
+}
+
+.reading-time {
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .theme-toggle {

@@ -63,6 +63,13 @@ const originalPdf = currentChapter?.pdf;
 const pagefindChapter = `Chapter ${note.data.chapter}: ${note.data.title}`;
 const hue = subjectHue(subject.slug);
 const kind = chapterKind(note.data.title, note.data.chapter);
+
+const readingTime = (() => {
+  const text = note.body || "";
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  const mins = Math.max(1, Math.ceil(words / 200));
+  return language === "bn" ? `${mins} মিনিট` : `${mins} min read`;
+})();
 ---
 
 <BaseLayout
@@ -93,6 +100,8 @@ const kind = chapterKind(note.data.title, note.data.chapter);
       <p class="note-kind">
         <span class="chapter-badge" data-kind={kind}>{chapterKindLabel(kind)}</span>
         <span class="chapter-index">Chapter {note.data.chapter}</span>
+        <span aria-hidden="true">·</span>
+        <span class="reading-time">{readingTime}</span>
       </p>
 
       <h1>{note.data.title}</h1>
