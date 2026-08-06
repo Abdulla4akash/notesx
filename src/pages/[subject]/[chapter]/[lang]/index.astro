@@ -42,7 +42,7 @@ if (!subject) {
 
 const chapterSlug = getChapterSlug(note);
 const language = note.data.language as Language;
-const { Content } = await render(note);
+const { Content, headings } = await render(note);
 
 const subjectNotes = notesForSubject(notes, subject.slug);
 const pdfs = getPdfEntriesForSubject(subject.slug);
@@ -150,9 +150,56 @@ const kind = chapterKind(note.data.title, note.data.chapter);
       <span data-pagefind-meta={`language:${language}`} data-pagefind-filter={`language:${language}`}></span>
     </div>
 
-    <article class="note-content" data-pagefind-body>
-      <Content />
-    </article>
+    {
+      headings.length > 0 ? (
+        <div class:list={["note-layout", "has-toc"]}>
+          <aside class="note-toc" aria-label="Jump to section">
+            <p class="note-toc-title">Jump to</p>
+            <ol class="note-toc-list">
+              {headings.map((h) => (
+                <li>
+                  <a class="note-toc-link" href={`#${h.slug}`}>
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </aside>
+          <article class="note-content" data-pagefind-body>
+            <Content />
+          </article>
+        </div>
+      ) : (
+        <article class="note-content" data-pagefind-body>
+          <Content />
+        </article>
+      )
+    }
+
+    <script is:inline>
+        (() => {
+          const toc = document.querySelector(".note-toc");
+          if (!toc) return;
+          const links = Array.from(toc.querySelectorAll(".note-toc-link"));
+          const ids = links.map((a) => a.getAttribute("href")?.slice(1)).filter(Boolean);
+          const targets = ids.map((id) => document.getElementById(id)).filter(Boolean);
+          if (!targets.length) return;
+
+          const obs = new IntersectionObserver(
+            (entries) => {
+              let active = null;
+              entries.forEach((e) => {
+                if (e.isIntersecting) active = e.target.id;
+              });
+              if (active) {
+                links.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === `#${active}`));
+              }
+            },
+            { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
+          );
+          targets.forEach((el) => obs.observe(el));
+        })();
+    </script>
 
     <nav class="chapter-nav chapter-nav-bottom" aria-label="Chapter navigation">
       {
