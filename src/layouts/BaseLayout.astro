@@ -130,8 +130,7 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
                   processResult: (result) => {
                     const subject = result.meta.subject;
                     const chapter = result.meta.chapter;
-                    const language = result.meta.language;
-                    const parts = [subject, chapter, language].filter(Boolean);
+                    const parts = [subject, chapter].filter(Boolean);
                     if (parts.length) {
                       result.meta.title = parts.join(" · ");
                     }
