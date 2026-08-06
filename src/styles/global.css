@@ -32,7 +32,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     color-scheme: dark;
     --background: #191917;
     --surface: #211f1c;
@@ -84,6 +84,108 @@
   --shadow: 0 1px 2px rgb(36 33 28 / 6%);
 }
 
+:root[data-theme="claude"] {
+  color-scheme: light;
+  --background: #faf9f5;
+  --surface: #ffffff;
+  --surface-raised: #f0ede8;
+  --foreground: #2d2d2d;
+  --muted: #6b6257;
+  --border: #e8e6e3;
+  --border-strong: #d5d2cc;
+  --accent: #da7756;
+  --accent-strong: #b85c3e;
+  --accent-soft: #fdf0eb;
+  --disabled: #9a9590;
+  --code-background: #f0ece3;
+  --shadow: 0 1px 2px rgb(0 0 0 / 6%);
+}
+
+:root[data-theme="tokyo-night"] {
+  color-scheme: dark;
+  --background: #1a1b26;
+  --surface: #24283b;
+  --surface-raised: #2f344e;
+  --foreground: #c0caf5;
+  --muted: #9aa5ce;
+  --border: #414868;
+  --border-strong: #565f89;
+  --accent: #7aa2f7;
+  --accent-strong: #82aaff;
+  --accent-soft: #292e42;
+  --disabled: #787c99;
+  --code-background: #24283b;
+  --shadow: 0 4px 16px rgb(0 0 0 / 40%);
+}
+
+:root[data-theme="solarized-dark"] {
+  color-scheme: dark;
+  --background: #002b36;
+  --surface: #073642;
+  --surface-raised: #0e3d4e;
+  --foreground: #93a1a1;
+  --muted: #657b83;
+  --border: #2b4b56;
+  --border-strong: #3f5a66;
+  --accent: #268bd2;
+  --accent-strong: #2aa198;
+  --accent-soft: #0a3a4a;
+  --disabled: #586e75;
+  --code-background: #073642;
+  --shadow: 0 2px 8px rgb(0 0 0 / 35%);
+}
+
+:root[data-theme="gmk-laser"] {
+  color-scheme: dark;
+  --background: #1a1c2e;
+  --surface: #24273a;
+  --surface-raised: #2e334d;
+  --foreground: #e0e6f0;
+  --muted: #9aa0b8;
+  --border: #3a405e;
+  --border-strong: #565c7e;
+  --accent: #ff4d9e;
+  --accent-strong: #00e6ff;
+  --accent-soft: #2e344e;
+  --disabled: #6c6f85;
+  --code-background: #2a2e45;
+  --shadow: 0 4px 20px rgb(0 0 0 / 45%);
+}
+
+:root[data-theme="gmk-olivia"] {
+  color-scheme: light;
+  --background: #f9f5eb;
+  --surface: #ffffff;
+  --surface-raised: #efe6d9;
+  --foreground: #363434;
+  --muted: #8a7e7e;
+  --border: #d9cfc3;
+  --border-strong: #c2b7a8;
+  --accent: #d67e8b;
+  --accent-strong: #a65a6a;
+  --accent-soft: #f5e6e8;
+  --disabled: #9a9090;
+  --code-background: #efe6d9;
+  --shadow: 0 1px 2px rgb(0 0 0 / 6%);
+}
+
+:root[data-theme="gmk-dolch"] {
+  color-scheme: dark;
+  --background: #2a2e34;
+  --surface: #31363f;
+  --surface-raised: #3a404d;
+  --foreground: #e5e9f0;
+  --muted: #9a9eb0;
+  --border: #404652;
+  --border-strong: #5a6272;
+  --accent: #ffcc66;
+  --accent-strong: #ffd88a;
+  --accent-soft: #3d3a2e;
+  --disabled: #7a7e8a;
+  --code-background: #31363f;
+  --shadow: 0 2px 10px rgb(0 0 0 / 35%);
+}
+
 /* ---------------------------------------------------------------------------
    Subject colour identity
    Pages and cards set --subject-h (a hue). Everything else is derived, so both
@@ -100,7 +202,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     --subject-accent: hsl(var(--subject-h) 45% 72%);
     --subject-tint: hsl(var(--subject-h) 24% 15%);
     --subject-edge: hsl(var(--subject-h) 26% 34%);
@@ -117,6 +219,22 @@
   --subject-accent: hsl(var(--subject-h) 42% 34%);
   --subject-tint: hsl(var(--subject-h) 52% 95%);
   --subject-edge: hsl(var(--subject-h) 40% 78%);
+}
+
+:root[data-theme="claude"],
+:root[data-theme="gmk-olivia"] {
+  --subject-accent: hsl(var(--subject-h) 42% 34%);
+  --subject-tint: hsl(var(--subject-h) 52% 95%);
+  --subject-edge: hsl(var(--subject-h) 40% 78%);
+}
+
+:root[data-theme="tokyo-night"],
+:root[data-theme="solarized-dark"],
+:root[data-theme="gmk-laser"],
+:root[data-theme="gmk-dolch"] {
+  --subject-accent: hsl(var(--subject-h) 45% 72%);
+  --subject-tint: hsl(var(--subject-h) 24% 15%);
+  --subject-edge: hsl(var(--subject-h) 26% 34%);
 }
 
 * {
@@ -395,7 +513,7 @@ pre {
 .chapter-badge[data-kind="plan"] { --badge-h: 45; }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .chapter-badge {
+  :root:not([data-theme]) .chapter-badge {
     background: hsl(var(--badge-h) 30% 20%);
     color: hsl(var(--badge-h) 55% 78%);
   }
@@ -406,9 +524,19 @@ pre {
   color: hsl(var(--badge-h) 55% 78%);
 }
 
-:root[data-theme="light"] .chapter-badge {
+:root[data-theme="light"] .chapter-badge,
+:root[data-theme="claude"] .chapter-badge,
+:root[data-theme="gmk-olivia"] .chapter-badge {
   background: hsl(var(--badge-h) 45% 93%);
   color: hsl(var(--badge-h) 55% 28%);
+}
+
+:root[data-theme="tokyo-night"] .chapter-badge,
+:root[data-theme="solarized-dark"] .chapter-badge,
+:root[data-theme="gmk-laser"] .chapter-badge,
+:root[data-theme="gmk-dolch"] .chapter-badge {
+  background: hsl(var(--badge-h) 30% 20%);
+  color: hsl(var(--badge-h) 55% 78%);
 }
 
 .chapter-index {
@@ -478,11 +606,11 @@ pre {
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-toggle .icon-dark {
+  :root:not([data-theme]) .theme-toggle .icon-dark {
     display: block;
   }
 
-  :root:not([data-theme="light"]) .theme-toggle .icon-light {
+  :root:not([data-theme]) .theme-toggle .icon-light {
     display: none;
   }
 }
@@ -493,6 +621,41 @@ pre {
 
 :root[data-theme="light"] .theme-toggle .icon-light {
   display: block;
+}
+
+.theme-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0.5rem 2rem 0.5rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background-color: var(--surface);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) calc(50% - 2px),
+    calc(100% - 9px) calc(50% - 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  min-width: 9rem;
+}
+
+.theme-select:hover {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+.theme-select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .subject-grid {
@@ -803,8 +966,8 @@ pre {
 /* Shiki dual themes: dark overrides using CSS variables emitted by Astro.
    Light is the inline default; dark is stored in --shiki-dark-* vars. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .astro-code,
-  :root:not([data-theme="light"]) .astro-code span {
+  :root:not([data-theme]) .astro-code,
+  :root:not([data-theme]) .astro-code span {
     background-color: var(--shiki-dark-bg) !important;
     color: var(--shiki-dark) !important;
     font-style: var(--shiki-dark-font-style) !important;
@@ -814,7 +977,15 @@ pre {
 }
 
 :root[data-theme="dark"] .astro-code,
-:root[data-theme="dark"] .astro-code span {
+:root[data-theme="dark"] .astro-code span,
+:root[data-theme="tokyo-night"] .astro-code,
+:root[data-theme="tokyo-night"] .astro-code span,
+:root[data-theme="solarized-dark"] .astro-code,
+:root[data-theme="solarized-dark"] .astro-code span,
+:root[data-theme="gmk-laser"] .astro-code,
+:root[data-theme="gmk-laser"] .astro-code span,
+:root[data-theme="gmk-dolch"] .astro-code,
+:root[data-theme="gmk-dolch"] .astro-code span {
   background-color: var(--shiki-dark-bg) !important;
   color: var(--shiki-dark) !important;
   font-style: var(--shiki-dark-font-style) !important;
@@ -822,7 +993,11 @@ pre {
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
-:root[data-theme="dark"] .astro-code {
+:root[data-theme="dark"] .astro-code,
+:root[data-theme="tokyo-night"] .astro-code,
+:root[data-theme="solarized-dark"] .astro-code,
+:root[data-theme="gmk-laser"] .astro-code,
+:root[data-theme="gmk-dolch"] .astro-code {
   border-color: var(--border);
 }
 
