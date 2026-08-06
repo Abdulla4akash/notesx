@@ -138,6 +138,28 @@ const { title, lang = "en", description = "Study notes", pagefind = false, hue }
                     return result;
                   }
                 });
+
+                // Phrase fix: "chapter 7" was OR-tokenized (chapter OR 7) so
+                // filtering by subject still showed every chapter. Wrap
+                // multi-word queries as exact phrase "\"chapter 7\"" before
+                // Pagefind searches. Single words and already-quoted queries untouched.
+                const patchPhraseSearch = () => {
+                  if (!window.pagefind?.search) return false;
+                  const origSearch = window.pagefind.search.bind(window.pagefind);
+                  window.pagefind.search = (term, opts) => {
+                    const t = term?.trim();
+                    if (t && t.includes(" ") && !(t.startsWith('"') && t.endsWith('"'))) {
+                      term = `"${t}"`;
+                    }
+                    return origSearch(term, opts);
+                  };
+                  return true;
+                };
+                let tries = 0;
+                const iv = setInterval(() => {
+                  if (patchPhraseSearch()) clearInterval(iv);
+                  else if (++tries > 40) clearInterval(iv);
+                }, 250);
               });
           </script>
         </>
