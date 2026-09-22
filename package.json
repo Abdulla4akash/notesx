@@ -7,6 +7,7 @@
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build && pagefind --site dist",
     "export-pdfs": "npm run build && node scripts/export-pdfs.mjs",
+    "export-chapter-pdfs": "npm run build && node scripts/export-chapter-pdfs.mjs",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview"
   },
   "dependencies": {
