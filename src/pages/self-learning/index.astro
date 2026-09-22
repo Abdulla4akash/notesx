@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { selfLearning } from "../../config/subjects";
+import { subjectHue } from "../../lib/ui";
 ---
 
 <BaseLayout title="Self Learning - Notes">
@@ -14,12 +15,19 @@ import { selfLearning } from "../../config/subjects";
     <header class="page-header">
       <p class="eyebrow">Independent Study</p>
       <h1>Self Learning</h1>
+      <p class="page-lead">
+        {selfLearning.length} topic{selfLearning.length === 1 ? "" : "s"}
+      </p>
     </header>
 
     <section class="subject-grid" aria-label="Self Learning subjects">
       {
         selfLearning.map((subject) => (
-          <a class="subject-card" href={`/${subject.slug}/`}>
+          <a
+            class="subject-card"
+            href={`/${subject.slug}/`}
+            style={`--subject-h: ${subjectHue(subject.slug)}`}
+          >
             <span class="subject-code">{subject.code}</span>
             <span class="subject-name">{subject.name}</span>
           </a>

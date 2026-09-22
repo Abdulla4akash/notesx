@@ -737,7 +737,7 @@ $$
 **ধাপ ১: layer outputs subtract করি।**
 
 $$
-\ell(x)-\ell(x')=rac{W(x-x')}{\lambda(W)}.
+\ell(x)-\ell(x')=\frac{W(x-x')}{\lambda(W)}.
 $$
 
 Bias $b$ cancel হয়।

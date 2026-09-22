@@ -240,7 +240,7 @@ $$
 $$
 
 \frac{\tilde p_A}{\tilde p_B}
-=rac{\exp(-2)}{\exp(-5)}
+=\frac{\exp(-2)}{\exp(-5)}
 =\exp(3)
 \approx 20.09.
 
@@ -2576,7 +2576,7 @@ $$
 $$
 
 \frac{\tilde p_A}{\tilde p_B}
-=rac{\exp(-E_A/T)}{\exp(-E_B/T)}
+=\frac{\exp(-E_A/T)}{\exp(-E_B/T)}
 =\exp\left(\frac{E_B-E_A}{T}\right).
 
 $$

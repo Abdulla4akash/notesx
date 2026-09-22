@@ -1739,7 +1739,7 @@ $$
 +
 \begin{pmatrix}0\\-1\end{pmatrix}
 \right)
-=egin{pmatrix}0\\0\end{pmatrix}.
+=\begin{pmatrix}0\\0\end{pmatrix}.
 
 $$
 

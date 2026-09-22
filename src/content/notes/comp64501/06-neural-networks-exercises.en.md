@@ -55,9 +55,7 @@ J =
 \frac{\partial f_1}{\partial x_1} &
 \frac{\partial f_1}{\partial x_2} &
 \frac{\partial f_1}{\partial x_3}
-\
-$$
-4pt]
+\\[4pt]
 \frac{\partial f_2}{\partial x_1} &
 \frac{\partial f_2}{\partial x_2} &
 \frac{\partial f_2}{\partial x_3}
@@ -841,9 +839,7 @@ H
 \frac{\partial^2 E}{\partial w^2}
 &
 \frac{\partial^2 E}{\partial w\partial b}
-\
-$$
-4pt]
+\\[4pt]
 \frac{\partial^2 E}{\partial b\partial w}
 &
 \frac{\partial^2 E}{\partial b^2}
@@ -984,9 +980,7 @@ H
 \sum_n\alpha_nx_n^2
 &
 \sum_n\alpha_nx_n
-\
-$$
-4pt]
+\\[4pt]
 \sum_n\alpha_nx_n
 &
 \sum_n\alpha_n
@@ -1256,9 +1250,7 @@ x_{n1}
 w_{11}^{(3)}
 (1-\tanh^2(z_1^{(2)}))
 x_{n2}
-\
-$$
-6pt]
+\\[6pt]
 \sum_n
 (a_1^{(3)}-y_n)
 w_{12}^{(3)}

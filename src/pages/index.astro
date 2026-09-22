@@ -1,22 +1,32 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { subjects, selfLearning } from "../config/subjects";
 ---
 
 <BaseLayout title="Notes" pagefind>
   <main class="site-main home" data-pagefind-ignore>
-    <section class="home-intro">
+    <section class="hero">
+      <p class="eyebrow">MSc Artificial Intelligence · University of Manchester</p>
       <h1>Study Notes</h1>
+      <p class="hero-lead">
+        Lecture notes, flashcards and worked question banks across {subjects.length} taught
+        units, in English and Bengali.
+      </p>
       <div id="search" class="search"></div>
     </section>
 
-    <section class="subject-grid home-section-grid" aria-label="Note sections">
-      <a class="subject-card" href="/msc-ai-manchester/">
-        <span class="subject-code">Degree Notes</span>
-        <span class="subject-name">MSc AI Manchester</span>
+    <section class="section-cards" aria-label="Note sections">
+      <a class="section-card" href="/msc-ai-manchester/" style="--subject-h: 205">
+        <span class="section-card-eyebrow">Degree Notes</span>
+        <span class="section-card-title">MSc AI Manchester</span>
+        <span class="section-card-meta">{subjects.length} units</span>
       </a>
-      <a class="subject-card" href="/self-learning/">
-        <span class="subject-code">Independent Study</span>
-        <span class="subject-name">Self Learning</span>
+      <a class="section-card" href="/self-learning/" style="--subject-h: 95">
+        <span class="section-card-eyebrow">Independent Study</span>
+        <span class="section-card-title">Self Learning</span>
+        <span class="section-card-meta">
+          {selfLearning.length} topic{selfLearning.length === 1 ? "" : "s"}
+        </span>
       </a>
     </section>
   </main>

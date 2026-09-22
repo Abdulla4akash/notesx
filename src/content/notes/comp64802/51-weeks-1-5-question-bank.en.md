@@ -761,8 +761,10 @@ $$h_4=\operatorname{ReLU}(4)=4.$$
 
 **Step 3 — Compute the output.**
 
-$$\frac12h_1-\frac12h_2+\frac12h_3+\frac12h_4
-=\frac12(2)-\frac12(0)+\frac12(0)+\frac12(4).$$
+$$
+\frac12h_1-\frac12h_2+\frac12h_3+\frac12h_4
+=\frac12(2)-\frac12(0)+\frac12(0)+\frac12(4).
+$$
 
 $$=1+0+0+2=3.$$
 
@@ -791,23 +793,29 @@ Compute $h$, $\widetilde y$, and the reconstruction loss $\frac12\|\widetilde y-
 
 **Step 1 — Compute $Wy$.**
 
-$$Wy=\begin{bmatrix}1&0\\0&1\\1&-1\end{bmatrix}\begin{bmatrix}1\\2\end{bmatrix}
-=\begin{bmatrix}1\\2\\-1\end{bmatrix}.$$
+$$
+Wy=\begin{bmatrix}1&0\\0&1\\1&-1\end{bmatrix}\begin{bmatrix}1\\2\end{bmatrix}
+=\begin{bmatrix}1\\2\\-1\end{bmatrix}.
+$$
 
 **Step 2 — Apply ReLU.**
 
 Since $\varepsilon=0$,
 
-$$h=\operatorname{ReLU}\begin{bmatrix}1\\2\\-1\end{bmatrix}
-=\begin{bmatrix}1\\2\\0\end{bmatrix}.$$
+$$
+h=\operatorname{ReLU}\begin{bmatrix}1\\2\\-1\end{bmatrix}
+=\begin{bmatrix}1\\2\\0\end{bmatrix}.
+$$
 
 **Step 3 — Compute reconstruction.**
 
 $$W^\top=\begin{bmatrix}1&0&1\\0&1&-1\end{bmatrix}.$$
 
-$$\widetilde y=W^\top h
+$$
+\widetilde y=W^\top h
 =\begin{bmatrix}1&0&1\\0&1&-1\end{bmatrix}\begin{bmatrix}1\\2\\0\end{bmatrix}
-=\begin{bmatrix}1\\2\end{bmatrix}.$$
+=\begin{bmatrix}1\\2\end{bmatrix}.
+$$
 
 **Step 4 — Compute reconstruction error.**
 
@@ -1455,8 +1463,10 @@ $$\log p(x)=\operatorname{KL}(q(z\mid x)\|p(z\mid x))+\operatorname{ELBO}.$$
 
 **Step 1 — Start with KL divergence.**
 
-$$\operatorname{KL}(q(z\mid x)\|p(z\mid x))
-=\mathbb{E}_q\left[\log\frac{q(z\mid x)}{p(z\mid x)}\right].$$
+$$
+\operatorname{KL}(q(z\mid x)\|p(z\mid x))
+=\mathbb{E}_q\left[\log\frac{q(z\mid x)}{p(z\mid x)}\right].
+$$
 
 **Step 2 — Substitute Bayes' rule.**
 
@@ -1509,8 +1519,10 @@ $$\text{log var}_i=\log\sigma_i^2.$$
 
 For $k$ dimensions,
 
-$$\operatorname{KL}(\mathcal N(\mu,\Sigma)\|\mathcal N(0,I))
-=\frac12\left[\operatorname{Tr}(\Sigma)+\|\mu\|_2^2-k-\log\det(\Sigma)\right].$$
+$$
+\operatorname{KL}(\mathcal N(\mu,\Sigma)\|\mathcal N(0,I))
+=\frac12\left[\operatorname{Tr}(\Sigma)+\|\mu\|_2^2-k-\log\det(\Sigma)\right].
+$$
 
 **Step 2 — Use diagonal covariance.**
 

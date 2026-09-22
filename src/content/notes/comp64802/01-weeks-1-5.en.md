@@ -4545,7 +4545,7 @@ These are the highest-value items from the slides.
 17. **ELBO equation:** explicitly described as one of the most important equations in ML.
 18. **VAE objective:** reconstruction loss plus KL divergence.
 19. **VAE forward function:** stochastic, uses encoder, sampling, decoder, and returns $(\widehat x,\mu,\log\mathrm{var})$.
-20. **VAE code loss:** know how the mathematical KL becomes the sum involving `mean`, `log_var`, and $e^{\text{log_var}}$.
+20. **VAE code loss:** know how the mathematical KL becomes the sum involving `mean`, `log_var`, and $e^{\text{log\_var}}$.
 
 ---
 

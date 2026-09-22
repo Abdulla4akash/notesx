@@ -4597,7 +4597,7 @@ Slides থেকে highest-value items:
 17. **ELBO equation:** explicitly ML-এর most important equations-এর একটি বলা হয়েছে।
 18. **VAE objective:** reconstruction loss plus KL divergence।
 19. **VAE forward function:** stochastic; encoder, sampling, decoder use করে এবং $(\widehat x,\mu,\log\mathrm{var})$ return করে।
-20. **VAE code loss:** mathematical KL কীভাবে `mean`, `log_var`, এবং $e^{\text{log_var}}$-এর sum হয় জানতে হবে।
+20. **VAE code loss:** mathematical KL কীভাবে `mean`, `log_var`, এবং $e^{\text{log\_var}}$-এর sum হয় জানতে হবে।
 
 ---
 
@@ -5326,7 +5326,7 @@ Slides থেকে highest-value items:
 17. **ELBO equation:** explicitly one of the most important equations in ML হিসেবে described.
 18. **VAE objective:** reconstruction loss plus KL divergence.
 19. **VAE forward function:** stochastic; encoder, sampling, decoder use করে এবং returns $(\widehat x,\mu,\log\mathrm{var})$.
-20. **VAE code loss:** mathematical KL কীভাবে `mean`, `log_var`, এবং $e^{\text{log_var}}$-সহ sum-এ আসে জানতে হবে।
+20. **VAE code loss:** mathematical KL কীভাবে `mean`, `log_var`, এবং $e^{\text{log\_var}}$-সহ sum-এ আসে জানতে হবে।
 
 ---
 
